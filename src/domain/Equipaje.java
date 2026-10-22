@@ -72,5 +72,6 @@ public class Equipaje {
 	            + ", pasajero=" + pasajero.getPasaporte()
 	            + ", vuelo=" + vuelo.getCodVuelo() + "]";
 	}
-
+	
 }
+

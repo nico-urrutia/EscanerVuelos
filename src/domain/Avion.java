@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Avion {
@@ -10,7 +11,9 @@ public class Avion {
 	private Aerolinea aerolinea;
 	private Vuelo vuelo;
 	private boolean enVuelo;
-	public Avion(String matricula, String modelo, int capacidad, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo) {
+	private ArrayList<Asiento> asientos;
+	
+	public Avion(String matricula, String modelo, int capacidad, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
 		super();
 		this.matricula = matricula;
 		this.modelo = modelo;
@@ -18,6 +21,7 @@ public class Avion {
 		this.aerolinea = aerolinea;
 		this.vuelo = vuelo;
 		this.enVuelo = enVuelo;
+		this.asientos = asientos;
 	}
 	public String getMatricula() {
 		return matricula;
@@ -54,6 +58,13 @@ public class Avion {
 	}
 	public void setEnVuelo(boolean enVuelo) {
 		this.enVuelo = enVuelo;
+	}
+	
+	public ArrayList<Asiento> getAsientos() {
+		return asientos;
+	}
+	public void setAsientos(ArrayList<Asiento> asientos) {
+		this.asientos = asientos;
 	}
 	
 	
