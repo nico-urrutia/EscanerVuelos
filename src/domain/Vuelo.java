@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Vuelo {
@@ -10,7 +11,12 @@ public class Vuelo {
 	private float direccion;
 	private Aerolinea aerolinea;
 	private Avion avion;
-	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion) {
+	private ArrayList<Pasajero> pasajeros;
+	private Aeropuerto aeropuertoOrigen;
+	private Aeropuerto aeropuertoDestino;
+	
+	
+	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
 		super();
 		this.codVuelo = codVuelo;
 		this.x = x;
@@ -18,6 +24,9 @@ public class Vuelo {
 		this.direccion = direccion;
 		this.aerolinea = aerolinea;
 		this.avion = avion;
+		this.pasajeros = new ArrayList<>();
+		this.aeropuertoOrigen = aeropuertoOrigen;
+		this.aeropuertoDestino = aeropuertoDestino;
 	}
 	public String getCodVuelo() {
 		return codVuelo;
@@ -54,6 +63,30 @@ public class Vuelo {
 	}
 	public void setAvion(Avion avion) {
 		this.avion = avion;
+	}
+	
+	public ArrayList<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+	
+	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
+		this.pasajeros = pasajeros;
+	}
+	
+	public Aeropuerto getAeropuertoOrigen() {
+		return aeropuertoOrigen;
+	}
+	
+	public void setAeropuertoOrigen(Aeropuerto aeropuertoOrigen) {
+		this.aeropuertoOrigen = aeropuertoOrigen;
+	}
+	
+	public Aeropuerto getAeropuertoDestino() {
+		return aeropuertoDestino;
+	}
+	
+	public void setAeropuertoDestino(Aeropuerto aeropuertoDestino) {
+		this.aeropuertoDestino = aeropuertoDestino;
 	}
 	
 	@Override
