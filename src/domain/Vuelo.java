@@ -79,8 +79,10 @@ public class Vuelo {
 	
 	@Override
 	public String toString() {
-		return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion + ", volando="
-				+ volando + ", aerolinea=" + aerolinea + ", avion=" + avion + "]";
+	    return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion
+	            + ", volando=" + volando
+	            + ", aerolinea=" + aerolinea.getCodigoIATA()
+	            + ", avion=" + avion.getMatricula() + "]";
 	}
 	
 	

@@ -3,12 +3,12 @@ package domain;
 import java.util.Objects;
 
 public class Equipaje {
-	
+
 	private String id;
 	private float peso;
 	private Pasajero pasajero;
 	private Vuelo vuelo;
-	
+
 	public Equipaje(String id, float peso, Pasajero pasajero, Vuelo vuelo) {
 		super();
 		this.id = id;
@@ -48,26 +48,29 @@ public class Equipaje {
 	public void setVuelo(Vuelo vuelo) {
 		this.vuelo = vuelo;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
-	    return Objects.hash(id);
+		return Objects.hash(id);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-	    if (this == obj) return true;
-	    if (obj == null || getClass() != obj.getClass()) return false;
-	    Equipaje other = (Equipaje) obj;
-	    return Objects.equals(id, other.id);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Equipaje other = (Equipaje) obj;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Equipaje [id=" + id + ", peso=" + peso + ", pasajero=" + pasajero + ", vuelo=" + vuelo + "]";
+	    return "Equipaje [id=" + id + ", peso=" + peso
+	            + ", pasajero=" + pasajero.getPasaporte()
+	            + ", vuelo=" + vuelo.getCodVuelo() + "]";
 	}
-	
-	
-	
+
 }

@@ -71,8 +71,10 @@ public class Avion {
 	}
 	@Override
 	public String toString() {
-		return "Avion [matricula=" + matricula + ", modelo=" + modelo + ", capacidad=" + capacidad + ", aerolinea="
-				+ aerolinea + ", vuelo=" + vuelo + ", enVuelo=" + enVuelo + "]";
+	    return "Avion [matricula=" + matricula + ", modelo=" + modelo + ", capacidad=" + capacidad
+	            + ", aerolinea=" + aerolinea.getCodigoIATA()
+	            + ", vuelo=" + vuelo.getCodVuelo()
+	            + ", enVuelo=" + enVuelo + "]";
 	}
 	
 	

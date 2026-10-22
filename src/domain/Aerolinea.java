@@ -63,8 +63,8 @@ public class Aerolinea {
 	}
 	@Override
 	public String toString() {
-		return "Aerolinea [nombre=" + nombre + ", pais=" + pais + ", codigoIATA=" + codigoIATA + ", vuelos=" + vuelos
-				+ ", aviones=" + aviones + "]";
+		return "Aerolinea [nombre=" + nombre + ", pais=" + pais + ", codigoIATA=" + codigoIATA
+		        + ", vuelos=" + vuelos.size() + ", aviones=" + aviones.size() + "]";
 	}
 	
 	
