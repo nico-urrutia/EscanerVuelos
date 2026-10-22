@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Vuelo {
 	private String codVuelo;
 	private int x;
@@ -59,6 +61,27 @@ public class Vuelo {
 	}
 	public void setAvion(Avion avion) {
 		this.avion = avion;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(aerolinea, avion, codVuelo, Float.valueOf(direccion), Boolean.valueOf(volando),
+				Integer.valueOf(x), Integer.valueOf(y));
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vuelo other = (Vuelo) obj;
+		return Objects.equals(aerolinea, other.aerolinea) && Objects.equals(avion, other.avion)
+				&& Objects.equals(codVuelo, other.codVuelo)
+				&& Float.floatToIntBits(direccion) == Float.floatToIntBits(other.direccion) && volando == other.volando
+				&& x == other.x && y == other.y;
 	}
 	@Override
 	public String toString() {
