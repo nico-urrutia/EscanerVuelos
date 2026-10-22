@@ -50,23 +50,17 @@ public class Equipaje {
 	}
 	
 	
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, pasajero, Float.valueOf(peso), vuelo);
+	    return Objects.hash(id);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Equipaje other = (Equipaje) obj;
-		return Objects.equals(id, other.id) && Objects.equals(pasajero, other.pasajero)
-				&& Float.floatToIntBits(peso) == Float.floatToIntBits(other.peso) && Objects.equals(vuelo, other.vuelo);
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    Equipaje other = (Equipaje) obj;
+	    return Objects.equals(id, other.id);
 	}
 
 	@Override
