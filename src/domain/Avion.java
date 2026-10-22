@@ -7,21 +7,19 @@ public class Avion {
 	
 	private String matricula;
 	private String modelo;
-	private int capacidad;
 	private Aerolinea aerolinea;
 	private Vuelo vuelo;
 	private boolean enVuelo;
 	private ArrayList<Asiento> asientos;
 	
-	public Avion(String matricula, String modelo, int capacidad, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
+	public Avion(String matricula, String modelo, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
 		super();
 		this.matricula = matricula;
 		this.modelo = modelo;
-		this.capacidad = capacidad;
 		this.aerolinea = aerolinea;
 		this.vuelo = vuelo;
 		this.enVuelo = enVuelo;
-		this.asientos = asientos;
+		this.asientos = new ArrayList<>();
 	}
 	public String getMatricula() {
 		return matricula;
@@ -36,11 +34,9 @@ public class Avion {
 		this.modelo = modelo;
 	}
 	public int getCapacidad() {
-		return capacidad;
+		return asientos.size();
 	}
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
+	
 	public Aerolinea getAerolinea() {
 		return aerolinea;
 	}
@@ -82,7 +78,7 @@ public class Avion {
 	}
 	@Override
 	public String toString() {
-		return "Avion [matricula=" + matricula + ", modelo=" + modelo + ", capacidad=" + capacidad + ", enVuelo=" + enVuelo + "]";
+		return "Avion [matricula=" + matricula + ", modelo=" + modelo + ", capacidad=" + asientos.size() + ", enVuelo=" + enVuelo + "]";
 
 	}
 	

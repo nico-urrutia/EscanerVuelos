@@ -8,16 +8,14 @@ public class Vuelo {
 	private int x;
 	private int y;
 	private float direccion;
-	private boolean volando;
 	private Aerolinea aerolinea;
 	private Avion avion;
-	public Vuelo(String codVuelo, int x, int y, float direccion, boolean volando, Aerolinea aerolinea, Avion avion) {
+	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion) {
 		super();
 		this.codVuelo = codVuelo;
 		this.x = x;
 		this.y = y;
 		this.direccion = direccion;
-		this.volando = volando;
 		this.aerolinea = aerolinea;
 		this.avion = avion;
 	}
@@ -44,12 +42,6 @@ public class Vuelo {
 	}
 	public void setDireccion(float direccion) {
 		this.direccion = direccion;
-	}
-	public boolean isVolando() {
-		return volando;
-	}
-	public void setVolando(boolean volando) {
-		this.volando = volando;
 	}
 	public Aerolinea getAerolinea() {
 		return aerolinea;
@@ -79,7 +71,7 @@ public class Vuelo {
 	
 	@Override
 	public String toString() {
-		return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion + ", volando=" + volando + "]";
+		return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion +  "]";
 
 	}
 	

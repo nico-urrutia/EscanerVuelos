@@ -15,8 +15,8 @@ public class Aerolinea {
 		this.nombre = nombre;
 		this.pais = pais;
 		this.codigoIATA = codigoIATA;
-		this.vuelos = vuelos;
-		this.aviones = aviones;
+		this.vuelos = new ArrayList<>();
+		this.aviones = new ArrayList<>();
 	}
 	public String getNombre() {
 		return nombre;
