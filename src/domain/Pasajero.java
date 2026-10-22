@@ -4,26 +4,24 @@ import java.util.Objects;
 
 public class Pasajero {
 	
+	public enum EstadoPasajero { EN_TERMINAL, EMBARCADO, A_BORDO, ATERRIZADO }
+	
 	private String nombre;
 	private String apellido;
 	private String pasaporte;
 	private Equipaje equipaje;
 	private Vuelo vuelo;
-	private boolean embarcado;
-	private boolean abordo;
-	private boolean aterrizado;
+	private EstadoPasajero estado;
 	
-	public Pasajero(String nombre, String apellido, String pasaporte, Equipaje equipaje, Vuelo vuelo, boolean embarcado,
-			boolean abordo, boolean aterrizado) {
+	public Pasajero(String nombre, String apellido, String pasaporte, Equipaje equipaje, Vuelo vuelo, EstadoPasajero estado) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.pasaporte = pasaporte;
 		this.equipaje = equipaje;
 		this.vuelo = vuelo;
-		this.embarcado = embarcado;
-		this.abordo = abordo;
-		this.aterrizado = aterrizado;
+		this.estado = estado;
+		
 	}
 
 	public String getNombre() {
@@ -66,28 +64,12 @@ public class Pasajero {
 		this.vuelo = vuelo;
 	}
 
-	public boolean isEmbarcado() {
-		return embarcado;
+	public EstadoPasajero getEstado() {
+		return estado;
 	}
-
-	public void setEmbarcado(boolean embarcado) {
-		this.embarcado = embarcado;
-	}
-
-	public boolean isAbordo() {
-		return abordo;
-	}
-
-	public void setAbordo(boolean abordo) {
-		this.abordo = abordo;
-	}
-
-	public boolean isAterrizado() {
-		return aterrizado;
-	}
-
-	public void setAterrizado(boolean aterrizado) {
-		this.aterrizado = aterrizado;
+	
+	public void setEstado(EstadoPasajero estado) {
+		this.estado = estado;
 	}
 	
 	@Override
