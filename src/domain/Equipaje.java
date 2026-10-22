@@ -68,9 +68,8 @@ public class Equipaje {
 
 	@Override
 	public String toString() {
-	    return "Equipaje [id=" + id + ", peso=" + peso
-	            + ", pasajero=" + pasajero.getPasaporte()
-	            + ", vuelo=" + vuelo.getCodVuelo() + "]";
+		return "Equipaje [id=" + id + ", peso=" + peso + "]";
+
 	}
 	
 }

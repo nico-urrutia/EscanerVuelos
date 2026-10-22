@@ -105,9 +105,7 @@ public class Pasajero {
 
 	@Override
 	public String toString() {
-		return "Pasajero [nombre=" + nombre + ", apellido=" + apellido + ", pasaporte=" + pasaporte + ", equipaje="
-				+ equipaje + ", vuelo=" + vuelo + ", embarcado=" + embarcado + ", abordo=" + abordo + ", aterrizado="
-				+ aterrizado + "]";
+		return "Pasajero [nombre=" + nombre + ", apellido=" + apellido + ", pasaporte=" + pasaporte + "]";
 	}
 	
 	
