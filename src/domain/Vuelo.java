@@ -27,7 +27,7 @@ public class Vuelo {
 		this.direccion = direccion;
 		this.aerolinea = aerolinea;
 		this.avion = avion;
-		this.pasajeros = new ArrayList<>();
+		this.pasajeros = pasajeros;
 		this.aeropuertoOrigen = aeropuertoOrigen;
 		this.aeropuertoDestino = aeropuertoDestino;
 		this.horaSalida = horaSalida;

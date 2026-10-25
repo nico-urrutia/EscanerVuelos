@@ -19,7 +19,7 @@ public class Avion {
 		this.aerolinea = aerolinea;
 		this.vuelo = vuelo;
 		this.enVuelo = enVuelo;
-		this.asientos = new ArrayList<>();
+		this.asientos = asientos;
 	}
 	public String getMatricula() {
 		return matricula;
