@@ -9,14 +9,14 @@ public class Aeropuerto {
 	private String nombre;
 	private String ciudad;
 	private String pais;
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private int numPistas;
 	private ArrayList<Vuelo> salidas;
 	private ArrayList<Vuelo> llegadas;
 	private ArrayList<Avion> avionesEnTierra;
 
-	public Aeropuerto(String codigoIATA, String nombre, String ciudad, String pais, int x, int y, int numPistas) {
+	public Aeropuerto(String codigoIATA, String nombre, String ciudad, String pais, double x, double y, int numPistas) {
 		this.codigoIATA = codigoIATA;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
@@ -61,19 +61,19 @@ public class Aeropuerto {
 		this.pais = pais;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
