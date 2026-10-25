@@ -43,7 +43,11 @@ public class ModeloVuelo extends DefaultTableModel {
 			case 2: return vuelo.getAeropuertoDestino().getCodigoIATA();
 			case 3: return vuelo.getHoraSalida();
 			case 4: return vuelo.getHoraLlegada();
-			case 5: return vuelo.getAvion().isEnVuelo();
+			case 5: if(vuelo.getAvion() != null) {
+				return vuelo.getAvion().isEnVuelo();
+			}else {
+				return false;
+			}	
 			default: return null;
 		}
 	}
