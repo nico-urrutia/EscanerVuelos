@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Vuelo {
 	
 	private String codVuelo;
-	private double x;
-	private double y;
+	private int x;
+	private int y;
 	private float direccion;
 	private Aerolinea aerolinea;
 	private Avion avion;
@@ -19,7 +19,7 @@ public class Vuelo {
 	private LocalTime horaLlegada;
 	
 	
-	public Vuelo(String codVuelo, double x, double y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
+	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
 		super();
 		this.codVuelo = codVuelo;
 		this.x = x;
@@ -39,16 +39,16 @@ public class Vuelo {
 	public void setCodVuelo(String codVuelo) {
 		this.codVuelo = codVuelo;
 	}
-	public double getX() {
+	public int getX() {
 		return x;
 	}
-	public void setX(double x) {
+	public void setX(int x) {
 		this.x = x;
 	}
-	public double getY() {
+	public int getY() {
 		return y;
 	}
-	public void setY(double y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 	public float getDireccion() {
@@ -128,6 +128,7 @@ public class Vuelo {
 		return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion + ", horaSalida=" + horaSalida + ", horaLlegada=" + horaLlegada + "]";
 
 	}
+	
 	
 
 }
