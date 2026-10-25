@@ -50,5 +50,9 @@ public class ModeloAeropuerto extends DefaultTableModel {
 		}
 	}
 	
+	public Aeropuerto getAeropuerto(int fila) {
+	    return aeropuertos.get(fila);
+	}
+	
 	
 }

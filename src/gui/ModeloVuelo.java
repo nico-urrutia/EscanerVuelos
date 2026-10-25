@@ -52,4 +52,8 @@ public class ModeloVuelo extends DefaultTableModel {
 		}
 	}
 	
+	public Vuelo getVuelo(int fila) {
+	    return vuelos.get(fila);
+	}
+	
 }
