@@ -34,7 +34,6 @@ public class VentanaInicial extends JFrame {
 		JPanel panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 		URL url = getClass().getResource("/recursos/logo.png");
-		System.out.println("URL de la imagen: " + url);
 		if (url != null) {
 			ImageIcon icono = new ImageIcon(url);
 			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
