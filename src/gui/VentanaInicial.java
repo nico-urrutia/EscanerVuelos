@@ -1,5 +1,5 @@
 package gui;
-//----------------------------------------------------------------------
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -36,7 +36,7 @@ public class VentanaInicial extends JFrame {
 		URL url = getClass().getResource("/recursos/logo.png");
 		if (url != null) {
 			ImageIcon icono = new ImageIcon(url);
-			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);		//Utilizacion de IA para escalar y ajustar la imagen 
 			panelTitulo.add(new JLabel(new ImageIcon(img)));
 		} else {
 			System.err.println("No se encuentra la imagen /recursos/logo.png");
