@@ -65,6 +65,14 @@ public class VentanaInicial extends JFrame {
 
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
+		
+		comboBoxBusqueda.addActionListener(e -> {
+		    if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
+		        tabla.setModel(new ModeloAeropuerto(aeropuertos));
+		    } else {
+		        tabla.setModel(new ModeloVuelo(vuelos));
+		    }
+		});
 
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
