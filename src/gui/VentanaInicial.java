@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,12 +18,13 @@ import javax.swing.JTable;
 
 import domain.Aeropuerto;
 import domain.Vuelo;
-//---------------------------------------------------------------------
+
 public class VentanaInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Aeropuerto> aeropuertos;
 	private ArrayList<Vuelo> vuelos;
-	private JTable tabla;
+	private JTable tabla=new JTable();
+	
 
 	public VentanaInicial(ArrayList<Aeropuerto> aeropuertos, ArrayList<Vuelo> vuelos) {
 		this.aeropuertos = aeropuertos;
@@ -50,9 +52,16 @@ public class VentanaInicial extends JFrame {
 
 		// ---------- CENTER: búsqueda arriba, tabla abajo ----------
 		JPanel panelCentro = new JPanel(new GridLayout(2, 1));
+		
+		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
+		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
+		
 
 		JPanel panelBusqueda = new JPanel(); 
 		panelCentro.add(panelBusqueda);
+		
+		panelBusqueda.add(new JLabel("Buscar por:"));
+		panelBusqueda.add(comboBoxBusqueda);
 
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
