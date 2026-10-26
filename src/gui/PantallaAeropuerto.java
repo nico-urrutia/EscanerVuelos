@@ -22,11 +22,11 @@ public class PantallaAeropuerto {
 	private Aeropuerto aeropuerto;
 	
 	//Constructor
-	public PantallaAeropuerto(List<Vuelo> vuelos, TipoInformacion tipoInfo) {
+	public PantallaAeropuerto(List<Vuelo> vuelos, Aeropuerto aeropuerto, TipoInformacion tipoInfo) {
 		
-		this.vuelos = vuelos;
+		this.vuelos = filtrarVuelos(vuelos);
 		this.tipoInfo = tipoInfo;
-		this.aeropuerto = (this.tipoInfo == TipoInformacion.SALIDAS) ? vuelos.getFirst().getAeropuertoOrigen() : vuelos.getFirst().getAeropuertoDestino();
+		this.aeropuerto = aeropuerto;
 		
 		panelPrincipal.add(titulo, BorderLayout.NORTH);
 		titulo.setIcon(new ImageIcon("recursos/avion.png"));
@@ -46,6 +46,16 @@ public class PantallaAeropuerto {
 	//Declaración del panel y componentes
 	JPanel panelPrincipal = new JPanel(new BorderLayout());
 	JLabel titulo = new JLabel();
+	
+	
+	//Método para filtrar aviones
+	public List<Vuelo> filtrarVuelos (List<Vuelo> vuelos){
+		List<Vuelo> vuelosFiltrados = new ArrayList<Vuelo>();
+		vuelos.forEach(vuelo -> {
+		    if (vuelo.getAeropuertoOrigen().equals(this.aeropuerto)) vuelosFiltrados.add(vuelo);
+		});
+		return vuelosFiltrados;
+	}
 	
 	//Programa principal para pruebas
 	public static void main(String[] args) {
@@ -154,7 +164,7 @@ public class PantallaAeropuerto {
 		vuelos.add(vuelo5);
 		//----------------------------------------------------------------------------
 		
-		new PantallaAeropuerto(vuelos, TipoInformacion.SALIDAS);
+		new PantallaAeropuerto(vuelos, madrid,TipoInformacion.SALIDAS);
 		
 	}
 }
