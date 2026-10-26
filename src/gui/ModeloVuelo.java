@@ -8,6 +8,10 @@ import domain.Vuelo;
 
 public class ModeloVuelo extends DefaultTableModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[] columnas= {"Codigo del vuelo","Origen","Destino","Hora de salida","Hora de llegada","Estado"};
 	private List<Vuelo> vuelos;
 	

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -25,7 +27,7 @@ public class VentanaInicial extends JFrame {
 	private ArrayList<Aeropuerto> aeropuertos;
 	private ArrayList<Vuelo> vuelos;
 	private JTable tabla=new JTable();
-	
+
 
 	public VentanaInicial(ArrayList<Aeropuerto> aeropuertos, ArrayList<Vuelo> vuelos) {
 		this.aeropuertos = aeropuertos;
@@ -53,29 +55,59 @@ public class VentanaInicial extends JFrame {
 
 		// ---------- CENTER: búsqueda arriba, tabla abajo ----------
 		JPanel panelCentro = new JPanel(new GridLayout(2, 1));
-		
+
 		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
-		
+
 
 		JPanel panelBusqueda = new JPanel(); 
 		panelCentro.add(panelBusqueda);
-		
+
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
 
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
-		
+
 		comboBoxBusqueda.addActionListener(e -> {
-		    if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
-		        tabla.setModel(new ModeloAeropuerto(aeropuertos));
-		    } else {
-		        tabla.setModel(new ModeloVuelo(vuelos));
-		    }
+			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
+				tabla.setModel(new ModeloAeropuerto(aeropuertos));
+			} else {
+				tabla.setModel(new ModeloVuelo(vuelos));
+			}
 		});
-		
-	
+
+		TableCellRenderer rendererCabecera=new TableCellRenderer() {
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				// TODO Auto-generated method stub
+				JLabel label=new JLabel(value.toString());
+				label.setFont((table.getTableHeader().getFont().deriveFont(Font.ITALIC)));
+				label.setHorizontalAlignment(JLabel.CENTER);
+				return label;
+			}
+		};
+
+		this.tabla.getTableHeader().setDefaultRenderer(rendererCabecera);
+		/*
+		 * TableCellRenderer miRenderer=(JTable table, Object value, boolean isSelected,
+		 * boolean hasFocus, int row, int column)->{ JLabel label= new JLabel();
+		 * label.setHorizontalAlignment(JLabel.CENTER);
+		 * 
+		 * if (table.getModel() instanceof ModeloVuelo ) { if (column == 1) {
+		 * 
+		 * } }
+		 * 
+		 * 
+		 * 
+		 * return label; };
+		 * 
+		 * this.tabla.setDefaultRenderer(Object.class, miRenderer);
+		 */
+
+
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------

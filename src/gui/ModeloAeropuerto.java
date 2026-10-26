@@ -8,6 +8,10 @@ import domain.Aeropuerto;
 
 public class ModeloAeropuerto extends DefaultTableModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Aeropuerto> aeropuertos;
 	private final String[] columnas= {"CodigoIATA","Nombre","Ciudad","Pais","x","y","Numero de pistas"};
 	
