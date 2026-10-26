@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import domain.Aerolinea;
 import domain.Aeropuerto;
@@ -24,13 +30,37 @@ public class PantallaAeropuerto {
 	//Constructor
 	public PantallaAeropuerto(List<Vuelo> vuelos, Aeropuerto aeropuerto, TipoInformacion tipoInfo) {
 		
-		this.vuelos = filtrarVuelos(vuelos);
 		this.tipoInfo = tipoInfo;
 		this.aeropuerto = aeropuerto;
+		this.vuelos = filtrarVuelos(vuelos);
+		
+		//Crear label parte superior
+		titulo.setIcon(imagenAvion);
+		titulo.setText(this.tipoInfo.toString()+ "  ---- Aeropuerto "+this.aeropuerto.getNombre()+", "+this.aeropuerto.getCiudad()+" ("+this.aeropuerto.getCodigoIATA()+")");
+		titulo.setHorizontalTextPosition(JLabel.RIGHT);
+		titulo.setOpaque(true);
+		titulo.setBackground(Color.PINK);
+		titulo.setForeground(Color.WHITE);
+		
+		//Tabla de datos
+		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+		for (Vuelo vuelo : this.vuelos) {
+		    modelo.addRow(new Object[] {
+		        vuelo.getHoraSalida(),
+		        vuelo.getAeropuertoDestino().getNombre(),
+		        vuelo.getCodVuelo(),
+		        "A1",
+		        "A tiempo"
+		    });
+		}
+
+		JTable tabla = new JTable(modelo);
+
+		//Configurar panel
 		
 		panelPrincipal.add(titulo, BorderLayout.NORTH);
-		titulo.setIcon(new ImageIcon("recursos/avion.png"));
-		titulo.setText(this.tipoInfo.toString());
+		panelPrincipal.add(new JScrollPane(tabla), BorderLayout.CENTER);
 		
 		// Pantalla aeropuerto
 		// ---------- Ventana ----------
@@ -41,12 +71,15 @@ public class PantallaAeropuerto {
 			ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			ventana.setLocationRelativeTo(null);
 			ventana.setVisible(true);
+			ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/logo.png"));
+			ventana.setIconImage(icono.getImage());
 	}
 	
 	//Declaración del panel y componentes
 	JPanel panelPrincipal = new JPanel(new BorderLayout());
 	JLabel titulo = new JLabel();
-	
+	ImageIcon imagenAvion = new ImageIcon(getClass().getResource("/recursos/volando.png"));
+
 	
 	//Método para filtrar aviones
 	public List<Vuelo> filtrarVuelos (List<Vuelo> vuelos){
