@@ -11,33 +11,67 @@ public class MainVentanaInicial {
 
 	public static void main(String[] args) {
 
-		// Aeropuertos de prueba
-		Aeropuerto mad = new Aeropuerto("MAD", "Adolfo Suárez", "Madrid", "ES", 100, 200, 4);
+		//España
+		Aeropuerto mad = new Aeropuerto("MAD", "Adolfo Suárez Madrid-Barajas", "Madrid", "ES", 100, 200, 4);
 		Aeropuerto bio = new Aeropuerto("BIO", "Loiu", "Bilbao", "ES", 120, 80, 1);
-		Aeropuerto bcn = new Aeropuerto("BCN", "El Prat", "Barcelona", "ES", 300, 120, 3);
-		Aeropuerto lhr = new Aeropuerto("LHR", "Heathrow", "Londres", "GB", 150, -200, 2);
+		Aeropuerto bcn = new Aeropuerto("BCN", "Josep Tarradellas Barcelona-El Prat", "Barcelona", "ES", 300, 120, 3);
+		Aeropuerto agp = new Aeropuerto("AGP", "Málaga-Costa del Sol", "Málaga", "ES", 90, 380, 2);
+		Aeropuerto vlc = new Aeropuerto("VLC", "Manises", "Valencia", "ES", 260, 220, 1);
+		Aeropuerto pmi = new Aeropuerto("PMI", "Son Sant Joan", "Palma de Mallorca", "ES", 350, 230, 2);
+		Aeropuerto svq = new Aeropuerto("SVQ", "San Pablo", "Sevilla", "ES", 50, 350, 1);
+
+		// Europa
+		Aeropuerto lhr = new Aeropuerto("LHR", "Heathrow", "Londres", "GB", 150, -200, 5);
+		Aeropuerto cdg = new Aeropuerto("CDG", "Charles de Gaulle", "París", "FR", 220, -120, 3);
+		Aeropuerto fra = new Aeropuerto("FRA", "Frankfurt", "Fráncfort", "DE", 320, -140, 2);
+		Aeropuerto ams = new Aeropuerto("AMS", "Schiphol", "Ámsterdam", "NL", 240, -220, 1);
+		Aeropuerto fco = new Aeropuerto("FCO", "Leonardo da Vinci-Fiumicino", "Roma", "IT", 380, 100, 3);
+
+		// Internacionales
+		Aeropuerto jfk = new Aeropuerto("JFK", "John F. Kennedy", "Nueva York", "US", -450, -50, 8);
+		Aeropuerto hnd = new Aeropuerto("HND", "Haneda", "Tokio", "JP", 750, -100, 3);
 
 		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
 		aeropuertos.add(mad);
 		aeropuertos.add(bio);
 		aeropuertos.add(bcn);
+		aeropuertos.add(agp);
+		aeropuertos.add(vlc);
+		aeropuertos.add(pmi);
+		aeropuertos.add(svq);
 		aeropuertos.add(lhr);
+		aeropuertos.add(cdg);
+		aeropuertos.add(fra);
+		aeropuertos.add(ams);
+		aeropuertos.add(fco);
+		aeropuertos.add(jfk);
+		aeropuertos.add(hnd);
 
-		// Vuelos de prueba (aerolínea y avión a null por ahora)
-		Vuelo v1 = new Vuelo("IB3214", 0, 0, 0f, null, null, new ArrayList<>(), mad, lhr,
-				LocalTime.of(10, 30), LocalTime.of(12, 45));
-		Vuelo v2 = new Vuelo("VY1001", 0, 0, 0f, null, null, new ArrayList<>(), bcn, mad,
-				LocalTime.of(8, 0), LocalTime.of(9, 20));
-		Vuelo v3 = new Vuelo("UX1090", 0, 0, 0f, null, null, new ArrayList<>(), mad, bio,
-				LocalTime.of(14, 15), LocalTime.of(15, 10));
 
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
-		vuelos.add(v1);
-		vuelos.add(v2);
-		vuelos.add(v3);
 
-		// Abrir la ventana
+		// Vuelos Nacionales
+		vuelos.add(new Vuelo("IB3214", 0, 0, 0f, null, null, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5)));
+		vuelos.add(new Vuelo("UX1090", 0, 0, 0f, null, null, new ArrayList<>(), mad, bio, LocalTime.of(14, 15), LocalTime.of(15, 10)));
+		vuelos.add(new Vuelo("VY1001", 0, 0, 0f, null, null, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20)));
+		vuelos.add(new Vuelo("VY1002", 0, 0, 0f, null, null, new ArrayList<>(), mad, bcn, LocalTime.of(19, 30), LocalTime.of(20, 50)));
+		vuelos.add(new Vuelo("UX2150", 0, 0, 0f, null, null, new ArrayList<>(), mad, agp, LocalTime.of(11, 45), LocalTime.of(13, 0)));
+		vuelos.add(new Vuelo("FR4512", 0, 0, 0f, null, null, new ArrayList<>(), bio, pmi, LocalTime.of(9, 15), LocalTime.of(10, 40)));
+		vuelos.add(new Vuelo("VY3901", 0, 0, 0f, null, null, new ArrayList<>(), svq, bcn, LocalTime.of(6, 45), LocalTime.of(8, 20)));
+
+		// Vuelos Europeos
+		vuelos.add(new Vuelo("IB3166", 0, 0, 0f, null, null, new ArrayList<>(), mad, lhr, LocalTime.of(10, 30), LocalTime.of(12, 0)));
+		vuelos.add(new Vuelo("BA0461", 0, 0, 0f, null, null, new ArrayList<>(), lhr, mad, LocalTime.of(15, 20), LocalTime.of(18, 45)));
+		vuelos.add(new Vuelo("AF1401", 0, 0, 0f, null, null, new ArrayList<>(), bcn, cdg, LocalTime.of(9, 50), LocalTime.of(11, 55)));
+		vuelos.add(new Vuelo("LH1115", 0, 0, 0f, null, null, new ArrayList<>(), mad, fra, LocalTime.of(12, 10), LocalTime.of(14, 45)));
+		vuelos.add(new Vuelo("KL1698", 0, 0, 0f, null, null, new ArrayList<>(), bio, ams, LocalTime.of(17, 0), LocalTime.of(19, 15)));
+		vuelos.add(new Vuelo("AZ0063", 0, 0, 0f, null, null, new ArrayList<>(), fco, mad, LocalTime.of(21, 10), LocalTime.of(23, 40)));
+
+		// Vuelos Transoceánicos
+		vuelos.add(new Vuelo("IB6251", 0, 0, 0f, null, null, new ArrayList<>(), mad, jfk, LocalTime.of(12, 25), LocalTime.of(14, 40)));
+		vuelos.add(new Vuelo("DL0126", 0, 0, 0f, null, null, new ArrayList<>(), jfk, bcn, LocalTime.of(18, 30), LocalTime.of(8, 15)));
+		vuelos.add(new Vuelo("NH0212", 0, 0, 0f, null, null, new ArrayList<>(), cdg, hnd, LocalTime.of(20, 0), LocalTime.of(16, 30)));
+
 		new VentanaInicial(aeropuertos, vuelos).setVisible(true);
 	}
-
 }

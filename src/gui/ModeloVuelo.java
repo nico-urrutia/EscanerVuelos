@@ -8,7 +8,7 @@ import domain.Vuelo;
 
 public class ModeloVuelo extends DefaultTableModel {
 	
-	private String[] columnas= {"codigoVuelo","origen","destino","horaSalida","horaLlegada","estado"};
+	private String[] columnas= {"Codigo del vuelo","Origen","Destino","Hora de salida","Hora de llegada","Estado"};
 	private List<Vuelo> vuelos;
 	
 	public ModeloVuelo(List<Vuelo> vuelos) {

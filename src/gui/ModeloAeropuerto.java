@@ -9,7 +9,7 @@ import domain.Aeropuerto;
 public class ModeloAeropuerto extends DefaultTableModel {
 	
 	private List<Aeropuerto> aeropuertos;
-	private final String[] columnas= {"codigoIATA","nombre","ciudad","pais","x","y","numPistas"};
+	private final String[] columnas= {"CodigoIATA","Nombre","Ciudad","Pais","x","y","Numero de pistas"};
 	
 	public ModeloAeropuerto(List<Aeropuerto> aeropuertos) {
 		this.aeropuertos=aeropuertos;

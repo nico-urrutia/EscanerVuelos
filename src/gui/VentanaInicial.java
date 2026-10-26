@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Aeropuerto;
 import domain.Vuelo;
@@ -73,7 +74,8 @@ public class VentanaInicial extends JFrame {
 		        tabla.setModel(new ModeloVuelo(vuelos));
 		    }
 		});
-
+		
+	
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
