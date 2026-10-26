@@ -91,21 +91,27 @@ public class VentanaInicial extends JFrame {
 		};
 
 		this.tabla.getTableHeader().setDefaultRenderer(rendererCabecera);
-		/*
-		 * TableCellRenderer miRenderer=(JTable table, Object value, boolean isSelected,
-		 * boolean hasFocus, int row, int column)->{ JLabel label= new JLabel();
-		 * label.setHorizontalAlignment(JLabel.CENTER);
-		 * 
-		 * if (table.getModel() instanceof ModeloVuelo ) { if (column == 1) {
-		 * 
-		 * } }
-		 * 
-		 * 
-		 * 
-		 * return label; };
-		 * 
-		 * this.tabla.setDefaultRenderer(Object.class, miRenderer);
-		 */
+
+		TableCellRenderer miRenderer=(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)->{
+			JLabel label= new JLabel();
+			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setOpaque(true);
+
+			if (table.getModel() instanceof ModeloVuelo && column == 5) {
+
+				if (value.equals(false)) {
+					label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
+				}
+				else label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
+
+			}
+
+
+
+			return  label;
+		};
+
+		this.tabla.setDefaultRenderer(Object.class, miRenderer);
 
 
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
