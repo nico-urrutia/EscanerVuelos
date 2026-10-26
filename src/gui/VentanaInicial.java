@@ -68,6 +68,9 @@ public class VentanaInicial extends JFrame {
 
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
+		
+		tabla.setGridColor(new Color(215, 222, 235));
+		tabla.setRowHeight(34);
 
 		comboBoxBusqueda.addActionListener(e -> {
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
@@ -86,6 +89,9 @@ public class VentanaInicial extends JFrame {
 				JLabel label=new JLabel(value.toString());
 				label.setFont((table.getTableHeader().getFont().deriveFont(Font.ITALIC)));
 				label.setHorizontalAlignment(JLabel.CENTER);
+				setBackground(new Color(49, 46, 129));
+		        setForeground(Color.WHITE);
+		        setFont(getFont().deriveFont(Font.BOLD));
 				return label;
 			}
 		};
@@ -96,13 +102,38 @@ public class VentanaInicial extends JFrame {
 			JLabel label= new JLabel();
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
+			label.setText(value.toString());
+			
 
-			if (table.getModel() instanceof ModeloVuelo && column == 5) {
-
-				if (value.equals(false)) {
-					label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
+			if (table.getModel() instanceof ModeloVuelo) {
+				
+				label.setForeground(new Color(30, 41, 59));
+				
+				if (row %2 == 0) {
+					label.setBackground(new Color(255, 255, 255));
+				} else {
+					label.setBackground(new Color(238, 244, 255));
 				}
-				else label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
+				
+				if (isSelected) {
+			        label.setBackground(new Color(99, 102, 241));
+			        label.setForeground(Color.WHITE);
+			    }
+				
+				
+				if (column == 5) {
+					if (value.equals(false)) {
+						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
+						label.setText("");
+					}
+					else {
+						label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
+						label.setText("");
+						
+					}
+				}
+				
+				
 
 			}
 
