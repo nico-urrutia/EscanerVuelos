@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.Objects;
-
+//------------------------------------------------------------------
 public class Asiento {
 	
 	public enum EnumAsiento {

@@ -28,7 +28,7 @@ public class TrackerVuelo extends JFrame {
 		Aerolinea aerolinea = vuelo.getAerolinea();
 		Aeropuerto aeropuertoOrigen = vuelo.getAeropuertoOrigen();
 		Aeropuerto aeropuertoDestino = vuelo.getAeropuertoDestino();
-		JLabel labelPrincipal = new JLabel("Vuelo: " + codvuelo + ";  Aerolinea: " + aerolinea.getNombre() + 
+		JLabel labelPrincipal = new JLabel("Vuelo: " + codvuelo + ";  Aerlinea: " + aerolinea.getNombre() + 
 				";  Ruta: " + aeropuertoOrigen.getCodigoIATA() + "-" + aeropuertoDestino.getCodigoIATA());
 	    labelPrincipal.setPreferredSize(new Dimension(600, 50));
 	    labelPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
