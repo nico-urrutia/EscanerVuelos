@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -56,7 +57,7 @@ public class VentanaInicial extends JFrame {
 		// CENTER: búsqueda arriba, tabla abajo 
 		JPanel panelCentro = new JPanel(new GridLayout(2, 1));
 
-		
+
 		//  BOX DE BUSQUEDA
 		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
@@ -68,11 +69,11 @@ public class VentanaInicial extends JFrame {
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
 
-		
+
 		// TABLA CON LOS DATOS
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
-		
+
 		tabla.setGridColor(new Color(215, 222, 235));
 		tabla.setRowHeight(34);
 
@@ -94,9 +95,12 @@ public class VentanaInicial extends JFrame {
 				JLabel label=new JLabel(value.toString());
 				label.setFont((table.getTableHeader().getFont().deriveFont(Font.ITALIC)));
 				label.setHorizontalAlignment(JLabel.CENTER);
-				setBackground(new Color(49, 46, 129));
-		        setForeground(Color.WHITE);
-		        setFont(getFont().deriveFont(Font.BOLD));
+				label.setPreferredSize(new Dimension(0, 32));
+				label.setOpaque(true);
+
+				label.setForeground(Color.BLACK);
+				label.setFont(getFont().deriveFont(Font.BOLD));
+
 				return label;
 			}
 		};
@@ -108,23 +112,21 @@ public class VentanaInicial extends JFrame {
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
 			label.setText(value.toString());
-			
+			label.setForeground(new Color(30, 41, 59));
 
 			if (table.getModel() instanceof ModeloVuelo) {
-				
-				label.setForeground(new Color(30, 41, 59));
-				
+
 				if (row %2 == 0) {
 					label.setBackground(new Color(255, 255, 255));
 				} else {
-					label.setBackground(new Color(238, 244, 255));
+					label.setBackground(new Color(165, 190, 250));
 				}
-				
+
 				if (isSelected) {
-			        label.setBackground(new Color(99, 102, 241));
-			        label.setForeground(Color.WHITE);
-			    }
-				
+					label.setBackground(new Color(99, 102, 241));
+					label.setForeground(Color.WHITE);
+				}
+
 				if (column == 5) {
 					if (value.equals(false)) {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
@@ -133,10 +135,17 @@ public class VentanaInicial extends JFrame {
 					else {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
 						label.setText("");
-						
+
 					}
 				}
+			} else {
+				if (row %2 == 0) {
+					label.setBackground(new Color(255, 255, 255));
+				} else {
+					label.setBackground(new Color(245, 180, 180));
+				}
 			}
+			
 			return  label;
 		};
 
