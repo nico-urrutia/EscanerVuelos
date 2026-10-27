@@ -35,7 +35,7 @@ public class VentanaInicial extends JFrame {
 
 		JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-		// ---------- NORTH: cabecera con logo y título ----------
+		// NORTH: cabecera con logo y título 
 		JPanel panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 		URL url = getClass().getResource("/recursos/logo.png");
@@ -53,9 +53,11 @@ public class VentanaInicial extends JFrame {
 
 		panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
 
-		// ---------- CENTER: búsqueda arriba, tabla abajo ----------
+		// CENTER: búsqueda arriba, tabla abajo 
 		JPanel panelCentro = new JPanel(new GridLayout(2, 1));
 
+		
+		//  BOX DE BUSQUEDA
 		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
 
@@ -66,6 +68,8 @@ public class VentanaInicial extends JFrame {
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
 
+		
+		// TABLA CON LOS DATOS
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
 		
@@ -80,6 +84,7 @@ public class VentanaInicial extends JFrame {
 			}
 		});
 
+		// RENDERERS
 		TableCellRenderer rendererCabecera=new TableCellRenderer() {
 
 			@Override
@@ -120,7 +125,6 @@ public class VentanaInicial extends JFrame {
 			        label.setForeground(Color.WHITE);
 			    }
 				
-				
 				if (column == 5) {
 					if (value.equals(false)) {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
@@ -132,13 +136,7 @@ public class VentanaInicial extends JFrame {
 						
 					}
 				}
-				
-				
-
 			}
-
-
-
 			return  label;
 		};
 
@@ -153,5 +151,7 @@ public class VentanaInicial extends JFrame {
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		setIconImage(imagen.getImage());
 	}
 }
