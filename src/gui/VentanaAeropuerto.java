@@ -96,10 +96,7 @@ public class VentanaAeropuerto extends JFrame {
         datos.setBackground(Color.WHITE);
         datos.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JLabel nombre = new JLabel(
-                "<html>Aeropuerto de Bilbao<br>"
-                + "<font size='4' color='#526579'>"
-                + "Loiu, Bizkaia, España</font></html>");
+        JLabel nombre = new JLabel("Aeropuerto de " + aeropuerto.getCiudad());
 
         nombre.setForeground(azulOscuro);
         nombre.setFont(new Font("Arial", Font.BOLD, 24));
