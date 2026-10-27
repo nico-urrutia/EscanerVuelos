@@ -22,7 +22,7 @@ import domain.Avion;
 import domain.Vuelo;
 
 public class PantallaAeropuerto {
-	private String[] columnas = {"time","destination", "code", "gate","remark"};
+	private String[] columnas = {"hora","destino", "cod", "puerta","estado"};
 	private List<Vuelo> vuelos;
 	private TipoInformacion tipoInfo;
 	private Aeropuerto aeropuerto;

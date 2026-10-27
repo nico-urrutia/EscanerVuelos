@@ -70,29 +70,24 @@ public class TrackerVuelo extends JFrame {
 			}		
 		};
 		add(panelTracker, BorderLayout.CENTER);
+		
+		this.setTitle("Tracker - Vuelo " + vuelo.getCodVuelo());
+		this.setSize(1000, 700);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		if(this.vuelo.isOnLand()) {
+			if(this.vuelo.isHasArrived()) {
+				//dibujar avion en aeropuerto destino				
+			}else {
+				//Dibujar avion en aeropuero incial
+			}
+		}else{
+			//Tracker y dibujador en tiempo real
+		}
 
 	}
 
-	public static void main(String[] args) {
-		Aerolinea aerolinea = new Aerolinea("Iberia", "España", "IB", new ArrayList<>(), new ArrayList<>());
-
-		Aeropuerto origen = new Aeropuerto("MAD", "Adolfo Suárez Madrid-Barajas", "Madrid", "España", 40.4936, -3.5668, 4);
-		Aeropuerto destino = new Aeropuerto("JFK", "John F. Kennedy", "Nueva York", "Estados Unidos", 40.6413, -73.7781, 6);
-
-		Avion avion = new Avion("EC-ABC", "Airbus A320", aerolinea, null, true, new ArrayList<>());
-
-		Vuelo vuelo = new Vuelo("IB123", 20, 30, 45.0f, aerolinea, avion, new ArrayList<>(), origen, destino, LocalTime.of(10, 0), LocalTime.of(14, 0));
-
-		avion.setVuelo(vuelo);
-
-		TrackerVuelo tracker = new TrackerVuelo(vuelo);
-		tracker.setTitle("Tracker - Vuelo " + vuelo.getCodVuelo());
-		tracker.setSize(1000, 700);
-		tracker.setResizable(false);
-		tracker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		tracker.setLocationRelativeTo(null); //tracker.setLocationRelativeTo(ventanaInicial); Centrar la ventana en relación a la ventana inicial
-		tracker.setVisible(true);
-
-	}
 
 }
