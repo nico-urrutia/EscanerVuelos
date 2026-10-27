@@ -10,7 +10,7 @@ import domain.Vuelo;
 import gui.TrackerVuelo;
 import gui.VentanaInicial;
 
-public class MainVentanaInicial {
+public class MainEscanerVuelos {
 
 	public static void main(String[] args) {
 
