@@ -17,7 +17,8 @@ public class Vuelo {
 	private Aeropuerto aeropuertoDestino;
 	private LocalTime horaSalida;
 	private LocalTime horaLlegada;
-	
+	private boolean isOnLand;
+	private boolean hasArrived;
 	
 	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
 		super();
@@ -108,6 +109,20 @@ public class Vuelo {
 	
 	public void setHoraLlegada(LocalTime horaLlegada) {
 		this.horaLlegada = horaLlegada;
+	}
+	
+	public boolean isOnLand() {
+		return isOnLand;
+	}
+	public void setOnLand(boolean isOnLand) {
+		this.isOnLand = isOnLand;
+	}
+	
+	public boolean isHasArrived() {
+		return hasArrived;
+	}
+	public void setHasArrived(boolean hasArrived) {
+		this.hasArrived = hasArrived;
 	}
 	
 	@Override
