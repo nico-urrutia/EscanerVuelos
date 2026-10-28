@@ -132,12 +132,11 @@ public class VentanaAeropuerto extends JFrame {
 
         // Más adelante conectaremos estos botones a sus pantallas.
         llegadas.addActionListener(e ->
-                javax.swing.JOptionPane.showMessageDialog(
-                        this, "Aquí aparecerá la pantalla de llegadas."));
+        new PantallaLlegadasSalidas(aeropuerto.getLlegadas(), aeropuerto, TipoInformacion.LLEGADAS));
 
         salidas.addActionListener(e ->
-                javax.swing.JOptionPane.showMessageDialog(
-                        this, "Aquí aparecerá la pantalla de salidas."));
+        new PantallaLlegadasSalidas(aeropuerto.getSalidas(), aeropuerto, TipoInformacion.SALIDAS));
+        
 
         botones.add(llegadas);
         botones.add(salidas);

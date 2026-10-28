@@ -4,7 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,10 +29,12 @@ import domain.Avion;
 import domain.Vuelo;
 
 public class PantallaLlegadasSalidas {
-	private String[] columnas = {"hora","destino", "cod", "puerta","estado"};
+	private String modalidad;
+	private String[] columnas;
 	private List<Vuelo> vuelos;
 	private TipoInformacion tipoInfo;
 	private Aeropuerto aeropuerto;
+	private JFrame ventana;
 	
 	
 	//Colores que se utilizarán (seleccionados con IA)
@@ -50,9 +54,11 @@ public class PantallaLlegadasSalidas {
 	//Constructor
 	public PantallaLlegadasSalidas(List<Vuelo> vuelos, Aeropuerto aeropuerto, TipoInformacion tipoInfo) {
 		
+		modalidad = (tipoInfo==TipoInformacion.SALIDAS) ? "Destino" : "Origen";
 		this.tipoInfo = tipoInfo;
 		this.aeropuerto = aeropuerto;
 		this.vuelos = filtrarVuelos(vuelos);
+		this.columnas = new String[] {"hora",modalidad, "cod", "puerta","estado"};
 		
 		//Crear label parte superior
 		titulo.setIcon(imagenAvion);
@@ -63,6 +69,34 @@ public class PantallaLlegadasSalidas {
 		titulo.setHorizontalTextPosition(JLabel.RIGHT);
 		titulo.setOpaque(true);
 
+		//Añadir listener al título
+		titulo.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String[] opciones = {"LLEGADAS", "SALIDAS"};
+				int seleccion = new JOptionPane().showOptionDialog(
+						null,
+						"Selecciona la modalidad que deseas visualizar:",
+			            "Cambiar Vista",
+			            JOptionPane.DEFAULT_OPTION,
+			            JOptionPane.QUESTION_MESSAGE,
+			            null,
+			            opciones ,
+			            tipoInfo == TipoInformacion.SALIDAS ? "SALIDAS" : "LLEGADAS"
+						);
+				
+				if (seleccion == 0 && tipoInfo != TipoInformacion.LLEGADAS) {
+		            actualizarVista(TipoInformacion.LLEGADAS);
+		        } else if (seleccion == 1 && tipoInfo != TipoInformacion.SALIDAS) {
+		            actualizarVista(TipoInformacion.SALIDAS);
+		        }
+				
+			}
+
+		});
+		
+		
 		
 		//Tabla de datos
 		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -105,11 +139,11 @@ public class PantallaLlegadasSalidas {
 		
 		// Pantalla aeropuerto
 		// ---------- Ventana ----------
-		JFrame ventana = new JFrame("Informacion" +this.aeropuerto.getCodigoIATA()+ " "+this.tipoInfo);
+			ventana = new JFrame("Informacion" +this.aeropuerto.getCodigoIATA()+ " "+this.tipoInfo);
 			ventana.setContentPane(panelPrincipal);
 			ventana.setTitle(this.tipoInfo.toString()+"("+this.aeropuerto.getCodigoIATA()+")");
 			ventana.setSize(800, 600);
-			ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			ventana.setLocationRelativeTo(null);
 			ventana.setVisible(true);
 			ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/logo.png"));
@@ -118,18 +152,36 @@ public class PantallaLlegadasSalidas {
 	
 	
 	//Método para filtrar aviones
-	public List<Vuelo> filtrarVuelos (List<Vuelo> vuelos){
-		List<Vuelo> vuelosFiltrados = new ArrayList<Vuelo>();
-		vuelos.forEach(vuelo -> {
-		    if (vuelo.getAeropuertoOrigen().equals(this.aeropuerto)) vuelosFiltrados.add(vuelo);
-		});
-		return vuelosFiltrados;
+	public List<Vuelo> filtrarVuelos(List<Vuelo> vuelos) {
+        List<Vuelo> vuelosFiltrados = new ArrayList<Vuelo>();
+        for (Vuelo vuelo : vuelos) {
+            if (this.tipoInfo == TipoInformacion.SALIDAS) {
+                if (vuelo.getAeropuertoOrigen().equals(this.aeropuerto)) {
+                    vuelosFiltrados.add(vuelo);
+                }
+            } else {
+                if (vuelo.getAeropuertoDestino().equals(this.aeropuerto)) {
+                    vuelosFiltrados.add(vuelo);
+                }
+            }
+        }
+        return vuelosFiltrados;
+    }
+	
+	//Método cambio LLEGADAS : SALIDAS
+	private void actualizarVista(TipoInformacion tipoInfo) {
+		ventana.dispose();
+		if (tipoInfo==TipoInformacion.LLEGADAS) {
+			new PantallaLlegadasSalidas(aeropuerto.getLlegadas(), aeropuerto, tipoInfo);
+		}else new PantallaLlegadasSalidas(aeropuerto.getSalidas(), aeropuerto, tipoInfo);
+
 	}
 	
 	//Renderer para cabecera
 	TableCellRenderer miRendererHeader = (table, value, isSelected, hasFocus, row, column) -> {
 	    JLabel header = new JLabel(value != null ? value.toString().toUpperCase() : "");
 	    header.setOpaque(true);
+	    header.setHorizontalAlignment(SwingConstants.CENTER);
 	    header.setBackground(new Color(15, 15, 15));
 	    header.setForeground(amarilloLed);
 	    header.setFont(new Font("Arial", Font.BOLD, 12));
@@ -149,7 +201,10 @@ public class PantallaLlegadasSalidas {
 	        	cell.setBackground(negroFondo);
 	        } else cell.setBackground(gris);
 	        
-	        cell.setForeground(amarilloLed);
+	        cell.setHorizontalAlignment(SwingConstants.CENTER);
+	        if (column ==1) cell.setForeground(amarilloLed);
+	        else cell.setForeground(Color.WHITE);
+	        
 	        cell.setFont(new Font("Arial", Font.BOLD, 12));
 	        // Fondos alternados y selección en sintonía con azulClaro
 	        if (isSelected) {
@@ -269,7 +324,7 @@ public class PantallaLlegadasSalidas {
 		vuelos.add(vuelo5);
 		//----------------------------------------------------------------------------
 		
-		new PantallaLlegadasSalidas(vuelos, madrid,TipoInformacion.SALIDAS);
+		new PantallaLlegadasSalidas(vuelos, madrid,TipoInformacion.LLEGADAS);
 		
 	}
 }
