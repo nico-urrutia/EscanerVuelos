@@ -81,27 +81,31 @@ public class VentanaInicial extends JFrame {
 		
 		// Obtener lista de países únicos
 		Set<String> paises = new HashSet<>();
-		for (Aeropuerto a : this.aeropuertos) {
-		        	paises.add(a.getPais());
+		for (Aeropuerto aeropuerto : aeropuertos) {
+		    paises.add(aeropuerto.getPais());
 		}
 		
 		JPanel filtrosAeropuerto = new JPanel();
 		
 		JComboBox<String> comboPais = new JComboBox<>();
-		for (String pais : paises) {
-		    comboPais.addItem(pais);
-		}
+		comboPais = agregarDatos(comboPais, paises);
 		
 		JTextField campoCiudad = new JTextField(15);
 		filtrosAeropuerto.add(new JLabel("País:"));
 		filtrosAeropuerto.add(comboPais);
 		filtrosAeropuerto.add(new JLabel("Ciudad:"));
-		filtrosAeropuerto.add(campoCiudad);  
+		filtrosAeropuerto.add(campoCiudad); 
+		
 		
 		// Filtros para vuelos
 		JPanel filtrosVuelo = new JPanel();
+		
 		JComboBox<String> comboOrigen = new JComboBox<>();
+		comboOrigen = agregarDatos(comboOrigen, paises);
+		
 		JComboBox<String> comboDestino = new JComboBox<>();
+		comboDestino = agregarDatos(comboDestino, paises);
+		
 		filtrosVuelo.add(new JLabel("Origen:"));
 		filtrosVuelo.add(comboOrigen);
 		filtrosVuelo.add(new JLabel("Destino:"));
@@ -118,6 +122,11 @@ public class VentanaInicial extends JFrame {
 		panelNorte.add(panelFiltros, BorderLayout.CENTER);
 		panelNorte.add(panelBoton, BorderLayout.SOUTH);
 		panelNorte.add(panelBusqueda, BorderLayout.NORTH);
+		
+		JPanel panelSur = new JPanel(new BorderLayout());
+		panelSur.add(panelFiltros, BorderLayout.CENTER);
+		panelSur.add(panelBoton, BorderLayout.SOUTH);
+		panelSur.add(panelBusqueda, BorderLayout.NORTH);
 		
 		
 		panelCentro.add(panelNorte, BorderLayout.NORTH);
@@ -245,5 +254,13 @@ public class VentanaInicial extends JFrame {
 		setLocationRelativeTo(null);
 		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
+	}
+	
+	// Crear una funcion para poder meter en el comboBox paises
+	private JComboBox<String> agregarDatos(JComboBox<String> comboBox, Set<String> datos) {
+	    for (String dato : datos) {
+	        comboBox.addItem(dato);
+	    }
+		return comboBox;
 	}
 }
