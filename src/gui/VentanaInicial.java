@@ -123,6 +123,9 @@ public class VentanaInicial extends JFrame {
 		panelFiltros.add(filtrosVuelo, "Vuelos");
 
 		JButton botonBuscar = new JButton("Buscar");
+		botonBuscar.setBackground(new Color(176, 58, 72));		//Inicialmente el boton de busqueda es rojo ya que el filtro inicial es de aeropuertos
+		botonBuscar.setForeground(Color.WHITE);
+		botonBuscar.setFocusPainted(false);
 		JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelBoton.add(botonBuscar);
 		
@@ -162,7 +165,7 @@ public class VentanaInicial extends JFrame {
 					int row, int column) {
 				// TODO Auto-generated method stub
 				JLabel label=new JLabel(value.toString());
-				label.setFont((table.getTableHeader().getFont().deriveFont(Font.ITALIC)));
+				label.setFont(table.getTableHeader().getFont().deriveFont(Font.BOLD));
 				label.setHorizontalAlignment(JLabel.CENTER);
 				label.setPreferredSize(new Dimension(0, 32));
 				label.setOpaque(true);
@@ -188,14 +191,14 @@ public class VentanaInicial extends JFrame {
 
 
 			if (row %2 == 0) {
-				label.setBackground(new Color(255, 255, 255));
+				label.setBackground(Color.WHITE);
 			} else {
-				label.setBackground(new Color(245, 180, 180));
+				label.setBackground(new Color(251, 238, 238));
 			}
 
 
 			if (isSelected) {
-				label.setBackground(new Color(99, 102, 241));
+				label.setBackground(new Color(176,58,72));
 				label.setForeground(Color.WHITE);
 			}
 			return label;
@@ -213,13 +216,13 @@ public class VentanaInicial extends JFrame {
 			if (table.getModel() instanceof ModeloVuelo) {
 
 				if (row %2 == 0) {
-					label.setBackground(new Color(255, 255, 255));
+					label.setBackground(Color.WHITE);
 				} else {
-					label.setBackground(new Color(165, 190, 250));
+					label.setBackground(new Color(236, 241, 252));
 				}
 
 				if (isSelected) {
-					label.setBackground(new Color(99, 102, 241));
+					label.setBackground(new Color(55,90,180));
 					label.setForeground(Color.WHITE);
 				}
 
@@ -240,31 +243,30 @@ public class VentanaInicial extends JFrame {
 		};
 
 		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para la vista inicial de las tablas establecemos el renderer del aeropuerto
-		tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
-		tabla.getColumnModel().getColumn(6).setPreferredWidth(130);
 
 		// Listener para cambiar entre filtros de aeropuertos y vuelos
 
 		comboBoxBusqueda.addActionListener(e -> {
 			cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
+				botonBuscar.setBackground(new Color(176, 58, 72));
 				tabla.setModel(new ModeloAeropuerto(aeropuertos));
 				tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
 				tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 			} else {
+				botonBuscar.setBackground(new Color(55, 90, 180));  
 				tabla.setModel(new ModeloVuelo(vuelos));
 				tabla.setDefaultRenderer(Object.class, rendererVuelos);
 			}
 		});
 
-
+		tabla.setShowVerticalLines(false);
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
 		setContentPane(panelPrincipal);
 		setTitle("Simulador de Aeropuertos");
-		setSize(900, 600);
+		setSize(950, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
