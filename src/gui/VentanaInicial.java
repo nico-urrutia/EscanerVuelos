@@ -77,13 +77,7 @@ public class VentanaInicial extends JFrame {
 		tabla.setGridColor(new Color(215, 222, 235));
 		tabla.setRowHeight(34);
 
-		comboBoxBusqueda.addActionListener(e -> {
-			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
-				tabla.setModel(new ModeloAeropuerto(aeropuertos));
-			} else {
-				tabla.setModel(new ModeloVuelo(vuelos));
-			}
-		});
+	
 
 		// RENDERERS
 		TableCellRenderer rendererCabecera=new TableCellRenderer() {
@@ -107,7 +101,30 @@ public class VentanaInicial extends JFrame {
 
 		this.tabla.getTableHeader().setDefaultRenderer(rendererCabecera);
 
-		TableCellRenderer miRenderer=(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)->{
+		TableCellRenderer rendererAeropuerto = (table, value, isSelected, hasFocus, row, column) -> {
+			JLabel label = new JLabel(value.toString());
+			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setOpaque(true);
+			label.setForeground(new Color(30, 41, 59));
+
+	
+			if (row %2 == 0) {
+				label.setBackground(new Color(255, 255, 255));
+			} else {
+				label.setBackground(new Color(245, 180, 180));
+			}
+
+
+			if (isSelected) {
+				label.setBackground(new Color(99, 102, 241));
+				label.setForeground(Color.WHITE);
+			}
+			return label;
+		};
+		
+		
+
+		TableCellRenderer rendererVuelos=(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)->{
 			JLabel label= new JLabel();
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
@@ -138,20 +155,26 @@ public class VentanaInicial extends JFrame {
 
 					}
 				}
-			} else {
-				this.tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
-				if (row %2 == 0) {
-					label.setBackground(new Color(255, 255, 255));
-				} else {
-					label.setBackground(new Color(245, 180, 180));
-				}
-			}
-			
+			} 
+
 			return  label;
 		};
 
-		this.tabla.setDefaultRenderer(Object.class, miRenderer);
+		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para inicializar un renderer
+		tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 		
+		comboBoxBusqueda.addActionListener(e -> {
+			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
+				tabla.setModel(new ModeloAeropuerto(aeropuertos));
+				tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
+				tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+			} else {
+				tabla.setModel(new ModeloVuelo(vuelos));
+				tabla.setDefaultRenderer(Object.class, rendererVuelos);
+			}
+		});
+
+
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
