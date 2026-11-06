@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,12 +13,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Aeropuerto;
@@ -55,10 +58,9 @@ public class VentanaInicial extends JFrame {
 		panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
 
 		// CENTER: búsqueda arriba, tabla abajo 
-		JPanel panelCentro = new JPanel(new GridLayout(2, 1));
+		JPanel panelCentro = new JPanel(new BorderLayout());
 
-
-		//  BOX DE BUSQUEDA
+		//  PARTE DE ARRIBA: búsqueda
 		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
 
@@ -68,9 +70,56 @@ public class VentanaInicial extends JFrame {
 
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
+		
+		CardLayout cartas = new CardLayout();
+		JPanel panelFiltros = new JPanel(cartas);
+		
+		// Filtros para aeropuertos
+		JPanel filtrosAeropuerto = new JPanel();
+		JComboBox<String> comboPais = new JComboBox<>();
+		JTextField campoCiudad = new JTextField(15);
+		filtrosAeropuerto.add(new JLabel("País:"));
+		filtrosAeropuerto.add(comboPais);
+		filtrosAeropuerto.add(new JLabel("Ciudad:"));
+		filtrosAeropuerto.add(campoCiudad);  
+		
+		// Filtros para vuelos
+		JPanel filtrosVuelo = new JPanel();
+		JComboBox<String> comboOrigen = new JComboBox<>();
+		JComboBox<String> comboDestino = new JComboBox<>();
+		filtrosVuelo.add(new JLabel("Origen:"));
+		filtrosVuelo.add(comboOrigen);
+		filtrosVuelo.add(new JLabel("Destino:"));
+		filtrosVuelo.add(comboDestino);
+		
+		panelFiltros.add(filtrosAeropuerto, "Aeropuertos");
+		panelFiltros.add(filtrosVuelo, "Vuelos");
+		
+		JButton botonBuscar = new JButton("Buscar");
+		JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		panelBoton.add(botonBuscar);
+		
+		JPanel panelNorte = new JPanel(new BorderLayout());
+		panelNorte.add(panelFiltros, BorderLayout.CENTER);
+		panelNorte.add(panelBoton, BorderLayout.SOUTH);
+		panelNorte.add(panelBusqueda, BorderLayout.NORTH);
+		
+		JLabel etiquetaResultados = new JLabel("Resultados: " + aeropuertos.size());
+		JPanel panelResultados = new JPanel(new BorderLayout());
+		panelResultados.add(etiquetaResultados, BorderLayout.NORTH);
+		panelResultados.add(new JScrollPane(tabla), BorderLayout.CENTER);
 
+		// --- Ver detalle ---
+		JButton botonDetalle = new JButton("Ver detalle");
+		JPanel filaDetalle = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		filaDetalle.add(botonDetalle);
 
-		// TABLA CON LOS DATOS
+		panelCentro.add(panelNorte, BorderLayout.NORTH);
+		panelCentro.add(panelResultados, BorderLayout.CENTER);
+		panelCentro.add(filaDetalle, BorderLayout.SOUTH);
+		
+
+		// PARTE ABAJO: tabla
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
 		panelCentro.add(new JScrollPane(tabla));
 
@@ -91,9 +140,13 @@ public class VentanaInicial extends JFrame {
 				label.setHorizontalAlignment(JLabel.CENTER);
 				label.setPreferredSize(new Dimension(0, 32));
 				label.setOpaque(true);
-
-				label.setForeground(Color.BLACK);
-				label.setFont(getFont().deriveFont(Font.BOLD));
+				
+				if (table.getModel() instanceof ModeloVuelo) {
+				    label.setBackground(new Color(55, 90, 180));    // azul intenso
+				} else {
+				    label.setBackground(new Color(176, 58, 72));    // rojo vino
+				}
+				label.setForeground(Color.WHITE);
 
 				return label;
 			}
@@ -160,8 +213,10 @@ public class VentanaInicial extends JFrame {
 			return  label;
 		};
 
-		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para inicializar un renderer
+		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para la vista inicial de las tablas establecemos el renderer del aeropuerto
 		tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tabla.getColumnModel().getColumn(6).setPreferredWidth(130);
 		
 		comboBoxBusqueda.addActionListener(e -> {
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
@@ -180,7 +235,7 @@ public class VentanaInicial extends JFrame {
 		// ---------- Ventana ----------
 		setContentPane(panelPrincipal);
 		setTitle("Simulador de Aeropuertos");
-		setSize(800, 600);
+		setSize(900, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
