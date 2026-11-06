@@ -139,6 +139,7 @@ public class VentanaInicial extends JFrame {
 					}
 				}
 			} else {
+				this.tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 				if (row %2 == 0) {
 					label.setBackground(new Color(255, 255, 255));
 				} else {
@@ -150,8 +151,7 @@ public class VentanaInicial extends JFrame {
 		};
 
 		this.tabla.setDefaultRenderer(Object.class, miRenderer);
-
-
+		
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
