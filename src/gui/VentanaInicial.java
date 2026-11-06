@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -71,76 +72,87 @@ public class VentanaInicial extends JFrame {
 		JPanel panelBusqueda = new JPanel();
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
-		panelCentro.add(panelBusqueda);
-		
-		
-		CardLayout cartas = new CardLayout();
+
+
+		CardLayout cartas = new CardLayout();		//Utilización de CardLayout para cambiar entre los filtros de aeropuertos y vuelos con ayuda de la IA
 		JPanel panelFiltros = new JPanel(cartas);
-		
-		// Filtros para aeropuertos
-		
+
+
 		// Obtener lista de países únicos
-		Set<String> paises = new HashSet<>();
+		Set<String> paises = new TreeSet<>();
 		for (Aeropuerto aeropuerto : aeropuertos) {
-		    paises.add(aeropuerto.getPais());
+			paises.add(aeropuerto.getPais());
 		}
-		
+
+		// Obtener lista de códigos de aeropuerto
+		Set<String> codigos = new TreeSet<>();
+		for (Aeropuerto aeropuerto : aeropuertos) {
+			codigos.add(aeropuerto.getCodigoIATA());   
+		}
+
+
+		// Filtros para aeropuertos
+
 		JPanel filtrosAeropuerto = new JPanel();
-		
+
 		JComboBox<String> comboPais = new JComboBox<>();
-		comboPais = agregarDatos(comboPais, paises);
-		
+		agregarDatos(comboPais, paises);
+
 		JTextField campoCiudad = new JTextField(15);
 		filtrosAeropuerto.add(new JLabel("País:"));
 		filtrosAeropuerto.add(comboPais);
 		filtrosAeropuerto.add(new JLabel("Ciudad:"));
 		filtrosAeropuerto.add(campoCiudad); 
-		
-		
+
+
 		// Filtros para vuelos
 		JPanel filtrosVuelo = new JPanel();
-		
+
 		JComboBox<String> comboOrigen = new JComboBox<>();
-		comboOrigen = agregarDatos(comboOrigen, paises);
-		
+		agregarDatos(comboOrigen, codigos);
+
 		JComboBox<String> comboDestino = new JComboBox<>();
-		comboDestino = agregarDatos(comboDestino, paises);
-		
+		agregarDatos(comboDestino, codigos);
+
 		filtrosVuelo.add(new JLabel("Origen:"));
 		filtrosVuelo.add(comboOrigen);
 		filtrosVuelo.add(new JLabel("Destino:"));
 		filtrosVuelo.add(comboDestino);
-		
+
 		panelFiltros.add(filtrosAeropuerto, "Aeropuertos");
 		panelFiltros.add(filtrosVuelo, "Vuelos");
-		
+
 		JButton botonBuscar = new JButton("Buscar");
 		JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelBoton.add(botonBuscar);
 		
+		botonBuscar.addActionListener(e -> {
+			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
+				String pais = (String) comboPais.getSelectedItem();
+				String ciudad = campoCiudad.getText().trim();
+				System.out.println("Pais: " + pais + " | Ciudad: " + ciudad);
+			} else {
+				String origen = (String) comboOrigen.getSelectedItem();
+				String destino = (String) comboDestino.getSelectedItem();
+				System.out.println("Origen: " + origen + " | Destino: " + destino);
+			}
+		});
+
 		JPanel panelNorte = new JPanel(new BorderLayout());
 		panelNorte.add(panelFiltros, BorderLayout.CENTER);
 		panelNorte.add(panelBoton, BorderLayout.SOUTH);
 		panelNorte.add(panelBusqueda, BorderLayout.NORTH);
-		
-		JPanel panelSur = new JPanel(new BorderLayout());
-		panelSur.add(panelFiltros, BorderLayout.CENTER);
-		panelSur.add(panelBoton, BorderLayout.SOUTH);
-		panelSur.add(panelBusqueda, BorderLayout.NORTH);
-		
-		
+
 		panelCentro.add(panelNorte, BorderLayout.NORTH);
-		
-		
 
 		// PARTE ABAJO: tabla
 		tabla = new JTable(new ModeloAeropuerto(aeropuertos));
-		panelCentro.add(new JScrollPane(tabla));
+		panelCentro.add(new JScrollPane(tabla), BorderLayout.CENTER);
 
 		tabla.setGridColor(new Color(215, 222, 235));
 		tabla.setRowHeight(34);
 
-	
+
 
 		// RENDERERS
 		TableCellRenderer rendererCabecera=new TableCellRenderer() {
@@ -154,11 +166,11 @@ public class VentanaInicial extends JFrame {
 				label.setHorizontalAlignment(JLabel.CENTER);
 				label.setPreferredSize(new Dimension(0, 32));
 				label.setOpaque(true);
-				
+
 				if (table.getModel() instanceof ModeloVuelo) {
-				    label.setBackground(new Color(55, 90, 180));    // azul intenso
+					label.setBackground(new Color(55, 90, 180));    // azul intenso
 				} else {
-				    label.setBackground(new Color(176, 58, 72));    // rojo vino
+					label.setBackground(new Color(176, 58, 72));    // rojo vino
 				}
 				label.setForeground(Color.WHITE);
 
@@ -174,7 +186,7 @@ public class VentanaInicial extends JFrame {
 			label.setOpaque(true);
 			label.setForeground(new Color(30, 41, 59));
 
-	
+
 			if (row %2 == 0) {
 				label.setBackground(new Color(255, 255, 255));
 			} else {
@@ -188,8 +200,8 @@ public class VentanaInicial extends JFrame {
 			}
 			return label;
 		};
-		
-		
+
+
 
 		TableCellRenderer rendererVuelos=(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)->{
 			JLabel label= new JLabel();
@@ -231,8 +243,11 @@ public class VentanaInicial extends JFrame {
 		tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 		tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
 		tabla.getColumnModel().getColumn(6).setPreferredWidth(130);
-		
+
+		// Listener para cambiar entre filtros de aeropuertos y vuelos
+
 		comboBoxBusqueda.addActionListener(e -> {
+			cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
 				tabla.setModel(new ModeloAeropuerto(aeropuertos));
 				tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
@@ -255,12 +270,13 @@ public class VentanaInicial extends JFrame {
 		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
 	}
-	
+
 	// Crear una funcion para poder meter en el comboBox paises
-	private JComboBox<String> agregarDatos(JComboBox<String> comboBox, Set<String> datos) {
-	    for (String dato : datos) {
-	        comboBox.addItem(dato);
-	    }
-		return comboBox;
+
+	private void agregarDatos(JComboBox<String> comboBox, Set<String> datos) {
+		comboBox.addItem("Todos");
+		for (String dato : datos) {
+			comboBox.addItem(dato);
+		}
 	}
 }
