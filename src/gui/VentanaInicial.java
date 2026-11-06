@@ -11,6 +11,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -65,18 +68,30 @@ public class VentanaInicial extends JFrame {
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
 
 
-		JPanel panelBusqueda = new JPanel(); 
-		panelCentro.add(panelBusqueda);
-
+		JPanel panelBusqueda = new JPanel();
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
+		panelCentro.add(panelBusqueda);
+		
 		
 		CardLayout cartas = new CardLayout();
 		JPanel panelFiltros = new JPanel(cartas);
 		
 		// Filtros para aeropuertos
+		
+		// Obtener lista de países únicos
+		Set<String> paises = new HashSet<>();
+		for (Aeropuerto a : this.aeropuertos) {
+		        	paises.add(a.getPais());
+		}
+		
 		JPanel filtrosAeropuerto = new JPanel();
+		
 		JComboBox<String> comboPais = new JComboBox<>();
+		for (String pais : paises) {
+		    comboPais.addItem(pais);
+		}
+		
 		JTextField campoCiudad = new JTextField(15);
 		filtrosAeropuerto.add(new JLabel("País:"));
 		filtrosAeropuerto.add(comboPais);
@@ -104,19 +119,9 @@ public class VentanaInicial extends JFrame {
 		panelNorte.add(panelBoton, BorderLayout.SOUTH);
 		panelNorte.add(panelBusqueda, BorderLayout.NORTH);
 		
-		JLabel etiquetaResultados = new JLabel("Resultados: " + aeropuertos.size());
-		JPanel panelResultados = new JPanel(new BorderLayout());
-		panelResultados.add(etiquetaResultados, BorderLayout.NORTH);
-		panelResultados.add(new JScrollPane(tabla), BorderLayout.CENTER);
-
-		// --- Ver detalle ---
-		JButton botonDetalle = new JButton("Ver detalle");
-		JPanel filaDetalle = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		filaDetalle.add(botonDetalle);
-
+		
 		panelCentro.add(panelNorte, BorderLayout.NORTH);
-		panelCentro.add(panelResultados, BorderLayout.CENTER);
-		panelCentro.add(filaDetalle, BorderLayout.SOUTH);
+		
 		
 
 		// PARTE ABAJO: tabla
