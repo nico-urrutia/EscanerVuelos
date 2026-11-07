@@ -77,15 +77,64 @@ public class TrackerVuelo extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		if(this.vuelo.isOnLand()) {
-			if(this.vuelo.isHasArrived()) {
-				//dibujar avion en aeropuerto destino				
-			}else {
-				//Dibujar avion en aeropuero incial
+		final class TrackerV extends Thread{
+			Vuelo vuelo;
+			public TrackerV(Vuelo vuelo) {
+				this.vuelo = vuelo;
 			}
-		}else{
-			//Tracker y dibujador en tiempo real
+			@Override
+			public void run() {
+				double speed = vuelo.getAvion().getSpeed();
+				double x = vuelo.getX();
+				double y = vuelo.getY();
+				double destX = this.vuelo.getAeropuertoDestino().getX();
+				double destY = this.vuelo.getAeropuertoDestino().getY();
+				double distance = Math.sqrt(Math.pow(destX - x, 2) + Math.pow(destY - y, 2));
+				double dX = destX - x;
+				double dY = destY - y;
+				if(vuelo.isOnLand()) {
+					if(vuelo.isHasArrived()) {
+						//dibujar avion en aeropuerto destino				
+					}else {
+						//Dibujar avion en aeropuero incial
+					}
+				}else{
+					while(!vuelo.isOnLand()) {
+						x = vuelo.getX();
+						y = vuelo.getY();
+						dX = destX - x;
+						dY = destY - y;
+						distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+						if(distance <= speed) {
+							vuelo.setX(destX);
+							vuelo.setY(destY);
+							vuelo.setOnLand(true);
+							vuelo.setHasArrived(true);
+							
+						}else {
+							vuelo.setX(x + (dX / distance) * speed);
+							vuelo.setY(y + (dY / distance) * speed);
+						}
+						
+						//Dibujar posicion actual
+						try {
+							sleep(3000);
+						} catch (InterruptedException e) {
+							//Dibujar posicion actual
+						}
+						
+					
+					}
+										
+				}				
+			}
+			
 		}
+		TrackerV tracker = new TrackerV(vuelo);
+		tracker.start();
+
+		
+
 
 	}
 

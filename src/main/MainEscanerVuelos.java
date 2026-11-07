@@ -53,12 +53,12 @@ public class MainEscanerVuelos {
 		aeropuertos.add(hnd);
 
 		
-		Avion a1 = new Avion("EC-LMN", "Airbus A320", null, null, true, new ArrayList<>());  // En vuelo
-		Avion a2 = new Avion("EC-XYZ", "Boeing 737", null, null, false, new ArrayList<>()); // En tierra
-		Avion a3 = new Avion("EC-ABC", "Airbus A350", null, null, true, new ArrayList<>());  // En vuelo
-		Avion a4 = new Avion("EC-DEF", "Boeing 787", null, null, false, new ArrayList<>()); // En tierra
-		Avion a5 = new Avion("EC-GHI", "Airbus A330", null, null, true, new ArrayList<>());  // En vuelo
-		Avion a6 = new Avion("EC-JKL", "ATR 72", null, null, false, new ArrayList<>());     // En tierra
+		Avion a1 = new Avion("EC-LMN", "Airbus A320", null, null, true, new ArrayList<>(), 5.0);  // En vuelo
+		Avion a2 = new Avion("EC-XYZ", "Boeing 737", null, null, false, new ArrayList<>(), 4.5); // En tierra
+		Avion a3 = new Avion("EC-ABC", "Airbus A350", null, null, true, new ArrayList<>(), 6.0);  // En vuelo
+		Avion a4 = new Avion("EC-DEF", "Boeing 787", null, null, false, new ArrayList<>(), 5.5); // En tierra
+		Avion a5 = new Avion("EC-GHI", "Airbus A330", null, null, true, new ArrayList<>(), 5.2);  // En vuelo
+		Avion a6 = new Avion("EC-JKL", "ATR 72", null, null, false, new ArrayList<>(), 3.5);     // En tierra
 
 		Aerolinea ib = new Aerolinea("Iberia", "ES", "IB", new ArrayList<>(), new ArrayList<>());
 		Aerolinea ux = new Aerolinea("Air Europa", "ES", "UX", new ArrayList<>(), new ArrayList<>());
@@ -75,31 +75,31 @@ public class MainEscanerVuelos {
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
 
 		// Vuelos Nacionales
-		vuelos.add(new Vuelo("IB3214", 0, 0, 0f, ib, a1, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5)));
-		vuelos.add(new Vuelo("UX1090", 0, 0, 0f, ux, a2, new ArrayList<>(), mad, bio, LocalTime.of(14, 15), LocalTime.of(15, 10)));
-		vuelos.add(new Vuelo("VY1001", 0, 0, 0f, vy, a3, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20)));
-		vuelos.add(new Vuelo("VY1002", 0, 0, 0f, vy, a4, new ArrayList<>(), mad, bcn, LocalTime.of(19, 30), LocalTime.of(20, 50)));
-		vuelos.add(new Vuelo("UX2150", 0, 0, 0f, ux, a5, new ArrayList<>(), mad, agp, LocalTime.of(11, 45), LocalTime.of(13, 0)));
-		vuelos.add(new Vuelo("FR4512", 0, 0, 0f, fr, a6, new ArrayList<>(), bio, pmi, LocalTime.of(9, 15), LocalTime.of(10, 40)));
-		vuelos.add(new Vuelo("VY3901", 0, 0, 0f, vy, a1, new ArrayList<>(), svq, bcn, LocalTime.of(6, 45), LocalTime.of(8, 20)));
+		vuelos.add(new Vuelo("IB3214", mad.getX(), mad.getY(), 0f, ib, a1, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5)));
+		vuelos.add(new Vuelo("UX1090", mad.getX(), mad.getY(), 0f, ux, a2, new ArrayList<>(), mad, bio, LocalTime.of(14, 15), LocalTime.of(15, 10)));
+		vuelos.add(new Vuelo("VY1001", bcn.getX(), bcn.getY(), 0f, vy, a3, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20)));
+		vuelos.add(new Vuelo("VY1002", mad.getX(), mad.getY(), 0f, vy, a4, new ArrayList<>(), mad, bcn, LocalTime.of(19, 30), LocalTime.of(20, 50)));
+		vuelos.add(new Vuelo("UX2150", mad.getX(), mad.getY(), 0f, ux, a5, new ArrayList<>(), mad, agp, LocalTime.of(11, 45), LocalTime.of(13, 0)));
+		vuelos.add(new Vuelo("FR4512", bio.getX(), bio.getY(), 0f, fr, a6, new ArrayList<>(), bio, pmi, LocalTime.of(9, 15), LocalTime.of(10, 40)));
+		vuelos.add(new Vuelo("VY3901", svq.getX(), svq.getY(), 0f, vy, a1, new ArrayList<>(), svq, bcn, LocalTime.of(6, 45), LocalTime.of(8, 20)));
 
 		// Vuelos Europeos
-		vuelos.add(new Vuelo("IB3166", 0, 0, 0f, ib, a2, new ArrayList<>(), mad, lhr, LocalTime.of(10, 30), LocalTime.of(12, 0)));
-		vuelos.add(new Vuelo("BA0461", 0, 0, 0f, ba, a3, new ArrayList<>(), lhr, mad, LocalTime.of(15, 20), LocalTime.of(18, 45)));
-		vuelos.add(new Vuelo("AF1401", 0, 0, 0f, af, a4, new ArrayList<>(), bcn, cdg, LocalTime.of(9, 50), LocalTime.of(11, 55)));
-		vuelos.add(new Vuelo("LH1115", 0, 0, 0f, lh, a5, new ArrayList<>(), mad, fra, LocalTime.of(12, 10), LocalTime.of(14, 45)));
-		vuelos.add(new Vuelo("KL1698", 0, 0, 0f, kl, a6, new ArrayList<>(), bio, ams, LocalTime.of(17, 0), LocalTime.of(19, 15)));
-		vuelos.add(new Vuelo("AZ0063", 0, 0, 0f, az, a1, new ArrayList<>(), fco, mad, LocalTime.of(21, 10), LocalTime.of(23, 40)));
+		vuelos.add(new Vuelo("IB3166", mad.getX(), mad.getY(), 0f, ib, a2, new ArrayList<>(), mad, lhr, LocalTime.of(10, 30), LocalTime.of(12, 0)));
+		vuelos.add(new Vuelo("BA0461", lhr.getX(), lhr.getY(), 0f, ba, a3, new ArrayList<>(), lhr, mad, LocalTime.of(15, 20), LocalTime.of(18, 45)));
+		vuelos.add(new Vuelo("AF1401", bcn.getX(), bcn.getY(), 0f, af, a4, new ArrayList<>(), bcn, cdg, LocalTime.of(9, 50), LocalTime.of(11, 55)));
+		vuelos.add(new Vuelo("LH1115", mad.getX(), mad.getY(), 0f, lh, a5, new ArrayList<>(), mad, fra, LocalTime.of(12, 10), LocalTime.of(14, 45)));
+		vuelos.add(new Vuelo("KL1698", bio.getX(), bio.getY(), 0f, kl, a6, new ArrayList<>(), bio, ams, LocalTime.of(17, 0), LocalTime.of(19, 15)));
+		vuelos.add(new Vuelo("AZ0063", fco.getX(), fco.getY(), 0f, az, a1, new ArrayList<>(), fco, mad, LocalTime.of(21, 10), LocalTime.of(23, 40)));
 
 		// Vuelos Transoceánicos
-		vuelos.add(new Vuelo("IB6251", 0, 0, 0f, ib, a3, new ArrayList<>(), mad, jfk, LocalTime.of(12, 25), LocalTime.of(14, 40)));
-		vuelos.add(new Vuelo("DL0126", 0, 0, 0f, dl, a4, new ArrayList<>(), jfk, bcn, LocalTime.of(18, 30), LocalTime.of(8, 15)));
-		vuelos.add(new Vuelo("NH0212", 0, 0, 0f, nh, a5, new ArrayList<>(), cdg, hnd, LocalTime.of(20, 0), LocalTime.of(16, 30)));
+		vuelos.add(new Vuelo("IB6251", mad.getX(), mad.getY(), 0f, ib, a3, new ArrayList<>(), mad, jfk, LocalTime.of(12, 25), LocalTime.of(14, 40)));
+		vuelos.add(new Vuelo("DL0126", jfk.getX(), jfk.getY(), 0f, dl, a4, new ArrayList<>(), jfk, bcn, LocalTime.of(18, 30), LocalTime.of(8, 15)));
+		vuelos.add(new Vuelo("NH0212", cdg.getX(), cdg.getY(), 0f, nh, a5, new ArrayList<>(), cdg, hnd, LocalTime.of(20, 0), LocalTime.of(16, 30)));
 
 		for (Vuelo v : vuelos) {
 			v.getAerolinea().getVuelos().add(v);
 		}
-
+		new TrackerVuelo(vuelos.get(0));
 		new VentanaInicial(aeropuertos, vuelos).setVisible(true);
 		//new TrackerVuelo(vuelos.get(1)).setVisible(true);
 	}
