@@ -214,7 +214,6 @@ public class VentanaInicial extends JFrame {
 			label.setForeground(new Color(30, 41, 59));
 
 			if (table.getModel() instanceof ModeloVuelo) {
-
 				if (row %2 == 0) {
 					label.setBackground(Color.WHITE);
 				} else {
@@ -241,6 +240,19 @@ public class VentanaInicial extends JFrame {
 
 			return  label;
 		};
+		tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int fila = tabla.rowAtPoint(evt.getPoint());
+				if(fila!= -1) {
+					if (tabla.getModel() instanceof ModeloVuelo) {
+						ModeloVuelo filaSeleccionada = (ModeloVuelo) tabla.getModel();
+						new TrackerVuelo(filaSeleccionada.getVuelo(fila));
+					}
+				}
+}
+				
+			
+		});
 
 		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para la vista inicial de las tablas establecemos el renderer del aeropuerto
 

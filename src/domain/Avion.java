@@ -25,7 +25,7 @@ public class Avion {
 	}
 
 	public Avion(String matricula, String modelo, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
-		this(matricula, modelo, aerolinea, vuelo, enVuelo, asientos, 5.0);
+		this(matricula, modelo, aerolinea, vuelo, enVuelo, asientos, 0.25);
 	}
 	public String getMatricula() {
 		return matricula;

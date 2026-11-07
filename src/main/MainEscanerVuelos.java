@@ -17,24 +17,24 @@ public class MainEscanerVuelos {
 		//Utilizacion de la IA para crear instancias de las clases y poder tener ejemplos
 		
 		// España
-		Aeropuerto mad = new Aeropuerto("MAD", "Adolfo Suárez Madrid-Barajas", "Madrid", "ES", 100, 200, 4);
-		Aeropuerto bio = new Aeropuerto("BIO", "Loiu", "Bilbao", "ES", 120, 80, 1);
-		Aeropuerto bcn = new Aeropuerto("BCN", "Josep Tarradellas Barcelona-El Prat", "Barcelona", "ES", 300, 120, 3);
-		Aeropuerto agp = new Aeropuerto("AGP", "Málaga-Costa del Sol", "Málaga", "ES", 90, 380, 2);
-		Aeropuerto vlc = new Aeropuerto("VLC", "Manises", "Valencia", "ES", 260, 220, 1);
-		Aeropuerto pmi = new Aeropuerto("PMI", "Son Sant Joan", "Palma de Mallorca", "ES", 350, 230, 2);
-		Aeropuerto svq = new Aeropuerto("SVQ", "San Pablo", "Sevilla", "ES", 50, 350, 1);
+		Aeropuerto mad = new Aeropuerto("MAD", "Adolfo Suárez Madrid-Barajas", "Madrid", "ES", 45.3, 29.6, 4);
+		Aeropuerto bio = new Aeropuerto("BIO", "Loiu", "Bilbao", "ES", 45.6, 27.8, 1);
+		Aeropuerto bcn = new Aeropuerto("BCN", "Josep Tarradellas Barcelona-El Prat", "Barcelona", "ES", 46.9, 28.8, 3);
+		Aeropuerto agp = new Aeropuerto("AGP", "Málaga-Costa del Sol", "Málaga", "ES", 45.0, 31.8, 2);
+		Aeropuerto vlc = new Aeropuerto("VLC", "Manises", "Valencia", "ES", 46.2, 30.2, 1);
+		Aeropuerto pmi = new Aeropuerto("PMI", "Son Sant Joan", "Palma de Mallorca", "ES", 47.2, 30.0, 2);
+		Aeropuerto svq = new Aeropuerto("SVQ", "San Pablo", "Sevilla", "ES", 44.5, 31.3, 1);
 
 		// Europa
-		Aeropuerto lhr = new Aeropuerto("LHR", "Heathrow", "Londres", "GB", 150, -200, 5);
-		Aeropuerto cdg = new Aeropuerto("CDG", "Charles de Gaulle", "París", "FR", 220, -120, 3);
-		Aeropuerto fra = new Aeropuerto("FRA", "Frankfurt", "Fráncfort", "DE", 320, -140, 2);
-		Aeropuerto ams = new Aeropuerto("AMS", "Schiphol", "Ámsterdam", "NL", 240, -220, 1);
-		Aeropuerto fco = new Aeropuerto("FCO", "Leonardo da Vinci-Fiumicino", "Roma", "IT", 380, 100, 3);
+		Aeropuerto lhr = new Aeropuerto("LHR", "Heathrow", "Londres", "GB", 46.5, 21.8, 5);
+		Aeropuerto cdg = new Aeropuerto("CDG", "Charles de Gaulle", "París", "FR", 47.2, 24.2, 3);
+		Aeropuerto fra = new Aeropuerto("FRA", "Frankfurt", "Fráncfort", "DE", 49.2, 23.5, 2);
+		Aeropuerto ams = new Aeropuerto("AMS", "Schiphol", "Ámsterdam", "NL", 48.1, 21.8, 1);
+		Aeropuerto fco = new Aeropuerto("FCO", "Leonardo da Vinci-Fiumicino", "Roma", "IT", 51.1, 28.2, 3);
 
 		// Internacionales
-		Aeropuerto jfk = new Aeropuerto("JFK", "John F. Kennedy", "Nueva York", "US", -450, -50, 8);
-		Aeropuerto hnd = new Aeropuerto("HND", "Haneda", "Tokio", "JP", 750, -100, 3);
+		Aeropuerto jfk = new Aeropuerto("JFK", "John F. Kennedy", "Nueva York", "US", 22.4, 29.2, 8);
+		Aeropuerto hnd = new Aeropuerto("HND", "Haneda", "Tokio", "JP", 92.2, 32.4, 3);
 
 		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
 		aeropuertos.add(mad);
@@ -53,12 +53,12 @@ public class MainEscanerVuelos {
 		aeropuertos.add(hnd);
 
 		
-		Avion a1 = new Avion("EC-LMN", "Airbus A320", null, null, true, new ArrayList<>(), 5.0);  // En vuelo
-		Avion a2 = new Avion("EC-XYZ", "Boeing 737", null, null, false, new ArrayList<>(), 4.5); // En tierra
-		Avion a3 = new Avion("EC-ABC", "Airbus A350", null, null, true, new ArrayList<>(), 6.0);  // En vuelo
-		Avion a4 = new Avion("EC-DEF", "Boeing 787", null, null, false, new ArrayList<>(), 5.5); // En tierra
-		Avion a5 = new Avion("EC-GHI", "Airbus A330", null, null, true, new ArrayList<>(), 5.2);  // En vuelo
-		Avion a6 = new Avion("EC-JKL", "ATR 72", null, null, false, new ArrayList<>(), 3.5);     // En tierra
+		Avion a1 = new Avion("EC-LMN", "Airbus A320", null, null, true, new ArrayList<>(), 0.25);  // En vuelo
+		Avion a2 = new Avion("EC-XYZ", "Boeing 737", null, null, false, new ArrayList<>(), 0.22); // En tierra
+		Avion a3 = new Avion("EC-ABC", "Airbus A350", null, null, true, new ArrayList<>(), 0.35);  // En vuelo
+		Avion a4 = new Avion("EC-DEF", "Boeing 787", null, null, false, new ArrayList<>(), 0.30); // En tierra
+		Avion a5 = new Avion("EC-GHI", "Airbus A330", null, null, true, new ArrayList<>(), 0.28);  // En vuelo
+		Avion a6 = new Avion("EC-JKL", "ATR 72", null, null, false, new ArrayList<>(), 0.18);     // En tierra
 
 		Aerolinea ib = new Aerolinea("Iberia", "ES", "IB", new ArrayList<>(), new ArrayList<>());
 		Aerolinea ux = new Aerolinea("Air Europa", "ES", "UX", new ArrayList<>(), new ArrayList<>());
@@ -99,7 +99,6 @@ public class MainEscanerVuelos {
 		for (Vuelo v : vuelos) {
 			v.getAerolinea().getVuelos().add(v);
 		}
-		new TrackerVuelo(vuelos.get(0));
 		new VentanaInicial(aeropuertos, vuelos).setVisible(true);
 		//new TrackerVuelo(vuelos.get(1)).setVisible(true);
 	}
