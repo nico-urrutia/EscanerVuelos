@@ -1,0 +1,11 @@
+matricula,modelo,enVuelo,speed
+EC-LMN,Airbus A320,true,0.25
+N737AA,Boeing 737,false,0.22
+F-GZNP,Airbus A350,true,0.35
+G-ZBJB,Boeing 787,false,0.32
+D-AIKQ,Airbus A330,true,0.28
+JA891A,Boeing 777,false,0.36
+A6-EEU,Airbus A380,true,0.38
+CC-BGG,Boeing 787-9,false,0.33
+9V-SKA,Airbus A350-900,true,0.37
+VH-OQA,Boeing 747-8,false,0.34
