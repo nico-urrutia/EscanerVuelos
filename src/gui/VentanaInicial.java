@@ -48,7 +48,7 @@ public class VentanaInicial extends JFrame {
 		URL url = getClass().getResource("/recursos/logo.png");
 		if (url != null) {
 			ImageIcon icono = new ImageIcon(url);
-			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);		//Imagen escalada a 80x80 píxeles con IA
 			panelTitulo.add(new JLabel(new ImageIcon(img)));
 		} else {
 			System.err.println("No se encuentra la imagen /recursos/logo.png");
@@ -126,7 +126,19 @@ public class VentanaInicial extends JFrame {
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
 				String pais = (String) comboPais.getSelectedItem();
 				String ciudad = campoCiudad.getText();
+				
+				// Filtrar aeropuertos por país y ciudad
+				List<Aeropuerto> aeropuertosFiltrados = new ArrayList<>();
+				for (Aeropuerto aeropuerto : aeropuertos) {
+					if ((pais.equals("Todos") || aeropuerto.getPais().equals(pais)) &&
+						(ciudad.isEmpty() || aeropuerto.getCiudad().toLowerCase().contains(ciudad.toLowerCase()))) {
+						aeropuertosFiltrados.add(aeropuerto);
+					}
+				}
+				// Actualizar la tabla con los aeropuertos filtrados
+				tabla.setModel(new ModeloAeropuerto(aeropuertosFiltrados));
 				System.out.println("Pais: " + pais + " | Ciudad: " + ciudad);
+				
 			} else {
 				String origen = (String) comboOrigen.getSelectedItem();
 				String destino = (String) comboDestino.getSelectedItem();
@@ -139,6 +151,9 @@ public class VentanaInicial extends JFrame {
 						vuelosFiltrados.add(vuelo);
 					}
 				}
+				
+				// Actualizar la tabla con los vuelos filtrados
+				tabla.setModel(new ModeloVuelo(vuelosFiltrados));
 				
 				System.out.println("Origen: " + origen + " | Destino: " + destino);
 			}
