@@ -61,16 +61,8 @@ public class VentanaAeropuerto extends JFrame {
         panelFoto.setBorder(new LineBorder(
                 new Color(210, 220, 230), 1, true));
 
-        JLabel foto = new JLabel(
-                "<html><center>Fotografía del<br>"
-                + "Aeropuerto de Bilbao</center></html>",
-                SwingConstants.CENTER);
-
-        foto.setForeground(azulOscuro);
-        foto.setFont(new Font("Arial", Font.BOLD, 20));
-        foto.setOpaque(true);
-        foto.setBackground(new Color(220, 232, 243));
-
+        JLabel foto = new JLabel(aeropuerto.getImagen());
+     
         panelFoto.add(foto, BorderLayout.CENTER);
         informacion.add(panelFoto);
 
