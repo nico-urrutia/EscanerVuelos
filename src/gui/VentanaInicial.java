@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -132,11 +134,22 @@ public class VentanaInicial extends JFrame {
 		botonBuscar.addActionListener(e -> {
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
 				String pais = (String) comboPais.getSelectedItem();
-				String ciudad = campoCiudad.getText().trim();
+				String ciudad = campoCiudad.getText();
 				System.out.println("Pais: " + pais + " | Ciudad: " + ciudad);
 			} else {
 				String origen = (String) comboOrigen.getSelectedItem();
 				String destino = (String) comboDestino.getSelectedItem();
+				
+				//Filtrar vuelos por origen y destino
+				List<Vuelo> vuelosFiltrados = new ArrayList<>();
+				for (Vuelo vuelo : vuelos) {
+					if ((origen.equals("Todos") || vuelo.getAeropuertoOrigen().getCodigoIATA().equals(origen)) &&
+						(destino.equals("Todos") || vuelo.getAeropuertoDestino().getCodigoIATA().equals(destino))) {
+						vuelosFiltrados.add(vuelo);
+					}
+				}
+				
+				
 				System.out.println("Origen: " + origen + " | Destino: " + destino);
 			}
 		});
@@ -242,8 +255,9 @@ public class VentanaInicial extends JFrame {
 
 			return  label;
 		};
-		tabla.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		
+		tabla.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
 				int fila = tabla.rowAtPoint(evt.getPoint());
 				if(fila!= -1) {
 					if (tabla.getModel() instanceof ModeloVuelo) {
