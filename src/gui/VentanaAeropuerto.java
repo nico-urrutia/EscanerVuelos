@@ -130,7 +130,7 @@ public class VentanaAeropuerto extends JFrame {
         JButton salidas = crearBoton(
                 "SALIDAS", verdeClaro);
 
-        // Más adelante conectaremos estos botones a sus pantallas.
+        // Conexión con pantalla Llegadas/Salidas
         llegadas.addActionListener(e ->
         new PantallaLlegadasSalidas(aeropuerto.getLlegadas(), aeropuerto, TipoInformacion.LLEGADAS));
 
@@ -145,7 +145,7 @@ public class VentanaAeropuerto extends JFrame {
 
         setContentPane(principal);
         setTitle("Aeropuerto de Bilbao");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1200, 750);
         setMinimumSize(new Dimension(850, 600));
         setLocationRelativeTo(null);

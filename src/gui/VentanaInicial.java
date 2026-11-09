@@ -244,16 +244,22 @@ public class VentanaInicial extends JFrame {
 		};
 		tabla.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				int fila = tabla.rowAtPoint(evt.getPoint());
-				if(fila!= -1) {
-					if (tabla.getModel() instanceof ModeloVuelo) {
-						ModeloVuelo filaSeleccionada = (ModeloVuelo) tabla.getModel();
-						new TrackerVuelo(filaSeleccionada.getVuelo(fila));
+				if (evt.getClickCount() == 2) {    //Funciona con doble click
+					int fila = tabla.rowAtPoint(evt.getPoint());
+					if(fila!= -1) {
+						if (tabla.getModel() instanceof ModeloVuelo) {
+							ModeloVuelo filaSeleccionada = (ModeloVuelo) tabla.getModel();
+							new TrackerVuelo(filaSeleccionada.getVuelo(fila));
+						} else if (tabla.getModel() instanceof ModeloAeropuerto) {
+							ModeloAeropuerto filaSeleccionada = (ModeloAeropuerto) tabla.getModel();
+							Aeropuerto aeropuerto = filaSeleccionada.getAeropuerto(fila);
+							new VentanaAeropuerto(aeropuerto);
+						}
 					}
 				}
-}
-				
-			
+			}
+
+
 		});
 
 		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para la vista inicial de las tablas establecemos el renderer del aeropuerto
