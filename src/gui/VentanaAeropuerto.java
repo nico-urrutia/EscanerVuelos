@@ -71,23 +71,6 @@ public class VentanaAeropuerto extends JFrame {
         foto.setOpaque(true);
         foto.setBackground(new Color(220, 232, 243));
 
-        // Imagen remota opcional
-        try {
-            URL url = new URL(
-                "https://images.unsplash.com/photo-1436491865332-7a61a109cc05"
-                + "?auto=format&fit=crop&w=1000&q=85"
-            );
-
-            ImageIcon icono = new ImageIcon(url);
-            Image imagen = icono.getImage().getScaledInstance(
-                    420, 420, Image.SCALE_SMOOTH);
-
-            foto.setIcon(new ImageIcon(imagen));
-            foto.setText("");
-        } catch (Exception e) {
-            // Se conserva el texto si no se puede cargar la imagen.
-        }
-
         panelFoto.add(foto, BorderLayout.CENTER);
         informacion.add(panelFoto);
 
@@ -110,8 +93,6 @@ public class VentanaAeropuerto extends JFrame {
         agregarDato(filas, "Nombre", aeropuerto.getNombre());
         agregarDato(filas, "Ciudad", aeropuerto.getCiudad());
         agregarDato(filas, "Pais", aeropuerto.getPais());
-        agregarDato(filas, "x", String.valueOf(aeropuerto.getX()));
-        agregarDato(filas, "y", String.valueOf(aeropuerto.getY()));
         agregarDato(filas, "Número de pistas", String.valueOf(aeropuerto.getNumPistas()));
 
         datos.add(filas, BorderLayout.CENTER);
