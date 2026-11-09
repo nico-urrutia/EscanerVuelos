@@ -173,7 +173,7 @@ public class VentanaInicial extends JFrame {
 				if (table.getModel() instanceof ModeloVuelo) {
 					label.setBackground(new Color(55, 90, 180));    // azul intenso
 				} else {
-					label.setBackground(new Color(176, 58, 72));    // rojo vino
+					label.setBackground(new Color(176, 58, 71));    // rojo vino
 				}
 				label.setForeground(Color.WHITE);
 
