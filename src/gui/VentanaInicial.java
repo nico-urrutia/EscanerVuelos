@@ -229,10 +229,12 @@ public class VentanaInicial extends JFrame {
 					if (value.equals(false)) {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
 						label.setText("");
+						label.setToolTipText("EN PISTA");
 					}
 					else {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
 						label.setText("");
+						label.setToolTipText("VOLANDO");
 
 					}
 				}
