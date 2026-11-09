@@ -61,12 +61,54 @@ public class TrackerVuelo extends JFrame {
 	    final BufferedImage aeropuertoFinal = imagenAeropuerto;
 		JPanel panelTracker = new JPanel() {
 			@Override
-			protected void paintComponent(Graphics g) {
+			protected void paintComponent(Graphics g) {//Metodo escrito con ayuda de Gemini 4 Argon.
 				super.paintComponent(g);
-				g.drawImage(mapaFinal, 0, 0, getWidth(), getHeight(), null);
-				g.drawImage(avionFinal, (int) (vuelo.getX() * getWidth() / 100), (int) (vuelo.getY() * getHeight() / 100), 30, 30, null);
-				g.drawImage(aeropuertoFinal, (int) (vuelo.getAeropuertoOrigen().getX() * getWidth() / 100), (int) (vuelo.getAeropuertoOrigen().getY() * getHeight() / 100), 20, 20, null);
-				g.drawImage(aeropuertoFinal, (int) (vuelo.getAeropuertoDestino().getX() * getWidth() / 100), (int) (vuelo.getAeropuertoDestino().getY() * getHeight() / 100), 20, 20, null);
+				if (mapaFinal != null) {
+					double mapRatio = (double) mapaFinal.getWidth() / mapaFinal.getHeight();
+					double panelRatio = (double) getWidth() / getHeight();
+					double mapW, mapH, offsetX = 0, offsetY = 0;
+
+					if (panelRatio > mapRatio) {
+						mapH = getHeight();
+						mapW = mapH * mapRatio;
+						offsetX = (getWidth() - mapW) / 2.0;
+					} else {
+						mapW = getWidth();
+						mapH = mapW / mapRatio;
+						offsetY = (getHeight() - mapH) / 2.0;
+					}
+
+					Graphics2D g2d = (Graphics2D) g.create();
+					g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+					g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+					g2d.drawImage(mapaFinal, (int) Math.round(offsetX), (int) Math.round(offsetY), (int) Math.round(mapW), (int) Math.round(mapH), null);
+
+					int pinSize = 20;
+					int pinTipOffsetX = pinSize / 2;
+					int pinTipOffsetY = (int) Math.round(pinSize * 0.89); // La punta del pin en location.png está al 89% de la altura
+
+					int origX = (int) Math.round(offsetX + (vuelo.getAeropuertoOrigen().getX() * mapW / 100.0));
+					int origY = (int) Math.round(offsetY + (vuelo.getAeropuertoOrigen().getY() * mapH / 100.0));
+					int destX = (int) Math.round(offsetX + (vuelo.getAeropuertoDestino().getX() * mapW / 100.0));
+					int destY = (int) Math.round(offsetY + (vuelo.getAeropuertoDestino().getY() * mapH / 100.0));
+
+					g2d.drawImage(aeropuertoFinal, origX - pinTipOffsetX, origY - pinTipOffsetY, pinSize, pinSize, null);
+					g2d.drawImage(aeropuertoFinal, destX - pinTipOffsetX, destY - pinTipOffsetY, pinSize, pinSize, null);
+
+					int avionSize = 19;
+					int avionHalf = avionSize / 2;
+					int avionX = (int) Math.round(offsetX + (vuelo.getX() * mapW / 100.0));
+					int avionY = (int) Math.round(offsetY + (vuelo.getY() * mapH / 100.0));
+
+					double dx = destX - origX;
+					double dy = destY - origY;
+					double angulo = Math.atan2(dy, dx) + Math.PI / 2.0;
+
+					g2d.rotate(angulo, avionX, avionY);
+					g2d.drawImage(avionFinal, avionX - avionHalf, avionY - avionHalf, avionSize, avionSize, null);
+					g2d.dispose();
+				}
 			}		
 		};
 		add(panelTracker, BorderLayout.CENTER);
@@ -74,18 +116,68 @@ public class TrackerVuelo extends JFrame {
 		this.setTitle("Tracker - Vuelo " + vuelo.getCodVuelo());
 		this.setSize(1000, 700);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		if(this.vuelo.isOnLand()) {
-			if(this.vuelo.isHasArrived()) {
-				//dibujar avion en aeropuerto destino				
-			}else {
-				//Dibujar avion en aeropuero incial
+		final class TrackerV extends Thread{
+			Vuelo vuelo;
+			public TrackerV(Vuelo vuelo) {
+				this.vuelo = vuelo;
 			}
-		}else{
-			//Tracker y dibujador en tiempo real
+			@Override
+			public void run() {
+				double speed = vuelo.getAvion().getSpeed();
+				double x = vuelo.getX();
+				double y = vuelo.getY();
+				double destX = this.vuelo.getAeropuertoDestino().getX();
+				double destY = this.vuelo.getAeropuertoDestino().getY();
+				double distance = Math.sqrt(Math.pow(destX - x, 2) + Math.pow(destY - y, 2));
+				double dX = destX - x;
+				double dY = destY - y;
+				if(vuelo.isOnLand()) {
+					if(vuelo.isHasArrived()) {
+						panelTracker.repaint();				
+					}else {
+						panelTracker.repaint();
+					}
+				}else{
+					while(!vuelo.isOnLand()) {
+						x = vuelo.getX();
+						y = vuelo.getY();
+						dX = destX - x;
+						dY = destY - y;
+						distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+						if(distance <= speed) {
+							vuelo.setX(destX);
+							vuelo.setY(destY);
+							vuelo.setOnLand(true);
+							vuelo.setHasArrived(true);
+							labelSecundario.setText("Avion: " + avion.getModelo() + ";  Posicion: (" + vuelo.getX() + "," + vuelo.getY() + ");  Salida: " + horaSalida.toString() +
+									";  Llegada: " + horaLlegada.toString() + ";  Progreso: 100%");
+						}else {
+							vuelo.setX(x + (dX / distance) * speed);
+							vuelo.setY(y + (dY / distance) * speed);
+						}
+						labelSecundario.setText("Avion: " + avion.getModelo() + ";  Posicion: (" + vuelo.getX() + "," + vuelo.getY() + ");  Salida: " + horaSalida.toString() +
+								";  Llegada: " + horaLlegada.toString() + ";  Progreso: " + String.format("%.2f", vuelo.calcularProgreso()) + "%");
+						panelTracker.repaint();
+						try {
+							sleep(1000);//Tracker a tiempo real, para que vaya mas rapido, se pude disminuir el tiempo de sleep.
+						} catch (InterruptedException e) {
+							panelTracker.repaint();
+						}
+											
+					}
+										
+				}				
+			}
+			
 		}
+		TrackerV tracker = new TrackerV(vuelo);
+		tracker.start();
+
+		
+
 
 	}
 

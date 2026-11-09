@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Vuelo {
 	
 	private String codVuelo;
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private float direccion;
 	private Aerolinea aerolinea;
 	private Avion avion;
@@ -19,8 +19,8 @@ public class Vuelo {
 	private LocalTime horaLlegada;
 	private boolean isOnLand;
 	private boolean hasArrived;
-	
-	public Vuelo(String codVuelo, int x, int y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
+
+	public Vuelo(String codVuelo, double x, double y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
 		super();
 		this.codVuelo = codVuelo;
 		this.x = x;
@@ -33,6 +33,9 @@ public class Vuelo {
 		this.aeropuertoDestino = aeropuertoDestino;
 		this.horaSalida = horaSalida;
 		this.horaLlegada = horaLlegada;
+		double dx = aeropuertoDestino.getX() - aeropuertoOrigen.getX();
+		double dy = aeropuertoDestino.getY() - aeropuertoOrigen.getY();
+		this.direccion = (float) (Math.atan2(dy, dx) + Math.PI / 2);// idea de Gemini 4 Argon.
 	}
 	public String getCodVuelo() {
 		return codVuelo;
@@ -40,16 +43,16 @@ public class Vuelo {
 	public void setCodVuelo(String codVuelo) {
 		this.codVuelo = codVuelo;
 	}
-	public int getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	public float getDireccion() {
@@ -123,6 +126,21 @@ public class Vuelo {
 	}
 	public void setHasArrived(boolean hasArrived) {
 		this.hasArrived = hasArrived;
+	}
+
+	public double calcularProgreso() {
+		if (hasArrived) {
+			return 100.0;
+		}
+		double totalX = aeropuertoDestino.getX() - aeropuertoOrigen.getX();
+		double totalY = aeropuertoDestino.getY() - aeropuertoOrigen.getY();
+		double distanciaTotal = Math.sqrt(Math.pow(totalX, 2) + Math.pow(totalY, 2));
+
+		double restanteX = aeropuertoDestino.getX() - x;
+		double restanteY = aeropuertoDestino.getY() - y;
+		double distanciaRestante = Math.sqrt(Math.pow(restanteX, 2) + Math.pow(restanteY, 2));
+
+		return (1 - (distanciaRestante / distanciaTotal)) * 100;
 	}
 	
 	@Override

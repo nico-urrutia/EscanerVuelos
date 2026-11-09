@@ -11,8 +11,9 @@ public class Avion {
 	private Vuelo vuelo;
 	private boolean enVuelo;
 	private ArrayList<Asiento> asientos;
+	private double speed;
 	
-	public Avion(String matricula, String modelo, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
+	public Avion(String matricula, String modelo, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos, double speed) {
 		super();
 		this.matricula = matricula;
 		this.modelo = modelo;
@@ -20,6 +21,11 @@ public class Avion {
 		this.vuelo = vuelo;
 		this.enVuelo = enVuelo;
 		this.asientos = asientos;
+		this.speed = speed;
+	}
+
+	public Avion(String matricula, String modelo, Aerolinea aerolinea, Vuelo vuelo, boolean enVuelo, ArrayList<Asiento> asientos) {
+		this(matricula, modelo, aerolinea, vuelo, enVuelo, asientos, 0.25);
 	}
 	public String getMatricula() {
 		return matricula;
@@ -61,6 +67,12 @@ public class Avion {
 	}
 	public void setAsientos(ArrayList<Asiento> asientos) {
 		this.asientos = asientos;
+	}
+	public double getSpeed() {
+		return speed;
+	}
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	
