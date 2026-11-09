@@ -7,13 +7,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,8 +34,7 @@ public class VentanaInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Aeropuerto> aeropuertos;
 	private ArrayList<Vuelo> vuelos;
-	private JTable tabla=new JTable();
-
+	private JTable tabla = new JTable();
 
 	public VentanaInicial(ArrayList<Aeropuerto> aeropuertos, ArrayList<Vuelo> vuelos) {
 		this.aeropuertos = aeropuertos;
@@ -51,7 +48,7 @@ public class VentanaInicial extends JFrame {
 		URL url = getClass().getResource("/recursos/logo.png");
 		if (url != null) {
 			ImageIcon icono = new ImageIcon(url);
-			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);		//Utilizacion de IA para escalar y ajustar la imagen 
+			Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 			panelTitulo.add(new JLabel(new ImageIcon(img)));
 		} else {
 			System.err.println("No se encuentra la imagen /recursos/logo.png");
@@ -66,19 +63,16 @@ public class VentanaInicial extends JFrame {
 		// CENTER: búsqueda arriba, tabla abajo 
 		JPanel panelCentro = new JPanel(new BorderLayout());
 
-		//  PARTE DE ARRIBA: búsqueda
+		// PARTE DE ARRIBA: búsqueda
 		String[] opcionesBusqueda = {"Aeropuertos", "Vuelos"};
 		JComboBox<String> comboBoxBusqueda = new JComboBox<>(opcionesBusqueda);
-
 
 		JPanel panelBusqueda = new JPanel();
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
 
-
-		CardLayout cartas = new CardLayout();		//Utilización de CardLayout para cambiar entre los filtros de aeropuertos y vuelos con ayuda de la IA
+		CardLayout cartas = new CardLayout();
 		JPanel panelFiltros = new JPanel(cartas);
-
 
 		// Obtener lista de países únicos
 		Set<String> paises = new TreeSet<>();
@@ -92,9 +86,7 @@ public class VentanaInicial extends JFrame {
 			codigos.add(aeropuerto.getCodigoIATA());   
 		}
 
-
 		// Filtros para aeropuertos
-
 		JPanel filtrosAeropuerto = new JPanel();
 
 		JComboBox<String> comboPais = new JComboBox<>();
@@ -105,7 +97,6 @@ public class VentanaInicial extends JFrame {
 		filtrosAeropuerto.add(comboPais);
 		filtrosAeropuerto.add(new JLabel("Ciudad:"));
 		filtrosAeropuerto.add(campoCiudad); 
-
 
 		// Filtros para vuelos
 		JPanel filtrosVuelo = new JPanel();
@@ -125,7 +116,7 @@ public class VentanaInicial extends JFrame {
 		panelFiltros.add(filtrosVuelo, "Vuelos");
 
 		JButton botonBuscar = new JButton("Buscar");
-		botonBuscar.setBackground(new Color(176, 58, 72));		//Inicialmente el boton de busqueda es rojo ya que el filtro inicial es de aeropuertos
+		botonBuscar.setBackground(new Color(176, 58, 72));
 		botonBuscar.setForeground(Color.WHITE);
 		botonBuscar.setFocusPainted(false);
 		JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -140,7 +131,7 @@ public class VentanaInicial extends JFrame {
 				String origen = (String) comboOrigen.getSelectedItem();
 				String destino = (String) comboDestino.getSelectedItem();
 				
-				//Filtrar vuelos por origen y destino
+				// Filtrar vuelos por origen y destino
 				List<Vuelo> vuelosFiltrados = new ArrayList<>();
 				for (Vuelo vuelo : vuelos) {
 					if ((origen.equals("Todos") || vuelo.getAeropuertoOrigen().getCodigoIATA().equals(origen)) &&
@@ -148,7 +139,6 @@ public class VentanaInicial extends JFrame {
 						vuelosFiltrados.add(vuelo);
 					}
 				}
-				
 				
 				System.out.println("Origen: " + origen + " | Destino: " + destino);
 			}
@@ -168,16 +158,12 @@ public class VentanaInicial extends JFrame {
 		tabla.setGridColor(new Color(215, 222, 235));
 		tabla.setRowHeight(34);
 
-
-
 		// RENDERERS
-		TableCellRenderer rendererCabecera=new TableCellRenderer() {
-
+		TableCellRenderer rendererCabecera = new TableCellRenderer() {
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {
-				// TODO Auto-generated method stub
-				JLabel label=new JLabel(value.toString());
+				JLabel label = new JLabel(value.toString());
 				label.setFont(table.getTableHeader().getFont().deriveFont(Font.BOLD));
 				label.setHorizontalAlignment(JLabel.CENTER);
 				label.setPreferredSize(new Dimension(0, 32));
@@ -202,78 +188,77 @@ public class VentanaInicial extends JFrame {
 			label.setOpaque(true);
 			label.setForeground(new Color(30, 41, 59));
 
-
-			if (row %2 == 0) {
+			if (row % 2 == 0) {
 				label.setBackground(Color.WHITE);
 			} else {
 				label.setBackground(new Color(251, 238, 238));
 			}
 
-
 			if (isSelected) {
-				label.setBackground(new Color(176,58,72));
+				label.setBackground(new Color(176, 58, 72));
 				label.setForeground(Color.WHITE);
 			}
 			return label;
 		};
 
-
-
-		TableCellRenderer rendererVuelos=(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)->{
-			JLabel label= new JLabel();
+		TableCellRenderer rendererVuelos = (JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) -> {
+			JLabel label = new JLabel();
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
-			label.setText(value.toString());
+			label.setText(value != null ? value.toString() : "");
 			label.setForeground(new Color(30, 41, 59));
 
 			if (table.getModel() instanceof ModeloVuelo) {
-				if (row %2 == 0) {
+				if (row % 2 == 0) {
 					label.setBackground(Color.WHITE);
 				} else {
 					label.setBackground(new Color(236, 241, 252));
 				}
 
 				if (isSelected) {
-					label.setBackground(new Color(55,90,180));
+					label.setBackground(new Color(55, 90, 180));
 					label.setForeground(Color.WHITE);
 				}
 
 				if (column == 5) {
-					if (value.equals(false)) {
+					if (Boolean.FALSE.equals(value)) {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
 						label.setText("");
 						label.setToolTipText("EN PISTA");
-					}
-					else {
+					} else {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/volando.png")));
 						label.setText("");
 						label.setToolTipText("VOLANDO");
-
 					}
 				}
 			} 
 
-			return  label;
+			return label;
 		};
-		
+
+		// Evento de ratón resuelto (Doble clic en filas)
 		tabla.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent evt) {
-				int fila = tabla.rowAtPoint(evt.getPoint());
-				if(fila!= -1) {
-					if (tabla.getModel() instanceof ModeloVuelo) {
-						ModeloVuelo filaSeleccionada = (ModeloVuelo) tabla.getModel();
-						new TrackerVuelo(filaSeleccionada.getVuelo(fila));
+				if (evt.getClickCount() == 2) {
+					int fila = tabla.rowAtPoint(evt.getPoint());
+					if (fila != -1) {
+						if (tabla.getModel() instanceof ModeloVuelo) {
+							ModeloVuelo filaSeleccionada = (ModeloVuelo) tabla.getModel();
+							new TrackerVuelo(filaSeleccionada.getVuelo(fila));
+						} else if (tabla.getModel() instanceof ModeloAeropuerto) {
+							ModeloAeropuerto filaSeleccionada = (ModeloAeropuerto) tabla.getModel();
+							Aeropuerto aeropuerto = filaSeleccionada.getAeropuerto(fila);
+							new VentanaAeropuerto(aeropuerto);
+						}
 					}
 				}
-}
-				
-			
+			}
 		});
 
-		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);	//Para la vista inicial de las tablas establecemos el renderer del aeropuerto
+		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
 
 		// Listener para cambiar entre filtros de aeropuertos y vuelos
-
 		comboBoxBusqueda.addActionListener(e -> {
 			cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
@@ -297,11 +282,9 @@ public class VentanaInicial extends JFrame {
 		setSize(950, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		ImageIcon imagen= new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
 	}
-
-	// Crear una funcion para poder meter en el comboBox paises
 
 	private void agregarDatos(JComboBox<String> comboBox, Set<String> datos) {
 		comboBox.addItem("Todos");
