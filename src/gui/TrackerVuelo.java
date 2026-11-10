@@ -86,8 +86,7 @@ public class TrackerVuelo extends JFrame {
 
 					int pinSize = 20;
 					int pinTipOffsetX = pinSize / 2;
-					int pinTipOffsetY = (int) Math.round(pinSize * 0.89); // La punta del pin en location.png está al 89% de la altura
-
+					int pinTipOffsetY = (int) Math.round(pinSize * 0.89);
 					int origX = (int) Math.round(offsetX + (vuelo.getAeropuertoOrigen().getX() * mapW / 100.0));
 					int origY = (int) Math.round(offsetY + (vuelo.getAeropuertoOrigen().getY() * mapH / 100.0));
 					int destX = (int) Math.round(offsetX + (vuelo.getAeropuertoDestino().getX() * mapW / 100.0));
@@ -165,10 +164,8 @@ public class TrackerVuelo extends JFrame {
 							sleep(1000);//Tracker a tiempo real, para que vaya mas rapido, se pude disminuir el tiempo de sleep.
 						} catch (InterruptedException e) {
 							panelTracker.repaint();
-						}
-											
-					}
-										
+						}					
+					}						
 				}				
 			}
 			

@@ -61,33 +61,8 @@ public class VentanaAeropuerto extends JFrame {
         panelFoto.setBorder(new LineBorder(
                 new Color(210, 220, 230), 1, true));
 
-        JLabel foto = new JLabel(
-                "<html><center>Fotografía del<br>"
-                + "Aeropuerto de Bilbao</center></html>",
-                SwingConstants.CENTER);
-
-        foto.setForeground(azulOscuro);
-        foto.setFont(new Font("Arial", Font.BOLD, 20));
-        foto.setOpaque(true);
-        foto.setBackground(new Color(220, 232, 243));
-
-        // Imagen remota opcional
-        try {
-            URL url = new URL(
-                "https://images.unsplash.com/photo-1436491865332-7a61a109cc05"
-                + "?auto=format&fit=crop&w=1000&q=85"
-            );
-
-            ImageIcon icono = new ImageIcon(url);
-            Image imagen = icono.getImage().getScaledInstance(
-                    420, 420, Image.SCALE_SMOOTH);
-
-            foto.setIcon(new ImageIcon(imagen));
-            foto.setText("");
-        } catch (Exception e) {
-            // Se conserva el texto si no se puede cargar la imagen.
-        }
-
+        JLabel foto = new JLabel(aeropuerto.getImagen());
+     
         panelFoto.add(foto, BorderLayout.CENTER);
         informacion.add(panelFoto);
 
@@ -110,8 +85,6 @@ public class VentanaAeropuerto extends JFrame {
         agregarDato(filas, "Nombre", aeropuerto.getNombre());
         agregarDato(filas, "Ciudad", aeropuerto.getCiudad());
         agregarDato(filas, "Pais", aeropuerto.getPais());
-        agregarDato(filas, "x", String.valueOf(aeropuerto.getX()));
-        agregarDato(filas, "y", String.valueOf(aeropuerto.getY()));
         agregarDato(filas, "Número de pistas", String.valueOf(aeropuerto.getNumPistas()));
 
         datos.add(filas, BorderLayout.CENTER);
@@ -130,7 +103,7 @@ public class VentanaAeropuerto extends JFrame {
         JButton salidas = crearBoton(
                 "SALIDAS", verdeClaro);
 
-        // Más adelante conectaremos estos botones a sus pantallas.
+        // Conexión con pantalla Llegadas/Salidas
         llegadas.addActionListener(e ->
         new PantallaLlegadasSalidas(aeropuerto.getLlegadas(), aeropuerto, TipoInformacion.LLEGADAS));
 
@@ -145,7 +118,7 @@ public class VentanaAeropuerto extends JFrame {
 
         setContentPane(principal);
         setTitle("Aeropuerto de Bilbao");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1200, 750);
         setMinimumSize(new Dimension(850, 600));
         setLocationRelativeTo(null);

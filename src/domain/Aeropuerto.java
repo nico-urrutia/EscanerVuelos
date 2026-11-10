@@ -3,6 +3,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.swing.ImageIcon;
+
 public class Aeropuerto {
 
 	private String codigoIATA;
@@ -15,6 +17,7 @@ public class Aeropuerto {
 	private ArrayList<Vuelo> salidas;
 	private ArrayList<Vuelo> llegadas;
 	private ArrayList<Avion> avionesEnTierra;
+	private ImageIcon imagen;
 
 	public Aeropuerto(String codigoIATA, String nombre, String ciudad, String pais, double x, double y, int numPistas) {
 		this.codigoIATA = codigoIATA;
@@ -27,6 +30,11 @@ public class Aeropuerto {
 		this.salidas = new ArrayList<>();
 		this.llegadas = new ArrayList<>();
 		this.avionesEnTierra = new ArrayList<>();
+	}
+	
+	public ImageIcon getImagen() {
+		ImageIcon imagen1 = new ImageIcon("src/resources/"+this.getCodigoIATA()+".png");
+		return imagen1;
 	}
 
 	public String getCodigoIATA() {
