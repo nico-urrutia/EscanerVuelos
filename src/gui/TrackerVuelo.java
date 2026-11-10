@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-//añadir aeropuertos de origen y destino en el mapa(funcion de conversion de coordenadas a pixeles)
+//Añadir aeropuertos de origen y destino en el mapa(funcion de conversion de coordenadas a pixeles)
 
 
 public class TrackerVuelo extends JFrame {
