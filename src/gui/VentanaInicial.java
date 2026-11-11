@@ -71,7 +71,7 @@ public class VentanaInicial extends JFrame {
 		panelBusqueda.add(new JLabel("Buscar por:"));
 		panelBusqueda.add(comboBoxBusqueda);
 
-		CardLayout cartas = new CardLayout();
+		CardLayout cartas = new CardLayout();	// Uso de CardLayout para cambiar entre filtros de aeropuertos y vuelos con IA
 		JPanel panelFiltros = new JPanel(cartas);
 
 		// Obtener lista de países únicos
@@ -292,6 +292,8 @@ public class VentanaInicial extends JFrame {
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
+		this.setResizable(true);
+		setVisible(true);
 		setContentPane(panelPrincipal);
 		setTitle("Simulador de Aeropuertos");
 		setSize(950, 600);
