@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import domain.Aeropuerto;
+import gui.PantallaLlegadasSalidas.TipoInformacion;
 
 public class VentanaAeropuerto extends JFrame {
 

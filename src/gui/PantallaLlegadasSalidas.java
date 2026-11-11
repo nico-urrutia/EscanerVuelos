@@ -33,6 +33,7 @@ public class PantallaLlegadasSalidas {
 	private String modalidad;
 	private String[] columnas;
 	private List<Vuelo> vuelos;
+	private List<Vuelo> vuelosFiltrados;
 	private TipoInformacion tipoInfo;
 	private Aeropuerto aeropuerto;
 	private JFrame ventana;
@@ -58,7 +59,8 @@ public class PantallaLlegadasSalidas {
 		modalidad = (tipoInfo==TipoInformacion.SALIDAS) ? "Destino" : "Origen";
 		this.tipoInfo = tipoInfo;
 		this.aeropuerto = aeropuerto;
-		this.vuelos = filtrarVuelos(vuelos);
+		this.vuelos = vuelos;
+		this.vuelosFiltrados = filtrarVuelos(vuelos);
 		this.columnas = new String[] {"hora",modalidad, "cod", "puerta","estado"};
 		
 		//Crear label parte superior
@@ -76,7 +78,8 @@ public class PantallaLlegadasSalidas {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String[] opciones = {"LLEGADAS", "SALIDAS"};
-				int seleccion = new JOptionPane().showOptionDialog(
+				new JOptionPane();
+				int seleccion = JOptionPane.showOptionDialog(
 						null,
 						"Selecciona la modalidad que deseas visualizar:",
 			            "Cambiar Vista",
@@ -102,7 +105,7 @@ public class PantallaLlegadasSalidas {
 		//Tabla de datos
 		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
-		for (Vuelo vuelo : this.vuelos) {
+		for (Vuelo vuelo : this.vuelosFiltrados) {
 			String puerta;
 			if (tipoInfo == TipoInformacion.SALIDAS) {
 				puerta = aeropuerto.asignarPuerta(vuelo);
@@ -182,9 +185,7 @@ public class PantallaLlegadasSalidas {
 	//Método cambio LLEGADAS : SALIDAS
 	private void actualizarVista(TipoInformacion tipoInfo) {
 		ventana.dispose();
-		if (tipoInfo==TipoInformacion.LLEGADAS) {
-			new PantallaLlegadasSalidas(aeropuerto.getLlegadas(), aeropuerto, tipoInfo);
-		}else new PantallaLlegadasSalidas(aeropuerto.getSalidas(), aeropuerto, tipoInfo);
+		new PantallaLlegadasSalidas(this.vuelos, aeropuerto, tipoInfo);
 
 	}
 	
@@ -227,6 +228,10 @@ public class PantallaLlegadasSalidas {
 	        return cell;
 	    }
 	};
+	
+	public enum TipoInformacion {
+		SALIDAS, LLEGADAS
+	}
 	
 	//Programa principal para pruebas
 	public static void main(String[] args) {
