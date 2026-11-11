@@ -2,10 +2,10 @@ package main;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import domain.Aerolinea;
 import domain.Aeropuerto;
 import domain.Avion;
+import domain.EstadoVuelo;
 import domain.Vuelo;
 import gui.TrackerVuelo;
 import gui.VentanaInicial;
@@ -123,58 +123,58 @@ public class MainEscanerVuelos {
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
 
 		// Europa
-		vuelos.add(new Vuelo("IB3214", mad.getX(), mad.getY(), 0f, ib, a1, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5)));
-		vuelos.add(new Vuelo("VY1001", bcn.getX(), bcn.getY(), 0f, vy, a2, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20)));
-		vuelos.add(new Vuelo("BA0461", lhr.getX(), lhr.getY(), 0f, ba, a3, new ArrayList<>(), lhr, mad, LocalTime.of(15, 20), LocalTime.of(18, 45)));
-		vuelos.add(new Vuelo("AF1401", bcn.getX(), bcn.getY(), 0f, af, a4, new ArrayList<>(), bcn, cdg, LocalTime.of(9, 50), LocalTime.of(11, 55)));
-		vuelos.add(new Vuelo("LH1115", fra.getX(), fra.getY(), 0f, lh, a5, new ArrayList<>(), fra, fco, LocalTime.of(12, 10), LocalTime.of(14, 0)));
-		vuelos.add(new Vuelo("KL1698", ams.getX(), ams.getY(), 0f, kl, a6, new ArrayList<>(), ams, lhr, LocalTime.of(17, 0), LocalTime.of(17, 25)));
-		vuelos.add(new Vuelo("AZ0063", fco.getX(), fco.getY(), 0f, az, a1, new ArrayList<>(), fco, ist, LocalTime.of(10, 15), LocalTime.of(13, 50)));
-		vuelos.add(new Vuelo("TK1855", ist.getX(), ist.getY(), 0f, tk, a3, new ArrayList<>(), ist, bcn, LocalTime.of(14, 30), LocalTime.of(17, 15)));
+		vuelos.add(new Vuelo("IB3214", mad.getX(), mad.getY(), 0f, ib, a1, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5), EstadoVuelo.RETRASADO));
+		vuelos.add(new Vuelo("VY1001", bcn.getX(), bcn.getY(), 0f, vy, a2, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("BA0461", lhr.getX(), lhr.getY(), 0f, ba, a3, new ArrayList<>(), lhr, mad, LocalTime.of(15, 20), LocalTime.of(18, 45),EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AF1401", bcn.getX(), bcn.getY(), 0f, af, a4, new ArrayList<>(), bcn, cdg, LocalTime.of(9, 50), LocalTime.of(11, 55), EstadoVuelo.RETRASADO));
+		vuelos.add(new Vuelo("LH1115", fra.getX(), fra.getY(), 0f, lh, a5, new ArrayList<>(), fra, fco, LocalTime.of(12, 10), LocalTime.of(14, 0), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("KL1698", ams.getX(), ams.getY(), 0f, kl, a6, new ArrayList<>(), ams, lhr, LocalTime.of(17, 0), LocalTime.of(17, 25), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AZ0063", fco.getX(), fco.getY(), 0f, az, a1, new ArrayList<>(), fco, ist, LocalTime.of(10, 15), LocalTime.of(13, 50), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("TK1855", ist.getX(), ist.getY(), 0f, tk, a3, new ArrayList<>(), ist, bcn, LocalTime.of(14, 30), LocalTime.of(17, 15), EstadoVuelo.A_TIEMPO));
 
 		// América del Norte y Central
-		vuelos.add(new Vuelo("AA0100", jfk.getX(), jfk.getY(), 0f, aa, a2, new ArrayList<>(), jfk, lax, LocalTime.of(9, 0), LocalTime.of(12, 15)));
-		vuelos.add(new Vuelo("DL0405", ord.getX(), ord.getY(), 0f, dl, a5, new ArrayList<>(), ord, jfk, LocalTime.of(11, 20), LocalTime.of(14, 35)));
-		vuelos.add(new Vuelo("AC0791", yyz.getX(), yyz.getY(), 0f, ac, a4, new ArrayList<>(), yyz, lax, LocalTime.of(8, 30), LocalTime.of(10, 55)));
-		vuelos.add(new Vuelo("AM0408", mex.getX(), mex.getY(), 0f, am, a1, new ArrayList<>(), mex, jfk, LocalTime.of(7, 15), LocalTime.of(13, 0)));
-		vuelos.add(new Vuelo("AM0646", lax.getX(), lax.getY(), 0f, am, a6, new ArrayList<>(), lax, mex, LocalTime.of(13, 40), LocalTime.of(18, 25)));
+		vuelos.add(new Vuelo("AA0100", jfk.getX(), jfk.getY(), 0f, aa, a2, new ArrayList<>(), jfk, lax, LocalTime.of(9, 0), LocalTime.of(12, 15), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("DL0405", ord.getX(), ord.getY(), 0f, dl, a5, new ArrayList<>(), ord, jfk, LocalTime.of(11, 20), LocalTime.of(14, 35), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AC0791", yyz.getX(), yyz.getY(), 0f, ac, a4, new ArrayList<>(), yyz, lax, LocalTime.of(8, 30), LocalTime.of(10, 55), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AM0408", mex.getX(), mex.getY(), 0f, am, a1, new ArrayList<>(), mex, jfk, LocalTime.of(7, 15), LocalTime.of(13, 0), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AM0646", lax.getX(), lax.getY(), 0f, am, a6, new ArrayList<>(), lax, mex, LocalTime.of(13, 40), LocalTime.of(18, 25), EstadoVuelo.RETRASADO));
 
 		// América del Sur e Interamericanos
-		vuelos.add(new Vuelo("AV0085", bog.getX(), bog.getY(), 0f, av, a3, new ArrayList<>(), bog, eze, LocalTime.of(21, 10), LocalTime.of(5, 30)));
-		vuelos.add(new Vuelo("LA8005", gru.getX(), gru.getY(), 0f, la, a8, new ArrayList<>(), gru, scl, LocalTime.of(10, 0), LocalTime.of(13, 15)));
-		vuelos.add(new Vuelo("AR1302", eze.getX(), eze.getY(), 0f, ar, a5, new ArrayList<>(), eze, jfk, LocalTime.of(22, 30), LocalTime.of(8, 30)));
-		vuelos.add(new Vuelo("LA0530", scl.getX(), scl.getY(), 0f, la, a7, new ArrayList<>(), scl, bog, LocalTime.of(6, 45), LocalTime.of(11, 30)));
-		vuelos.add(new Vuelo("AV0020", bog.getX(), bog.getY(), 0f, av, a2, new ArrayList<>(), bog, jfk, LocalTime.of(15, 0), LocalTime.of(20, 50)));
+		vuelos.add(new Vuelo("AV0085", bog.getX(), bog.getY(), 0f, av, a3, new ArrayList<>(), bog, eze, LocalTime.of(21, 10), LocalTime.of(5, 30), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("LA8005", gru.getX(), gru.getY(), 0f, la, a8, new ArrayList<>(), gru, scl, LocalTime.of(10, 0), LocalTime.of(13, 15), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AR1302", eze.getX(), eze.getY(), 0f, ar, a5, new ArrayList<>(), eze, jfk, LocalTime.of(22, 30), LocalTime.of(8, 30), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("LA0530", scl.getX(), scl.getY(), 0f, la, a7, new ArrayList<>(), scl, bog, LocalTime.of(6, 45), LocalTime.of(11, 30), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("AV0020", bog.getX(), bog.getY(), 0f, av, a2, new ArrayList<>(), bog, jfk, LocalTime.of(15, 0), LocalTime.of(20, 50), EstadoVuelo.A_TIEMPO));
 
 		// África y Oriente Medio
-		vuelos.add(new Vuelo("AT0970", cmn.getX(), cmn.getY(), 0f, at, a1, new ArrayList<>(), cmn, mad, LocalTime.of(11, 0), LocalTime.of(13, 50)));
-		vuelos.add(new Vuelo("MS0777", cai.getX(), cai.getY(), 0f, ms, a4, new ArrayList<>(), cai, lhr, LocalTime.of(9, 30), LocalTime.of(12, 45)));
-		vuelos.add(new Vuelo("EK0762", jnb.getX(), jnb.getY(), 0f, ek, a7, new ArrayList<>(), jnb, dxb, LocalTime.of(13, 25), LocalTime.of(23, 40)));
-		vuelos.add(new Vuelo("MS0840", cai.getX(), cai.getY(), 0f, ms, a5, new ArrayList<>(), cai, jnb, LocalTime.of(23, 15), LocalTime.of(7, 10)));
-		vuelos.add(new Vuelo("EK0924", cai.getX(), cai.getY(), 0f, ek, a8, new ArrayList<>(), cai, dxb, LocalTime.of(18, 45), LocalTime.of(23, 10)));
+		vuelos.add(new Vuelo("AT0970", cmn.getX(), cmn.getY(), 0f, at, a1, new ArrayList<>(), cmn, mad, LocalTime.of(11, 0), LocalTime.of(13, 50), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("MS0777", cai.getX(), cai.getY(), 0f, ms, a4, new ArrayList<>(), cai, lhr, LocalTime.of(9, 30), LocalTime.of(12, 45), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("EK0762", jnb.getX(), jnb.getY(), 0f, ek, a7, new ArrayList<>(), jnb, dxb, LocalTime.of(13, 25), LocalTime.of(23, 40), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("MS0840", cai.getX(), cai.getY(), 0f, ms, a5, new ArrayList<>(), cai, jnb, LocalTime.of(23, 15), LocalTime.of(7, 10), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("EK0924", cai.getX(), cai.getY(), 0f, ek, a8, new ArrayList<>(), cai, dxb, LocalTime.of(18, 45), LocalTime.of(23, 10), EstadoVuelo.RETRASADO));
 
 		// Asia y Oceanía
-		vuelos.add(new Vuelo("AI0380", del.getX(), del.getY(), 0f, ai, a3, new ArrayList<>(), del, sin, LocalTime.of(23, 0), LocalTime.of(7, 15)));
-		vuelos.add(new Vuelo("SQ0221", sin.getX(), sin.getY(), 0f, sq, a9, new ArrayList<>(), sin, syd, LocalTime.of(20, 40), LocalTime.of(6, 25)));
-		vuelos.add(new Vuelo("CA0925", pek.getX(), pek.getY(), 0f, ca, a6, new ArrayList<>(), pek, hnd, LocalTime.of(9, 10), LocalTime.of(13, 40)));
-		vuelos.add(new Vuelo("KE0703", icn.getX(), icn.getY(), 0f, ke, a1, new ArrayList<>(), icn, hnd, LocalTime.of(10, 0), LocalTime.of(12, 20)));
-		vuelos.add(new Vuelo("QF0026", hnd.getX(), hnd.getY(), 0f, qf, a10, new ArrayList<>(), hnd, syd, LocalTime.of(22, 0), LocalTime.of(8, 30)));
-		vuelos.add(new Vuelo("SQ0802", sin.getX(), sin.getY(), 0f, sq, a4, new ArrayList<>(), sin, pek, LocalTime.of(8, 30), LocalTime.of(14, 40)));
+		vuelos.add(new Vuelo("AI0380", del.getX(), del.getY(), 0f, ai, a3, new ArrayList<>(), del, sin, LocalTime.of(23, 0), LocalTime.of(7, 15), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("SQ0221", sin.getX(), sin.getY(), 0f, sq, a9, new ArrayList<>(), sin, syd, LocalTime.of(20, 40), LocalTime.of(6, 25), EstadoVuelo.RETRASADO));
+		vuelos.add(new Vuelo("CA0925", pek.getX(), pek.getY(), 0f, ca, a6, new ArrayList<>(), pek, hnd, LocalTime.of(9, 10), LocalTime.of(13, 40), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("KE0703", icn.getX(), icn.getY(), 0f, ke, a1, new ArrayList<>(), icn, hnd, LocalTime.of(10, 0), LocalTime.of(12, 20), EstadoVuelo.RETRASADO));
+		vuelos.add(new Vuelo("QF0026", hnd.getX(), hnd.getY(), 0f, qf, a10, new ArrayList<>(), hnd, syd, LocalTime.of(22, 0), LocalTime.of(8, 30), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("SQ0802", sin.getX(), sin.getY(), 0f, sq, a4, new ArrayList<>(), sin, pek, LocalTime.of(8, 30), LocalTime.of(14, 40), EstadoVuelo.A_TIEMPO));
 
 		// Intercontinentales y Transoceánicos
-		vuelos.add(new Vuelo("IB6251", mad.getX(), mad.getY(), 0f, ib, a3, new ArrayList<>(), mad, jfk, LocalTime.of(12, 25), LocalTime.of(14, 40)));
-		vuelos.add(new Vuelo("IB6827", mad.getX(), mad.getY(), 0f, ib, a9, new ArrayList<>(), mad, gru, LocalTime.of(23, 55), LocalTime.of(6, 30)));
-		vuelos.add(new Vuelo("DL0126", jfk.getX(), jfk.getY(), 0f, dl, a4, new ArrayList<>(), jfk, bcn, LocalTime.of(18, 30), LocalTime.of(8, 15)));
-		vuelos.add(new Vuelo("NH0212", cdg.getX(), cdg.getY(), 0f, nh, a5, new ArrayList<>(), cdg, hnd, LocalTime.of(20, 0), LocalTime.of(16, 30)));
-		vuelos.add(new Vuelo("EK0001", dxb.getX(), dxb.getY(), 0f, ek, a7, new ArrayList<>(), dxb, lhr, LocalTime.of(7, 45), LocalTime.of(12, 15)));
-		vuelos.add(new Vuelo("EK0414", dxb.getX(), dxb.getY(), 0f, ek, a10, new ArrayList<>(), dxb, syd, LocalTime.of(2, 0), LocalTime.of(22, 50)));
-		vuelos.add(new Vuelo("KE0012", lax.getX(), lax.getY(), 0f, ke, a9, new ArrayList<>(), lax, icn, LocalTime.of(23, 30), LocalTime.of(5, 0)));
-		vuelos.add(new Vuelo("LH0506", fra.getX(), fra.getY(), 0f, lh, a8, new ArrayList<>(), fra, gru, LocalTime.of(21, 55), LocalTime.of(4, 50)));
-		vuelos.add(new Vuelo("BA0057", lhr.getX(), lhr.getY(), 0f, ba, a7, new ArrayList<>(), lhr, jnb, LocalTime.of(19, 5), LocalTime.of(7, 55)));
+		vuelos.add(new Vuelo("IB6251", mad.getX(), mad.getY(), 0f, ib, a3, new ArrayList<>(), mad, jfk, LocalTime.of(12, 25), LocalTime.of(14, 40), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("IB6827", mad.getX(), mad.getY(), 0f, ib, a9, new ArrayList<>(), mad, gru, LocalTime.of(23, 55), LocalTime.of(6, 30), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("DL0126", jfk.getX(), jfk.getY(), 0f, dl, a4, new ArrayList<>(), jfk, bcn, LocalTime.of(18, 30), LocalTime.of(8, 15), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("NH0212", cdg.getX(), cdg.getY(), 0f, nh, a5, new ArrayList<>(), cdg, hnd, LocalTime.of(20, 0), LocalTime.of(16, 30), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("EK0001", dxb.getX(), dxb.getY(), 0f, ek, a7, new ArrayList<>(), dxb, lhr, LocalTime.of(7, 45), LocalTime.of(12, 15), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("EK0414", dxb.getX(), dxb.getY(), 0f, ek, a10, new ArrayList<>(), dxb, syd, LocalTime.of(2, 0), LocalTime.of(22, 50), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("KE0012", lax.getX(), lax.getY(), 0f, ke, a9, new ArrayList<>(), lax, icn, LocalTime.of(23, 30), LocalTime.of(5, 0), EstadoVuelo.CANCELADO));
+		vuelos.add(new Vuelo("LH0506", fra.getX(), fra.getY(), 0f, lh, a8, new ArrayList<>(), fra, gru, LocalTime.of(21, 55), LocalTime.of(4, 50), EstadoVuelo.A_TIEMPO));
+		vuelos.add(new Vuelo("BA0057", lhr.getX(), lhr.getY(), 0f, ba, a7, new ArrayList<>(), lhr, jnb, LocalTime.of(19, 5), LocalTime.of(7, 55), EstadoVuelo.A_TIEMPO));
 
 		for (Vuelo v : vuelos) {
 			v.getAerolinea().getVuelos().add(v);
 		}
-		new VentanaInicial(aeropuertos, vuelos).setVisible(true);
+		new VentanaInicial(aeropuertos, vuelos);
 	}
 }

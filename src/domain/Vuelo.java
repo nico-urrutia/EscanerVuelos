@@ -19,8 +19,11 @@ public class Vuelo {
 	private LocalTime horaLlegada;
 	private boolean isOnLand;
 	private boolean hasArrived;
+	private EstadoVuelo estado;
+	private String puertaEmbarque;
+	private String puertaLlegada;
 
-	public Vuelo(String codVuelo, double x, double y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada) {
+	public Vuelo(String codVuelo, double x, double y, float direccion, Aerolinea aerolinea, Avion avion, ArrayList<Pasajero> pasajeros, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, LocalTime horaSalida, LocalTime horaLlegada, EstadoVuelo estado) {
 		super();
 		this.codVuelo = codVuelo;
 		this.x = x;
@@ -36,6 +39,7 @@ public class Vuelo {
 		double dx = aeropuertoDestino.getX() - aeropuertoOrigen.getX();
 		double dy = aeropuertoDestino.getY() - aeropuertoOrigen.getY();
 		this.direccion = (float) (Math.atan2(dy, dx) + Math.PI / 2);// idea de Gemini 4 Argon.
+		this.estado = (estado != null) ? estado : EstadoVuelo.A_TIEMPO;
 	}
 	public String getCodVuelo() {
 		return codVuelo;
@@ -127,7 +131,21 @@ public class Vuelo {
 	public void setHasArrived(boolean hasArrived) {
 		this.hasArrived = hasArrived;
 	}
-
+	
+	public EstadoVuelo getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoVuelo estado) {
+		this.estado = estado;
+	}
+	
+	public String getPuertaEmbarque() {
+		return puertaEmbarque;
+	}
+	public void setPuertaEmbarque(String puertaEmbarque) {
+		this.puertaEmbarque = puertaEmbarque;
+	}
+	
 	public double calcularProgreso() {
 		if (hasArrived) {
 			return 100.0;
@@ -161,7 +179,12 @@ public class Vuelo {
 		return "Vuelo [codVuelo=" + codVuelo + ", x=" + x + ", y=" + y + ", direccion=" + direccion + ", horaSalida=" + horaSalida + ", horaLlegada=" + horaLlegada + "]";
 
 	}
+	public String getPuertaLlegada() {
+		return puertaLlegada;
+	}
+	public void setPuertaLlegada(String puertaLlegada) {
+		this.puertaLlegada = puertaLlegada;
+	}
 	
 	
-
 }

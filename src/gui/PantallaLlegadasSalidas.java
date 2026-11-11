@@ -26,6 +26,7 @@ import javax.swing.table.TableCellRenderer;
 import domain.Aerolinea;
 import domain.Aeropuerto;
 import domain.Avion;
+import domain.EstadoVuelo;
 import domain.Vuelo;
 
 public class PantallaLlegadasSalidas {
@@ -102,21 +103,31 @@ public class PantallaLlegadasSalidas {
 		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
 		for (Vuelo vuelo : this.vuelos) {
+			String puerta;
+			if (tipoInfo == TipoInformacion.SALIDAS) {
+				puerta = aeropuerto.asignarPuerta(vuelo);
+			} else {
+				puerta = aeropuerto.asignarPuertaLlegada(vuelo);
+			}
+			if (puerta == null) 
+				puerta = "-";
+			String estado = vuelo.getEstado().toString();
+			
 			if (tipoInfo.equals(TipoInformacion.SALIDAS)) {
 				   modelo.addRow(new Object[] {
 					        vuelo.getHoraSalida(),
 					        vuelo.getAeropuertoDestino().getNombre() +" (" +vuelo.getAeropuertoDestino().getCodigoIATA() + ")",
 					        vuelo.getCodVuelo(),
-					        "A1",
-					        "A tiempo"
+					        puerta,
+					        estado
 					    });
 			} else {
 				   modelo.addRow(new Object[] {
 					        vuelo.getHoraLlegada(),
 					        vuelo.getAeropuertoOrigen().getNombre() +" (" +vuelo.getAeropuertoOrigen().getCodigoIATA() + ")",
 					        vuelo.getCodVuelo(),
-					        "A1",
-					        "A tiempo"
+					        puerta,
+					        estado
 					    });
 			}
 		}
@@ -277,7 +288,9 @@ public class PantallaLlegadasSalidas {
 		        new ArrayList<>(),
 		        madrid, nuevaYork,
 		        LocalTime.of(10, 0),
-		        LocalTime.of(14, 0));
+		        LocalTime.of(14, 0),
+		        EstadoVuelo.A_TIEMPO
+		        );
 
 		Vuelo vuelo2 = new Vuelo(
 		        "IB456", 40, 60, 90.0f,
@@ -285,7 +298,8 @@ public class PantallaLlegadasSalidas {
 		        new ArrayList<>(),
 		        madrid, londres,
 		        LocalTime.of(11, 30),
-		        LocalTime.of(13, 15));
+		        LocalTime.of(13, 15),
+		        EstadoVuelo.RETRASADO);
 
 		Vuelo vuelo3 = new Vuelo(
 		        "IB789", 80, 100, 180.0f,
@@ -293,7 +307,8 @@ public class PantallaLlegadasSalidas {
 		        new ArrayList<>(),
 		        madrid, paris,
 		        LocalTime.of(15, 0),
-		        LocalTime.of(17, 10));
+		        LocalTime.of(17, 10), 
+		        EstadoVuelo.A_TIEMPO);
 
 		Vuelo vuelo4 = new Vuelo(
 		        "IB321", 120, 50, 270.0f,
@@ -301,7 +316,8 @@ public class PantallaLlegadasSalidas {
 		        new ArrayList<>(),
 		        bilbao, madrid,
 		        LocalTime.of(9, 15),
-		        LocalTime.of(10, 20));
+		        LocalTime.of(10, 20),
+		        EstadoVuelo.CANCELADO);
 
 		Vuelo vuelo5 = new Vuelo(
 		        "IB654", 200, 80, 315.0f,
@@ -309,7 +325,8 @@ public class PantallaLlegadasSalidas {
 		        new ArrayList<>(),
 		        paris, madrid,
 		        LocalTime.of(18, 45),
-		        LocalTime.of(20, 50));
+		        LocalTime.of(20, 50),
+		        EstadoVuelo.RETRASADO);
 
 		// Asociar avión-vuelo
 		avion1.setVuelo(vuelo1);

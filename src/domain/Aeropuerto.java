@@ -1,6 +1,9 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.ImageIcon;
@@ -18,6 +21,8 @@ public class Aeropuerto {
 	private ArrayList<Vuelo> llegadas;
 	private ArrayList<Avion> avionesEnTierra;
 	private ImageIcon imagen;
+	private List<String> puertas;
+	private Map<String, Vuelo> puertasAsignadas;
 
 	public Aeropuerto(String codigoIATA, String nombre, String ciudad, String pais, double x, double y, int numPistas) {
 		this.codigoIATA = codigoIATA;
@@ -30,6 +35,9 @@ public class Aeropuerto {
 		this.salidas = new ArrayList<>();
 		this.llegadas = new ArrayList<>();
 		this.avionesEnTierra = new ArrayList<>();
+		this.puertas = new ArrayList<>();
+		this.puertasAsignadas = new HashMap<>();
+		generarPuertas("A",10);
 	}
 	
 	public ImageIcon getImagen() {
@@ -117,6 +125,57 @@ public class Aeropuerto {
 		this.avionesEnTierra = avionesEnTierra;
 	}
 
+	public List<String> getPuertas(){
+		return puertas;
+	}
+	public void setPuertas(List<String> puertas) {
+		this.puertas = puertas;
+		this.puertasAsignadas.clear();
+	}
+	
+	public void generarPuertas(String letra, int numero) {
+		this.puertas = new ArrayList<>();
+		this.puertasAsignadas.clear();
+		for (int i = 1; i <= numero; i++) {
+			puertas.add(letra + i);
+		}
+	}
+	
+	public String asignarPuerta(Vuelo vuelo) {
+		if(vuelo.getPuertaEmbarque() != null) {
+			return vuelo.getPuertaEmbarque();
+		}
+		for (String puerta : puertas) {
+			if(!puertasAsignadas.containsKey(puerta)) {
+				puertasAsignadas.put(puerta, vuelo);
+				vuelo.setPuertaEmbarque(puerta);
+				return puerta;
+			}
+		}
+		return null;
+	}
+	
+	public String asignarPuertaLlegada(Vuelo vuelo) {
+		if (vuelo.getPuertaLlegada() != null) {
+			return vuelo.getPuertaLlegada();
+		}
+		for (String puerta : puertas) {
+			if (!puertasAsignadas.containsKey(puerta)) {
+				puertasAsignadas.put(puerta, vuelo);
+				vuelo.setPuertaLlegada(puerta);
+				return puerta;
+			}
+		}
+		return null;
+	}
+	
+	public void liberarPuerta(Vuelo vuelo) {
+		if (vuelo.getPuertaEmbarque() != null) {
+			puertasAsignadas.remove(vuelo.getPuertaEmbarque());
+			vuelo.setPuertaEmbarque(null);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigoIATA);
