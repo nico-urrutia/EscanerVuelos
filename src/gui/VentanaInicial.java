@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
@@ -239,24 +241,26 @@ public class VentanaInicial extends JFrame {
 		
 		
 		//Ir filtrando los aeropuertos y vuelos según la selección de los combos de búsqueda y los campos de texto
-		comboPais.addActionListener(e -> {
-			String pais=(String) comboPais.getSelectedItem();
-			ArrayList<Aeropuerto> listaAeropuertos=new ArrayList<Aeropuerto>();
-			for (Aeropuerto a : this.aeropuertos) {
-				if(pais== a.getPais() || pais.equals("Todos")) {
-					listaAeropuertos.add(a);
-				}
-			}
-			this.tabla.setModel(new ModeloAeropuerto(listaAeropuertos));
+		comboPais.addActionListener(e -> aplicarFiltrosAeropuertos());
+
+		campoCiudad.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyReleased(KeyEvent e) {
+		        aplicarFiltrosAeropuertos();
+		    }
 		});
-		
-		
+
 		comboOrigen.addActionListener(e -> aplicarFiltrosVuelos());
-		
-		comboDestino.addActionListener(e ->aplicarFiltrosVuelos());
-		
-		// Listener para cambiar entre filtros de aeropuertos y vuelos
-		comboBoxBusqueda.addActionListener(e -> aplicarFiltrosAeropuertos());
+		comboDestino.addActionListener(e -> aplicarFiltrosVuelos());
+
+		comboBoxBusqueda.addActionListener(e -> {
+		    cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
+		    if ("Aeropuertos".equals(comboBoxBusqueda.getSelectedItem())) {
+		        aplicarFiltrosAeropuertos();
+		    } else {
+		        aplicarFiltrosVuelos();
+		    }
+		});
 		
 		
 		
