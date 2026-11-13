@@ -35,9 +35,13 @@ public class VentanaInicial extends JFrame {
 	private ArrayList<Aeropuerto> aeropuertos;
 	private ArrayList<Vuelo> vuelos;
 	private JTable tabla = new JTable();
+	private JComboBox<String> comboPais;
+	private JTextField campoCiudad;
+	private TableCellRenderer rendererAeropuerto;
 	private JComboBox<String> comboOrigen;
 	private JComboBox<String> comboDestino;
 	private TableCellRenderer rendererVuelos;
+	
 
 	public VentanaInicial(ArrayList<Aeropuerto> aeropuertos, ArrayList<Vuelo> vuelos) {
 		this.aeropuertos = aeropuertos;
@@ -92,10 +96,10 @@ public class VentanaInicial extends JFrame {
 		// Filtros para aeropuertos
 		JPanel filtrosAeropuerto = new JPanel();
 
-		JComboBox<String> comboPais = new JComboBox<>();
+		comboPais = new JComboBox<>();
 		agregarDatos(comboPais, paises);
 
-		JTextField campoCiudad = new JTextField(15);
+		campoCiudad = new JTextField(15);
 		filtrosAeropuerto.add(new JLabel("País:"));
 		filtrosAeropuerto.add(comboPais);
 		filtrosAeropuerto.add(new JLabel("Ciudad:"));
@@ -156,7 +160,7 @@ public class VentanaInicial extends JFrame {
 
 		this.tabla.getTableHeader().setDefaultRenderer(rendererCabecera);
 
-		TableCellRenderer rendererAeropuerto = (table, value, isSelected, hasFocus, row, column) -> {
+		rendererAeropuerto = (table, value, isSelected, hasFocus, row, column) -> {
 			JLabel label = new JLabel(value.toString());
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
@@ -252,16 +256,7 @@ public class VentanaInicial extends JFrame {
 		comboDestino.addActionListener(e ->aplicarFiltrosVuelos());
 		
 		// Listener para cambiar entre filtros de aeropuertos y vuelos
-		comboBoxBusqueda.addActionListener(e -> {
-			cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
-			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
-				tabla.setModel(new ModeloAeropuerto(aeropuertos));
-				tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
-				tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
-			} else {
-				aplicarFiltrosVuelos();
-			}
-		});
+		comboBoxBusqueda.addActionListener(e -> aplicarFiltrosAeropuertos());
 		
 		
 		
@@ -280,6 +275,25 @@ public class VentanaInicial extends JFrame {
 		setLocationRelativeTo(null);
 		ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
+	}
+	
+	private void aplicarFiltrosAeropuertos() {
+	    String pais = (String) comboPais.getSelectedItem();
+	    String ciudad = campoCiudad.getText().trim().toLowerCase();
+
+	    ArrayList<Aeropuerto> listaAeropuertos = new ArrayList<>();
+	    for (Aeropuerto a : this.aeropuertos) {
+	        boolean cumplePais = "Todos".equals(pais)
+	                || a.getPais().equals(pais);
+	        boolean cumpleCiudad = a.getCiudad().toLowerCase().contains(ciudad);
+
+	        if (cumplePais && cumpleCiudad) {
+	            listaAeropuertos.add(a);
+	        }
+	    }
+	    tabla.setModel(new ModeloAeropuerto(listaAeropuertos));
+	    tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
+	    tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 	}
 	
 	private void aplicarFiltrosVuelos() {
