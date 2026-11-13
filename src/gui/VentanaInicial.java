@@ -35,6 +35,9 @@ public class VentanaInicial extends JFrame {
 	private ArrayList<Aeropuerto> aeropuertos;
 	private ArrayList<Vuelo> vuelos;
 	private JTable tabla = new JTable();
+	private JComboBox<String> comboOrigen;
+	private JComboBox<String> comboDestino;
+	private TableCellRenderer rendererVuelos;
 
 	public VentanaInicial(ArrayList<Aeropuerto> aeropuertos, ArrayList<Vuelo> vuelos) {
 		this.aeropuertos = aeropuertos;
@@ -101,10 +104,10 @@ public class VentanaInicial extends JFrame {
 		// Filtros para vuelos
 		JPanel filtrosVuelo = new JPanel();
 
-		JComboBox<String> comboOrigen = new JComboBox<>();
+		comboOrigen = new JComboBox<>();
 		agregarDatos(comboOrigen, codigos);
 
-		JComboBox<String> comboDestino = new JComboBox<>();
+		comboDestino = new JComboBox<>();
 		agregarDatos(comboDestino, codigos);
 
 		filtrosVuelo.add(new JLabel("Origen:"));
@@ -115,53 +118,9 @@ public class VentanaInicial extends JFrame {
 		panelFiltros.add(filtrosAeropuerto, "Aeropuertos");
 		panelFiltros.add(filtrosVuelo, "Vuelos");
 
-		JButton botonBuscar = new JButton("Buscar");
-		botonBuscar.setBackground(new Color(176, 58, 72));
-		botonBuscar.setForeground(Color.WHITE);
-		botonBuscar.setFocusPainted(false);
-		JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		panelBoton.add(botonBuscar);
-		
-		botonBuscar.addActionListener(e -> {
-			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
-				String pais = (String) comboPais.getSelectedItem();
-				String ciudad = campoCiudad.getText();
-				
-				// Filtrar aeropuertos por país y ciudad
-				List<Aeropuerto> aeropuertosFiltrados = new ArrayList<>();
-				for (Aeropuerto aeropuerto : aeropuertos) {
-					if ((pais.equals("Todos") || aeropuerto.getPais().equals(pais)) &&
-						(ciudad.isEmpty() || aeropuerto.getCiudad().toLowerCase().contains(ciudad.toLowerCase()))) {
-						aeropuertosFiltrados.add(aeropuerto);
-					}
-				}
-				// Actualizar la tabla con los aeropuertos filtrados
-				tabla.setModel(new ModeloAeropuerto(aeropuertosFiltrados));
-				System.out.println("Pais: " + pais + " | Ciudad: " + ciudad);
-				
-			} else {
-				String origen = (String) comboOrigen.getSelectedItem();
-				String destino = (String) comboDestino.getSelectedItem();
-				
-				// Filtrar vuelos por origen y destino
-				List<Vuelo> vuelosFiltrados = new ArrayList<>();
-				for (Vuelo vuelo : vuelos) {
-					if ((origen.equals("Todos") || vuelo.getAeropuertoOrigen().getCodigoIATA().equals(origen)) &&
-						(destino.equals("Todos") || vuelo.getAeropuertoDestino().getCodigoIATA().equals(destino))) {
-						vuelosFiltrados.add(vuelo);
-					}
-				}
-				
-				// Actualizar la tabla con los vuelos filtrados
-				tabla.setModel(new ModeloVuelo(vuelosFiltrados));
-				
-				System.out.println("Origen: " + origen + " | Destino: " + destino);
-			}
-		});
 
 		JPanel panelNorte = new JPanel(new BorderLayout());
 		panelNorte.add(panelFiltros, BorderLayout.CENTER);
-		panelNorte.add(panelBoton, BorderLayout.SOUTH);
 		panelNorte.add(panelBusqueda, BorderLayout.NORTH);
 
 		panelCentro.add(panelNorte, BorderLayout.NORTH);
@@ -216,7 +175,7 @@ public class VentanaInicial extends JFrame {
 			return label;
 		};
 
-		TableCellRenderer rendererVuelos = (JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) -> {
+		rendererVuelos = (JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) -> {
 			JLabel label = new JLabel();
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
@@ -251,7 +210,7 @@ public class VentanaInicial extends JFrame {
 			return label;
 		};
 
-		// Evento de ratón resuelto (Doble clic en filas)
+		// Evento de ratón (Doble clic en filas)
 		tabla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent evt) {
@@ -272,21 +231,41 @@ public class VentanaInicial extends JFrame {
 		});
 
 		tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
-
+		
+		
+		
+		//Ir filtrando los aeropuertos y vuelos según la selección de los combos de búsqueda y los campos de texto
+		comboPais.addActionListener(e -> {
+			String pais=(String) comboPais.getSelectedItem();
+			ArrayList<Aeropuerto> listaAeropuertos=new ArrayList<Aeropuerto>();
+			for (Aeropuerto a : this.aeropuertos) {
+				if(pais== a.getPais() || pais.equals("Todos")) {
+					listaAeropuertos.add(a);
+				}
+			}
+			this.tabla.setModel(new ModeloAeropuerto(listaAeropuertos));
+		});
+		
+		
+		comboOrigen.addActionListener(e -> aplicarFiltrosVuelos());
+		
+		comboDestino.addActionListener(e ->aplicarFiltrosVuelos());
+		
 		// Listener para cambiar entre filtros de aeropuertos y vuelos
 		comboBoxBusqueda.addActionListener(e -> {
 			cartas.show(panelFiltros, (String) comboBoxBusqueda.getSelectedItem());
 			if (comboBoxBusqueda.getSelectedItem().equals("Aeropuertos")) {
-				botonBuscar.setBackground(new Color(176, 58, 72));
 				tabla.setModel(new ModeloAeropuerto(aeropuertos));
 				tabla.setDefaultRenderer(Object.class, rendererAeropuerto);
 				tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 			} else {
-				botonBuscar.setBackground(new Color(55, 90, 180));  
-				tabla.setModel(new ModeloVuelo(vuelos));
-				tabla.setDefaultRenderer(Object.class, rendererVuelos);
+				aplicarFiltrosVuelos();
 			}
 		});
+		
+		
+		
+		
 
 		tabla.setShowVerticalLines(false);
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
@@ -301,6 +280,25 @@ public class VentanaInicial extends JFrame {
 		setLocationRelativeTo(null);
 		ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
+	}
+	
+	private void aplicarFiltrosVuelos() {
+	    String origen  = (String) comboOrigen.getSelectedItem();
+	    String destino = (String) comboDestino.getSelectedItem();
+
+	    ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+	    for (Vuelo v : this.vuelos) {
+	        boolean cumpleOrigen = "Todos".equals(origen)
+	                || v.getAeropuertoOrigen().getCodigoIATA().equals(origen);
+	        boolean cumpleDestino = "Todos".equals(destino)
+	                || v.getAeropuertoDestino().getCodigoIATA().equals(destino);
+
+	        if (cumpleOrigen && cumpleDestino) {
+	            listaVuelos.add(v);
+	        }
+	    }
+	    tabla.setModel(new ModeloVuelo(listaVuelos));
+	    tabla.setDefaultRenderer(Object.class, rendererVuelos);
 	}
 
 	private void agregarDatos(JComboBox<String> comboBox, Set<String> datos) {
