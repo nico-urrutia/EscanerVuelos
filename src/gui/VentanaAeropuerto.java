@@ -123,6 +123,8 @@ public class VentanaAeropuerto extends JFrame {
         setSize(1200, 750);
         setMinimumSize(new Dimension(850, 600));
         setLocationRelativeTo(null);
+        ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		setIconImage(imagen.getImage());
         setVisible(true);
     }
 

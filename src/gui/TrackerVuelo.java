@@ -117,6 +117,8 @@ public class TrackerVuelo extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		setIconImage(imagen.getImage());
 		this.setVisible(true);
 		final class TrackerV extends Thread{
 			Vuelo vuelo;

@@ -2,12 +2,14 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -51,6 +53,16 @@ public class VentanaControlador extends JFrame {
         tabla = new JTable();
         tabla.setRowHeight(36);
         tabla.setShowVerticalLines(false);
+        
+        tabla.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            JLabel cabecera = new JLabel(value.toString(), JLabel.CENTER);
+            cabecera.setOpaque(true);
+            cabecera.setBackground(new Color(16, 42, 67));
+            cabecera.setForeground(Color.WHITE);
+            cabecera.setFont(cabecera.getFont().deriveFont(Font.BOLD));
+            cabecera.setPreferredSize(new Dimension(0, 34));
+            return cabecera;
+        });
 
         TableCellRenderer renderer = (table, value, isSelected, hasFocus, row, column) -> {
 
@@ -139,7 +151,10 @@ public class VentanaControlador extends JFrame {
         setSize(900, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		setIconImage(imagen.getImage());
         setVisible(true);
+        
     }
     public static void main(String[] args) {
         Aeropuerto bio = new Aeropuerto("BIO", "Loiu", "Bilbao", "ES", 45.6, 27.8, 1);
@@ -179,7 +194,7 @@ public class VentanaControlador extends JFrame {
     }
 
     private boolean verSalidas() {
-        return "Salidas".equals(comboTipo.getSelectedItem());
+        return "Salidas".equals(comboTipo.getSelectedItem());	//Con ayuda de la IA
     }
 
     private void cargarTabla() {
@@ -212,6 +227,12 @@ public class VentanaControlador extends JFrame {
     private void asignarPuerta() {
         Vuelo v = vueloSeleccionado();
         if (v == null) return;
+
+        if (v.getEstado() == EstadoVuelo.CANCELADO) {
+            JOptionPane.showMessageDialog(this, "El vuelo " + v.getCodVuelo()
+                    + " está cancelado, no se le puede asignar puerta");
+            return;
+        }
 
         String puerta;
         if (verSalidas()) {
