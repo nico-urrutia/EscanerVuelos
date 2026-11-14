@@ -1,10 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Aerolinea;
 import domain.Aeropuerto;
@@ -45,6 +49,66 @@ public class VentanaControlador extends JFrame {
 
         // Centro: tabla
         tabla = new JTable();
+        tabla.setRowHeight(36);
+        tabla.setShowVerticalLines(false);
+
+        TableCellRenderer renderer = (table, value, isSelected, hasFocus, row, column) -> {
+
+            // 1. Color de fondo de la fila: pares y impares distintos
+            Color fondoFila;
+            if (row % 2 == 0) {
+                fondoFila = Color.WHITE;
+            } else {
+                fondoFila = new Color(232, 240, 252);
+            }
+            if (isSelected) {
+                fondoFila = new Color(180, 205, 240);
+            }
+
+            JPanel celda = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 4));
+            celda.setBackground(fondoFila);
+
+            JLabel label = new JLabel();
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setForeground(new Color(30, 41, 59));
+            if (value != null) {
+                label.setText(value.toString());
+            }
+
+            if (column == 5) {
+                // ESTADO: etiqueta con fondo y letra de colores según el estado
+                label.setOpaque(true);
+                label.setFont(label.getFont().deriveFont(Font.BOLD));
+                label.setBorder(BorderFactory.createEmptyBorder(4, 14, 4, 14));
+
+                if (value == EstadoVuelo.A_TIEMPO) {
+                    label.setBackground(new Color(198, 239, 206));   // verde claro
+                    label.setForeground(new Color(0, 97, 0));        // verde oscuro
+                } else if (value == EstadoVuelo.RETRASADO) {
+                    label.setBackground(new Color(255, 224, 178));   // naranja claro
+                    label.setForeground(new Color(191, 87, 0));      // naranja oscuro
+                } else if (value == EstadoVuelo.CANCELADO) {
+                    label.setBackground(new Color(255, 199, 206));   // rojo claro
+                    label.setForeground(new Color(156, 0, 6));       // rojo oscuro
+                }
+
+            } else if (column == 6) {
+                // PUERTA
+                if ("-".equals(value)) {
+                    label.setForeground(Color.GRAY);
+                } else {
+                    label.setOpaque(true);
+                    label.setBackground(new Color(16, 42, 67));      // azul oscuro
+                    label.setForeground(Color.WHITE);
+                    label.setFont(new Font("Monospaced", Font.BOLD, 14));
+                    label.setBorder(BorderFactory.createEmptyBorder(4, 16, 4, 16));  //Con ayuda de la IA
+                }
+            }
+
+            celda.add(label);
+            return celda;
+        };
+        tabla.setDefaultRenderer(Object.class, renderer);
 
         // Abajo: botones
         JButton botonATiempo = new JButton("A tiempo");
