@@ -176,6 +176,13 @@ public class Aeropuerto {
 		}
 	}
 	
+	public void liberarPuertaLlegada(Vuelo vuelo) {
+	    if (vuelo.getPuertaLlegada() != null) {
+	        puertasAsignadas.remove(vuelo.getPuertaLlegada());
+	        vuelo.setPuertaLlegada(null);
+	    }
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigoIATA);
