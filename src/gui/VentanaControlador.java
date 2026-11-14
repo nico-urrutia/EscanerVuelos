@@ -80,16 +80,36 @@ public class VentanaControlador extends JFrame {
     public static void main(String[] args) {
         Aeropuerto bio = new Aeropuerto("BIO", "Loiu", "Bilbao", "ES", 45.6, 27.8, 1);
         Aeropuerto mad = new Aeropuerto("MAD", "Adolfo Suárez Madrid-Barajas", "Madrid", "ES", 45.3, 29.6, 4);
+        Aeropuerto bcn = new Aeropuerto("BCN", "Josep Tarradellas", "Barcelona", "ES", 46.9, 28.8, 3);
+        Aeropuerto lhr = new Aeropuerto("LHR", "Heathrow", "Londres", "GB", 46.5, 21.8, 5);
 
         Aerolinea ib = new Aerolinea("Iberia", "ES", "IB", new ArrayList<>(), new ArrayList<>());
+        Aerolinea vy = new Aerolinea("Vueling", "ES", "VY", new ArrayList<>(), new ArrayList<>());
+        Aerolinea ba = new Aerolinea("British Airways", "GB", "BA", new ArrayList<>(), new ArrayList<>());
 
+        // Llegadas a Bilbao
         Vuelo v1 = new Vuelo("IB3214", 45.3, 29.6, 0f, ib, null, new ArrayList<>(),
                 mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5), null);
-        Vuelo v2 = new Vuelo("IB3215", 45.6, 27.8, 0f, ib, null, new ArrayList<>(),
+        Vuelo v2 = new Vuelo("VY1002", 46.9, 28.8, 0f, vy, null, new ArrayList<>(),
+                bcn, bio, LocalTime.of(10, 30), LocalTime.of(11, 25), null);
+        Vuelo v3 = new Vuelo("BA0462", 46.5, 21.8, 0f, ba, null, new ArrayList<>(),
+                lhr, bio, LocalTime.of(13, 15), LocalTime.of(15, 40), null);
+
+        // Salidas de Bilbao
+        Vuelo v4 = new Vuelo("IB3215", 45.6, 27.8, 0f, ib, null, new ArrayList<>(),
                 bio, mad, LocalTime.of(9, 0), LocalTime.of(10, 5), null);
+        Vuelo v5 = new Vuelo("VY1003", 45.6, 27.8, 0f, vy, null, new ArrayList<>(),
+                bio, bcn, LocalTime.of(12, 0), LocalTime.of(13, 0), null);
+        Vuelo v6 = new Vuelo("BA0463", 45.6, 27.8, 0f, ba, null, new ArrayList<>(),
+                bio, lhr, LocalTime.of(16, 45), LocalTime.of(19, 10), EstadoVuelo.RETRASADO);
 
         bio.getLlegadas().add(v1);
-        bio.getSalidas().add(v2);
+        bio.getLlegadas().add(v2);
+        bio.getLlegadas().add(v3);
+
+        bio.getSalidas().add(v4);
+        bio.getSalidas().add(v5);
+        bio.getSalidas().add(v6);
 
         new VentanaControlador(bio);
     }
@@ -105,7 +125,7 @@ public class VentanaControlador extends JFrame {
     	    } else {
     	        lista = aeropuerto.getLlegadas();
     	    }
-    	    tabla.setModel(new ModeloVuelo(lista));
+    	    tabla.setModel(new ModeloControlador(lista));
     }
 
     // Devuelve el vuelo seleccionado, o null si no hay ninguno
