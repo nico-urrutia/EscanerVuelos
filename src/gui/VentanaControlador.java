@@ -223,6 +223,7 @@ public class VentanaControlador extends JFrame {
         v.setEstado(nuevoEstado);
         if (nuevoEstado == EstadoVuelo.CANCELADO) {
             aeropuerto.liberarPuerta(v);
+            aeropuerto.liberarPuertaLlegada(v);
         }
         cargarTabla();
     }
