@@ -42,7 +42,7 @@ public class ModeloVuelo extends DefaultTableModel {
 	public Object getValueAt(int row, int column) {
 		Vuelo vuelo = vuelos.get(row);
 		switch(column) {
-			case 0: return vuelo.getCodVuelo();
+			case 0: return vuelo.getAerolinea().getCodigoIATA();
 			case 1: return vuelo.getAeropuertoOrigen().getCodigoIATA();
 			case 2: return vuelo.getAeropuertoDestino().getCodigoIATA();
 			case 3: return vuelo.getHoraSalida();

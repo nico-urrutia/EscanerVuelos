@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
+import domain.Aerolinea;
 import domain.Aeropuerto;
 import domain.Vuelo;
 
@@ -199,6 +200,16 @@ public class VentanaInicial extends JFrame {
 					label.setBackground(new Color(55, 90, 180));
 					label.setForeground(Color.WHITE);
 				}
+				
+				//AÑADIR EN LA SIGUIENTE ENTREGA TODAS LAS IMAGENES DE TODOS LAS AEROLINEAS
+				/*
+				 * if (column == 0) { String ruta = "/recursos/" + value.toString() + ".png";
+				 * 
+				 * if (getClass().getResource(ruta) != null) { Image img = new
+				 * ImageIcon(getClass().getResource(ruta)).getImage() .getScaledInstance(24, 24,
+				 * Image.SCALE_SMOOTH); label.setIcon(new ImageIcon(img)); label.setText(""); }
+				 * }
+				 */
 
 				if (column == 5) {
 					if (Boolean.FALSE.equals(value)) {
@@ -264,14 +275,13 @@ public class VentanaInicial extends JFrame {
 		
 		
 		
-		
+		aplicarFiltrosAeropuertos();	//Para evitar que se renderize distinto al principio
 
 		tabla.setShowVerticalLines(false);
 		panelPrincipal.add(panelCentro, BorderLayout.CENTER);
 
 		// ---------- Ventana ----------
-		this.setResizable(true);
-		setVisible(true);
+		this.setResizable(true);	
 		setContentPane(panelPrincipal);
 		setTitle("Simulador de Aeropuertos");
 		setSize(950, 600);
@@ -279,6 +289,7 @@ public class VentanaInicial extends JFrame {
 		setLocationRelativeTo(null);
 		ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
 		setIconImage(imagen.getImage());
+		setVisible(true);
 	}
 	
 	private void aplicarFiltrosAeropuertos() {
