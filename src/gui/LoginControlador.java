@@ -17,6 +17,8 @@ public class LoginControlador extends JFrame {
         setSize(350, 180);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+        ImageIcon imagen = new ImageIcon(getClass().getResource("/recursos/logo.png"));
+		setIconImage(imagen.getImage());
 
         JPanel panelCampos = new JPanel(new GridLayout(2, 2, 10, 10));
         panelCampos.add(new JLabel("Usuario / ID:"));
