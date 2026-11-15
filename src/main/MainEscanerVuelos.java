@@ -8,6 +8,7 @@ import domain.Avion;
 import domain.EstadoVuelo;
 import domain.Vuelo;
 import gui.TrackerVuelo;
+import gui.VentanaControlador;
 import gui.VentanaInicial;
 
 public class MainEscanerVuelos {

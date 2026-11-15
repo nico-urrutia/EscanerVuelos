@@ -240,7 +240,7 @@ public class VentanaInicial extends JFrame {
 						} else if (tabla.getModel() instanceof ModeloAeropuerto) {
 							ModeloAeropuerto filaSeleccionada = (ModeloAeropuerto) tabla.getModel();
 							Aeropuerto aeropuerto = filaSeleccionada.getAeropuerto(fila);
-							new VentanaAeropuerto(aeropuerto);
+							new SeleccionarPantallaAeropuerto(aeropuerto);
 						}
 					}
 				}
