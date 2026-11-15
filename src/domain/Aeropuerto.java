@@ -41,7 +41,7 @@ public class Aeropuerto {
 	}
 	
 	public ImageIcon getImagen() {
-		ImageIcon imagen1 = new ImageIcon("src/resources/"+this.getCodigoIATA()+".png");
+		ImageIcon imagen1 = new ImageIcon("src/recursos/aeropuerto.png");
 		return imagen1;
 	}
 
