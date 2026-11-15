@@ -168,7 +168,7 @@ public class VentanaControlador extends JFrame {
     	    } else {
     	        lista = aeropuerto.getLlegadas();
     	    }
-    	    tabla.setModel(new ModeloControlador(lista));
+    	    tabla.setModel(new ModeloControlador(lista, verSalidas()));
     }
 
     // Devuelve el vuelo seleccionado, o null si no hay ninguno
@@ -186,8 +186,8 @@ public class VentanaControlador extends JFrame {
         if (v == null) return;
         v.setEstado(nuevoEstado);
         if (nuevoEstado == EstadoVuelo.CANCELADO) {
-            aeropuerto.liberarPuerta(v);
-            aeropuerto.liberarPuertaLlegada(v);
+            v.getAeropuertoOrigen().liberarPuerta(v);
+            v.getAeropuertoDestino().liberarPuertaLlegada(v);
         }
         cargarTabla();
     }

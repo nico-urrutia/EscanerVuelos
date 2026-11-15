@@ -174,7 +174,9 @@ public class MainEscanerVuelos {
 		vuelos.add(new Vuelo("BA0057", lhr.getX(), lhr.getY(), 0f, ba, a7, new ArrayList<>(), lhr, jnb, LocalTime.of(19, 5), LocalTime.of(7, 55), EstadoVuelo.A_TIEMPO));
 
 		for (Vuelo v : vuelos) {
-			v.getAerolinea().getVuelos().add(v);
+		    v.getAerolinea().getVuelos().add(v);
+		    v.getAeropuertoOrigen().getSalidas().add(v);
+		    v.getAeropuertoDestino().getLlegadas().add(v);
 		}
 		new VentanaInicial(aeropuertos, vuelos);
 	}

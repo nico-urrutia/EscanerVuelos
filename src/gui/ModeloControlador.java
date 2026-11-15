@@ -11,9 +11,12 @@ public class ModeloControlador extends ModeloVuelo {
             "Hora de salida", "Hora de llegada", "Estado", "Puerta" };
     private List<Vuelo> listaVuelos;
 
-    public ModeloControlador(List<Vuelo> vuelos) {
+    private boolean salidas;
+
+    public ModeloControlador(List<Vuelo> vuelos, boolean salidas) {
         super(vuelos);
         this.listaVuelos = vuelos;
+        this.salidas = salidas;
     }
 
     @Override
@@ -36,14 +39,18 @@ public class ModeloControlador extends ModeloVuelo {
             case 3: return vuelo.getHoraSalida();
             case 4: return vuelo.getHoraLlegada();
             case 5: return vuelo.getEstado();
-            case 6:
-                if (vuelo.getPuertaEmbarque() != null) {
-                    return vuelo.getPuertaEmbarque();
+            case 6: {
+                String puerta;
+                if (salidas) {
+                    puerta = vuelo.getPuertaEmbarque();
+                } else {
+                    puerta = vuelo.getPuertaLlegada();
                 }
-                if (vuelo.getPuertaLlegada() != null) {
-                    return vuelo.getPuertaLlegada();
+                if (puerta != null) {
+                    return puerta;
                 }
                 return "-";
+            }
             default: return null;
         }
     }

@@ -183,10 +183,15 @@ public class PantallaLlegadasSalidas {
     }
 	
 	//Método cambio LLEGADAS : SALIDAS
-	private void actualizarVista(TipoInformacion tipoInfo) {
+	private void actualizarVista(TipoInformacion nuevoTipo) {
 		ventana.dispose();
-		new PantallaLlegadasSalidas(this.vuelos, aeropuerto, tipoInfo);
-
+		List<Vuelo> lista;
+		if (nuevoTipo == TipoInformacion.SALIDAS) {
+			lista = aeropuerto.getSalidas();
+		} else {
+			lista = aeropuerto.getLlegadas();
+		}
+		new PantallaLlegadasSalidas(lista, aeropuerto, nuevoTipo);
 	}
 	
 	//Renderer para cabecera
@@ -349,4 +354,6 @@ public class PantallaLlegadasSalidas {
 		new PantallaLlegadasSalidas(vuelos, madrid,TipoInformacion.LLEGADAS);
 		
 	}
+	
+	
 }
