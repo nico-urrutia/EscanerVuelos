@@ -199,6 +199,7 @@ public class VentanaControlador extends JFrame {
                     + " está cancelado, no se le puede asignar puerta");
             return;
         }
+        
 
         String puerta;
         if (verSalidas()) {
