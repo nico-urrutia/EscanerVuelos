@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -20,7 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import domain.Aerolinea;
 import domain.Aeropuerto;
 import domain.EstadoVuelo;
 import domain.Vuelo;
@@ -113,7 +111,7 @@ public class VentanaControlador extends JFrame {
                     label.setBackground(new Color(16, 42, 67));      // azul oscuro
                     label.setForeground(Color.WHITE);
                     label.setFont(new Font("Monospaced", Font.BOLD, 14));
-                    label.setBorder(BorderFactory.createEmptyBorder(4, 16, 4, 16));  //Con ayuda de la IA
+                    label.setBorder(BorderFactory.createEmptyBorder(4, 16, 4, 16));  
                 }
             }
 
