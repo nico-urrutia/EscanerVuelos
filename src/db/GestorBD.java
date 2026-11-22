@@ -8,7 +8,7 @@ import domain.Avion;
 import domain.Vuelo;
 
 public class GestorBD {
-	private static final String SQLITE_FILE = "resources/skyport.db";
+	private static final String SQLITE_FILE = "src/recursos/skyport.db";//base de datos creada con Gemini 4 Neon
     protected static final String CONNECTION_STRING = "jdbc:sqlite:" + SQLITE_FILE;
 
     
@@ -16,7 +16,12 @@ public class GestorBD {
 		return true;
 	}
 
-	public boolean cargarVuelos(ArrayList<Vuelo> vuelos) {
+	public boolean cargarVuelos(ArrayList<Vuelo> vuelos, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas, ArrayList<Avion> aviones) {
+		for (Vuelo v : vuelos) {//Esto antes iba en el main, pero ahora tiene que estar despues de leer los datos de la BD
+		    v.getAerolinea().getVuelos().add(v);
+		    v.getAeropuertoOrigen().getSalidas().add(v);
+		    v.getAeropuertoDestino().getLlegadas().add(v);
+		}
 		return true;
 	}
 
