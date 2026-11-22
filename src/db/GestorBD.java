@@ -7,6 +7,16 @@ import domain.Aeropuerto;
 import domain.Avion;
 import domain.Vuelo;
 
+//Imports para la base de datos
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
 public class GestorBD {
 	private static final String SQLITE_FILE = "src/recursos/skyport.db";//base de datos creada con Gemini 4 Neon
     protected static final String CONNECTION_STRING = "jdbc:sqlite:" + SQLITE_FILE;
