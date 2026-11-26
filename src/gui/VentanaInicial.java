@@ -181,17 +181,19 @@ public class VentanaInicial extends JFrame {
 
 //AÑADIR EN LA SIGUIENTE ENTREGA TODAS LAS IMAGENES DE TODOS LAS AEROLINEAS
 
-				/*
-				 * 
-				 * if (column == 0) { String ruta = "/recursos/" + value.toString() + ".png";
-				 * 
-				 * if (getClass().getResource(ruta) != null) { Image img = new
-				 * ImageIcon(getClass().getResource(ruta)).getImage() .getScaledInstance(24, 24,
-				 * Image.SCALE_SMOOTH); label.setIcon(new ImageIcon(img)); label.setText(""); }
-				 * }
-				 */
+				
+				if (column == 0) {
+					String ruta = "/recursos/logos_aerolineas/" + value.toString() + ".png";
 
-				if (column == 5) {
+					if (getClass().getResource(ruta) != null) {
+						Image img = new ImageIcon(getClass().getResource(ruta)).getImage().getScaledInstance(24, 24,
+								Image.SCALE_SMOOTH);
+						label.setIcon(new ImageIcon(img));
+						label.setText("");
+					}
+				}
+
+				if (column == 6) {
 					if (Boolean.FALSE.equals(value)) {
 						label.setIcon(new ImageIcon(getClass().getResource("/recursos/enPista.png")));
 						label.setText("");
