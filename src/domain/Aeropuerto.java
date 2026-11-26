@@ -41,8 +41,9 @@ public class Aeropuerto {
 	}
 	
 	public ImageIcon getImagen() {
-		ImageIcon imagen1 = new ImageIcon("src/recursos/aeropuerto.png");
-		return imagen1;
+	    String ruta = "src/recursos/aeropuertos/" + codigoIATA + ".jpg";
+	    ImageIcon imagen = new ImageIcon(ruta);
+	    return imagen;
 	}
 
 	public String getCodigoIATA() {
