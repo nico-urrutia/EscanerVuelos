@@ -59,6 +59,39 @@ public class MainEscanerVuelos {
 		Aeropuerto syd = new Aeropuerto("SYD", "Kingsford Smith", "Sídney", "AU", 93.8, 81.5, 3);
 
 		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
+
+		aeropuertos.add(mad);
+		aeropuertos.add(bcn);
+		aeropuertos.add(bio);
+		aeropuertos.add(lhr);
+		aeropuertos.add(cdg);
+		aeropuertos.add(fra);
+		aeropuertos.add(ams);
+		aeropuertos.add(fco);
+		aeropuertos.add(ist);
+
+		aeropuertos.add(jfk);
+		aeropuertos.add(lax);
+		aeropuertos.add(ord);
+		aeropuertos.add(yyz);
+		aeropuertos.add(mex);
+
+		aeropuertos.add(bog);
+		aeropuertos.add(gru);
+		aeropuertos.add(eze);
+		aeropuertos.add(scl);
+
+		aeropuertos.add(cmn);
+		aeropuertos.add(cai);
+		aeropuertos.add(jnb);
+		aeropuertos.add(dxb);
+
+		aeropuertos.add(del);
+		aeropuertos.add(sin);
+		aeropuertos.add(pek);
+		aeropuertos.add(icn);
+		aeropuertos.add(hnd);
+		aeropuertos.add(syd);
 		gestorBD.cargarAeropuertos(aeropuertos);
 
 		

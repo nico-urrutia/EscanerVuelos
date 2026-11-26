@@ -12,7 +12,7 @@ public class ModeloVuelo extends DefaultTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] columnas= {"Codigo del vuelo","Origen","Destino","Hora de salida","Hora de llegada","Estado"};
+	private String[] columnas= {"Aeolinea", "Codigo del vuelo","Origen","Destino","Hora de salida","Hora de llegada","Estado"};
 	private List<Vuelo> vuelos;
 	
 	public ModeloVuelo(List<Vuelo> vuelos) {
@@ -43,11 +43,12 @@ public class ModeloVuelo extends DefaultTableModel {
 		Vuelo vuelo = vuelos.get(row);
 		switch(column) {
 			case 0: return vuelo.getAerolinea().getCodigoIATA();
-			case 1: return vuelo.getAeropuertoOrigen().getCodigoIATA();
-			case 2: return vuelo.getAeropuertoDestino().getCodigoIATA();
-			case 3: return vuelo.getHoraSalida();
-			case 4: return vuelo.getHoraLlegada();
-			case 5: if(vuelo.getAvion() != null) {
+			case 1: return vuelo.getCodVuelo();
+			case 2: return vuelo.getAeropuertoOrigen().getCodigoIATA();
+			case 3: return vuelo.getAeropuertoDestino().getCodigoIATA();
+			case 4: return vuelo.getHoraSalida();
+			case 5: return vuelo.getHoraLlegada();
+			case 6: if(vuelo.getAvion() != null) {
 				return vuelo.getAvion().isEnVuelo();
 			}else {
 				return false;
