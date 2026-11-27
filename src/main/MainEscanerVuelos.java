@@ -92,7 +92,7 @@ public class MainEscanerVuelos {
 		aeropuertos.add(icn);
 		aeropuertos.add(hnd);
 		aeropuertos.add(syd);
-		//gestorBD.cargarAeropuertos(aeropuertos);
+		gestorBD.cargarAeropuertos(aeropuertos);
 
 		
 
