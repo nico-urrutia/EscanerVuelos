@@ -33,7 +33,6 @@ public class VentanaControlador extends JFrame {
     private Aeropuerto aeropuerto;
     private JTable tabla;
     private JComboBox<String> comboTipo;
-    private JLabel lblLogControl;
     private HiloControlAereo hiloControl;
 
     public VentanaControlador(Aeropuerto aeropuerto) {
@@ -228,6 +227,7 @@ public class VentanaControlador extends JFrame {
             JOptionPane.showMessageDialog(this, "No quedan puertas libres");
         } else {
             JOptionPane.showMessageDialog(this, "Vuelo " + v.getCodVuelo() + " → puerta " + puerta);
+            cargarTabla();
         }
     }
     
@@ -250,7 +250,7 @@ public class VentanaControlador extends JFrame {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
-                	Thread.interrupted();
+                	Thread.currentThread().interrupt();
                     break;
                 }
                 if (!activo) break;
@@ -282,14 +282,9 @@ public class VentanaControlador extends JFrame {
                 }
 
                 if (mensaje != null) {
-                    final String textoFinal = mensaje;
-                    SwingUtilities.invokeLater(() -> {		//Ayuda con la IA
-                    	int filaSeleccionada = tabla.getSelectedRow();
+                    System.out.println(mensaje);
+                    SwingUtilities.invokeLater(() -> {
                         cargarTabla();
-                        if (filaSeleccionada >= 0 && filaSeleccionada < tabla.getRowCount()) {
-                            tabla.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
-                        }
-                        lblLogControl.setText(textoFinal);
                     });
                 }
             }

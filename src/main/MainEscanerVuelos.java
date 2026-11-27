@@ -141,8 +141,7 @@ public class MainEscanerVuelos {
 		gestorBD.cargarAerolineas(aerolineas);		
 	
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
-		gestorBD.cargarVuelos(vuelos, aeropuertos, aerolineas, aviones);
-
+		
 //		// Europa
 		vuelos.add(new Vuelo("IB3214", mad.getX(), mad.getY(), 0f, ib, a1, new ArrayList<>(), mad, bio, LocalTime.of(7, 0), LocalTime.of(8, 5), EstadoVuelo.RETRASADO));
 		vuelos.add(new Vuelo("VY1001", bcn.getX(), bcn.getY(), 0f, vy, a2, new ArrayList<>(), bcn, mad, LocalTime.of(8, 0), LocalTime.of(9, 20), EstadoVuelo.A_TIEMPO));
@@ -192,7 +191,8 @@ public class MainEscanerVuelos {
 		vuelos.add(new Vuelo("KE0012", lax.getX(), lax.getY(), 0f, ke, a9, new ArrayList<>(), lax, icn, LocalTime.of(23, 30), LocalTime.of(5, 0), EstadoVuelo.CANCELADO));
 		vuelos.add(new Vuelo("LH0506", fra.getX(), fra.getY(), 0f, lh, a8, new ArrayList<>(), fra, gru, LocalTime.of(21, 55), LocalTime.of(4, 50), EstadoVuelo.A_TIEMPO));
 		vuelos.add(new Vuelo("BA0057", lhr.getX(), lhr.getY(), 0f, ba, a7, new ArrayList<>(), lhr, jnb, LocalTime.of(19, 5), LocalTime.of(7, 55), EstadoVuelo.A_TIEMPO));
-
+		
+		gestorBD.cargarVuelos(vuelos, aeropuertos, aerolineas, aviones);
 
 		new VentanaInicial(aeropuertos, vuelos);
 	}
