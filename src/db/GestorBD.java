@@ -23,6 +23,30 @@ public class GestorBD {
 
     
 	public boolean cargarAeropuertos(ArrayList<Aeropuerto> aeropuertos) {
+		
+		String sqlSelect="SELECT * FROM aeropuertos";
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+	             PreparedStatement pst = con.prepareStatement(sqlSelect)){
+			
+			ResultSet rs=pst.executeQuery();
+			Aeropuerto aeropuerto;
+			while(rs.next()) {
+				aeropuerto=new Aeropuerto(rs.getString("codigoIATA"),
+				rs.getString("nombre"),
+				rs.getString("ciudad"),
+				rs.getString("pais"),
+				rs.getDouble("x"),
+				rs.getDouble("y"),
+				rs.getInt("numPistas"));
+				
+				aeropuertos.add(aeropuerto);
+			}
+			rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}
 		return true;
 	}
 
