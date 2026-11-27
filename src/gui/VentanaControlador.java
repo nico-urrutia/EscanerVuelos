@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Aeropuerto;
@@ -29,6 +33,8 @@ public class VentanaControlador extends JFrame {
     private Aeropuerto aeropuerto;
     private JTable tabla;
     private JComboBox<String> comboTipo;
+    private JLabel lblLogControl;
+    private HiloControlAereo hiloControl;
 
     public VentanaControlador(Aeropuerto aeropuerto) {
         this.aeropuerto = aeropuerto;
@@ -144,6 +150,16 @@ public class VentanaControlador extends JFrame {
         add(panelBotones, BorderLayout.SOUTH);
 
         cargarTabla();
+        
+        hiloControl = new HiloControlAereo();
+        hiloControl.start();
+
+        addWindowListener(new WindowAdapter() {		//Ayuda con la IA para el listener
+            @Override
+            public void windowClosing(WindowEvent e) {
+                hiloControl.detener();
+            }
+        });	
 
         setTitle("Controlador aéreo - " + aeropuerto.getCiudad());
         setSize(900, 500);
@@ -212,6 +228,71 @@ public class VentanaControlador extends JFrame {
             JOptionPane.showMessageDialog(this, "No quedan puertas libres");
         } else {
             JOptionPane.showMessageDialog(this, "Vuelo " + v.getCodVuelo() + " → puerta " + puerta);
+        }
+    }
+    
+    private class HiloControlAereo extends Thread {
+
+        private volatile boolean activo = true;
+
+
+
+        public void detener() {
+            activo = false;
+            this.interrupt();
+        }
+
+        @Override
+        public void run() {
+            Random random = new Random();
+
+            while (activo) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                	Thread.interrupted();
+                    break;
+                }
+                if (!activo) break;
+
+                ArrayList<Vuelo> vuelos = new ArrayList<>();
+                vuelos.addAll(aeropuerto.getSalidas());
+                vuelos.addAll(aeropuerto.getLlegadas());
+
+                if (vuelos.isEmpty()) continue;
+
+                Vuelo vuelo = vuelos.get(random.nextInt(vuelos.size()));
+                String mensaje = null;
+
+                if (vuelo.getEstado() == EstadoVuelo.A_TIEMPO) {
+                    if (random.nextInt(100) < 30) {
+                        vuelo.setEstado(EstadoVuelo.RETRASADO);
+                        mensaje = "Aviso radar: vuelo " + vuelo.getCodVuelo() + " pasa a RETRASADO";
+                    } else if (aeropuerto.getSalidas().contains(vuelo) && vuelo.getPuertaEmbarque() == null) {
+                        String puerta = aeropuerto.asignarPuerta(vuelo);
+                        if (puerta != null) {
+                            mensaje = "Asignación automática: vuelo " + vuelo.getCodVuelo() + " -> puerta " + puerta;
+                        }
+                    } else if (aeropuerto.getLlegadas().contains(vuelo) && vuelo.getPuertaLlegada() == null) {
+                        String puerta = aeropuerto.asignarPuertaLlegada(vuelo);
+                        if (puerta != null) {
+                            mensaje = "Asignación automática: llegada " + vuelo.getCodVuelo() + " -> puerta " + puerta;
+                        }
+                    }
+                }
+
+                if (mensaje != null) {
+                    final String textoFinal = mensaje;
+                    SwingUtilities.invokeLater(() -> {		//Ayuda con la IA
+                    	int filaSeleccionada = tabla.getSelectedRow();
+                        cargarTabla();
+                        if (filaSeleccionada >= 0 && filaSeleccionada < tabla.getRowCount()) {
+                            tabla.setRowSelectionInterval(filaSeleccionada, filaSeleccionada);
+                        }
+                        lblLogControl.setText(textoFinal);
+                    });
+                }
+            }
         }
     }
 }
