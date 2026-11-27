@@ -44,7 +44,7 @@ public class GestorBD {
 			rs.close();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			System.out.println("Ha habido un error en la carga de aeropuertos");
 			
 		}
 		return true;
