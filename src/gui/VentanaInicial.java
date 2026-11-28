@@ -258,7 +258,7 @@ public class VentanaInicial extends JFrame {
 
 		this.setResizable(true);
 		setContentPane(panelPrincipal);
-		setTitle("Skyport operations");
+		setTitle("Skyport Operations");
 		setSize(950, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
