@@ -248,7 +248,7 @@ public class VentanaControlador extends JFrame {
 
             while (activo) {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                 	Thread.currentThread().interrupt();
                     break;
@@ -264,11 +264,22 @@ public class VentanaControlador extends JFrame {
                 Vuelo vuelo = vuelos.get(random.nextInt(vuelos.size()));
                 String mensaje = null;
 
-                if (vuelo.getEstado() == EstadoVuelo.A_TIEMPO) {
-                    if (random.nextInt(100) < 30) {
-                        vuelo.setEstado(EstadoVuelo.RETRASADO);
-                        mensaje = "Aviso radar: vuelo " + vuelo.getCodVuelo() + " pasa a RETRASADO";
-                    } else if (aeropuerto.getSalidas().contains(vuelo) && vuelo.getPuertaEmbarque() == null) {
+             // Array con todos los posibles estados del enum
+                EstadoVuelo[] estados = EstadoVuelo.values();
+                EstadoVuelo nuevoEstado = estados[random.nextInt(estados.length)];
+
+                // Si sale un estado distinto al actual (por ejemplo con un 40% de probabilidad)
+                if (nuevoEstado != vuelo.getEstado() && random.nextInt(100) < 40) {
+                    vuelo.setEstado(nuevoEstado);
+                    mensaje = "Aviso radar: vuelo " + vuelo.getCodVuelo() + " cambia a " + nuevoEstado;
+
+                    if (nuevoEstado == EstadoVuelo.CANCELADO) {
+                        vuelo.getAeropuertoOrigen().liberarPuerta(vuelo);
+                        vuelo.getAeropuertoDestino().liberarPuertaLlegada(vuelo);
+                    }
+                } else if (vuelo.getEstado() != EstadoVuelo.CANCELADO) {
+                    // Si no cambió de estado y no está cancelado, intenta asignarle una puerta si le falta
+                    if (aeropuerto.getSalidas().contains(vuelo) && vuelo.getPuertaEmbarque() == null) {
                         String puerta = aeropuerto.asignarPuerta(vuelo);
                         if (puerta != null) {
                             mensaje = "Asignación automática: vuelo " + vuelo.getCodVuelo() + " -> puerta " + puerta;
