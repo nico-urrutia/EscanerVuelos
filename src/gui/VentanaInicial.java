@@ -258,7 +258,7 @@ public class VentanaInicial extends JFrame {
 
 		this.setResizable(true);
 		setContentPane(panelPrincipal);
-		setTitle("Simulador de Aeropuertos");
+		setTitle("Skyport operations");
 		setSize(950, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
