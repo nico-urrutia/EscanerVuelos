@@ -22,7 +22,7 @@ public class GestorBD {
     protected static final String CONNECTION_STRING = "jdbc:sqlite:" + SQLITE_FILE;
 
  
-	public boolean cargarAeropuertos(ArrayList<Aeropuerto> aeropuertos) {
+	public boolean cargarAeropuertos(ArrayList<Aeropuerto> aeropuertos) {//ASIER
 		
 		String sqlSelect="SELECT * FROM aeropuerto";
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
@@ -50,7 +50,7 @@ public class GestorBD {
 		return true;
 	}
 
-	public boolean cargarVuelos(ArrayList<Vuelo> vuelos, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas, ArrayList<Avion> aviones) {
+	public boolean cargarVuelos(ArrayList<Vuelo> vuelos, ArrayList<Aeropuerto> aeropuertos, ArrayList<Aerolinea> aerolineas, ArrayList<Avion> aviones) {//NICO
 		for (Vuelo v : vuelos) {//Esto antes iba en el main, pero ahora tiene que estar despues de leer los datos de la BD
 		    v.getAerolinea().getVuelos().add(v);
 		    v.getAeropuertoOrigen().getSalidas().add(v);
@@ -58,12 +58,14 @@ public class GestorBD {
 		}
 		return true;
 	}
+	
 
-	public boolean cargarAerolineas(ArrayList<Aerolinea> aerolineas) {
+	public boolean cargarAerolineas(ArrayList<Aerolinea> aerolineas) {//ZARRA
 		return true;
 	}
 	
-	public boolean cargarAviones(ArrayList<Avion> aviones) {
+	
+	public boolean cargarAviones(ArrayList<Avion> aviones) {//UNAI
 		return true;
 	}
 	
