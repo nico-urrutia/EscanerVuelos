@@ -118,7 +118,7 @@ public class VentanaAeropuerto extends JFrame {
         principal.add(botones, BorderLayout.SOUTH);
 
         setContentPane(principal);
-        setTitle("Aeropuerto de Bilbao");
+        setTitle("Aeropuerto de " + aeropuerto.getCiudad());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1200, 750);
         setMinimumSize(new Dimension(850, 600));
